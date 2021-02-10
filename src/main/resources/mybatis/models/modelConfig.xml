@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.myspring.startup.ASBefore.vo.ASBeforeListVO" alias="ASBeforeListVO"/>
+		<typeAlias type="com.myspring.startup.ASBefore.vo.ASBeforeVO" alias="ASBeforeVO"/>	
+		<typeAlias type="com.myspring.startup.ASBefore.vo.ASBeforeRepearPartVO" alias="ASBeforeRepearPartVO"/>
+<!-- 		as신청서 		 -->
+		<typeAlias type="com.myspring.startup.ASForm.vo.ASFormVO" alias="asformVO" />
+		
+		<typeAlias type="com.myspring.startup.product.vo.ProductVO" alias="ProductVO"/>
+<!-- 		회원관리 		 -->
+		<typeAlias type="com.myspring.startup.member.vo.MemberVO" alias="MemberVO"/>
+		
+		<typeAlias type="com.myspring.startup.admin.product.vo.AdminProductVO" alias="AdminProductVO"/>
+		<typeAlias type="com.myspring.startup.admin.manufac.vo.AdminManufacVO" alias="AdminManufacVO"/>
+		
+		<typeAlias type="com.myspring.startup.ASAfter.vo.ASAfterVO" alias="ASAfterVO" />
+		<typeAlias type="com.myspring.startup.ASAfter.vo.ASAfterDetailVO" alias="ASAfterDetailVO" />
+	</typeAliases>
+</configuration>

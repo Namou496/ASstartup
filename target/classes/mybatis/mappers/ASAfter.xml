@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ASAfter">
+	<resultMap type="ASAfterVO" id="resultASAfterList">
+		<result property="asNo" column="asNo" />
+		<result property="meetDate" column="meetDate" />
+		<result property="pname" column="pname" />
+		<result property="prodGroup" column="prodGroup" />
+		<result property="addr" column="addr" />
+		<result property="uname" column="uname" />
+		<result property="sta" column="sta" />
+	</resultMap>
+	
+	<resultMap type="ASAfterDetailVO" id="resultASAfterDetail">
+		<result property="uname" column="uname" />
+		<result property="tel" column="tel" />
+		<result property="addr" column="addr" />
+		<result property="prodGroup" column="prodGroup" />
+		<result property="mname" column="mname" />
+		<result property="pname" column="pname" />
+		<result property="meetDate" column="meetDate" />
+		<result property="symptoms" column="symptoms" />
+	</resultMap>
+
+	<!-- AS현황 리스트 출력 -->
+	<select id="selectASAfterList" resultMap="resultASAfterList">
+		<![CDATA[
+			select * from ASAfter
+		]]>
+	</select>
+
+	<select id="selectUserASAfterList" resultMap="resultASAfterList" parameterType="String">
+		<![CDATA[
+			select f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
+			from asform f, product p, customer c
+			where c.cuid = f.cuid and p.productno = f.productno and c.cuid=#{cuid}
+		]]>
+	</select>
+
+	<select id="selectMfrASAfterList" resultMap="resultASAfterList" parameterType="String">
+		<![CDATA[
+			select f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
+			from asform f, product p, customer c
+			where c.cuid = f.cuid and p.productno = f.productno and p.cuid=#{cuid}
+		]]>
+	</select>
+	
+	<!-- AS상세 리스트 출력 -->
+	<select id="ASAfterListDetail" resultMap="resultASAfterDetail" parameterType="int">
+		<![CDATA[
+			select c.name uname, a.phone tel, a.addr, p.prodGroup, m.name mname, p.name pname, a.meetDate, a.symptoms
+			from asform a, customer c, product p, manufacturer m
+			where a.cuid = c.cuid and m.cuid = p.cuid and a.productno = p.productno and a.asno = #{asno}
+		]]>
+	</select>
+	<!-- AS상세 리스트 등록 -->
+<!--  	<insert id="insertASAfterListDetail" parameterType="ASAfterListDetail">
+		<![CDATA[
+				
+		]]>
+	</insert> -->
+
+</mapper>

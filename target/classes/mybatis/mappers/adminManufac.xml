@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 제조사승인 -->
+
+<mapper namespace="mapper.adminManufac">
+
+<!-- 승인요청리스트에 페이징기능 추가해야됨 -->
+
+	<!-- 제조사vo -->
+<!-- 	<resultMap type="ManuMemberVO" id="manufacResult"> -->
+<!-- 		<result property="cuId" column="cuId" /> -->
+<!-- 		<result property="manufacturerNo" column="manufacturerNo" /> -->
+<!-- 		<result property="name" column="name" /> -->
+<!-- 		<result property="addr" column="addr" /> -->
+<!-- 		<result property="officer" column="officer" /> -->
+<!-- 		<result property="tel" column="tel" /> -->
+<!-- 	</resultMap> -->
+
+	<!-- 제조사승인 vo -->
+<!-- 	<resultMap type="AdminManufacVO" id="manufacApprovalResult"> -->
+<!-- 		<result property="approvalNum" column="approvalNum" /> -->
+<!-- 		<result property="approvalStatus" column="approvalStatus" /> -->
+<!-- 		<result property="rejectionReason" column="rejectionReason" /> -->
+<!-- 	</resultMap> -->
+
+	<!-- 승인요청리스트 (페이징 추가해야됨) -->
+<!-- 	<select id="selectManufacApprovalList" resultMap="manufacApprovalResult" -->
+<!-- 		parameterType="java.util.Map"> -->
+<!-- 
+  <![CDATA[
+		select
+
+        manufacturerapproval.approvalnum,
+ 		manufacturer.cuid, manufacturer.manufacturerno,
+ 		manufacturer.name,
+ 		manufacturer.addr, manufacturer.officer,
+ 		manufacturer.tel
+       
+ 		from
+ 		manufacturer, manufacturerapproval
+		
+ 		where 
+ 		manufacturer.cuid=manufacturerApproval.cuid 
+		
+ 		order by approvalnum desc
+ ]]>
+
+ 	</select> 
+-->
+	<!-- 제조사직접등록 (manufacturerNo 관련 수정해야됨) -->
+	<!-- 
+	<insert id="insertManufacturer" parameterType="java.util.Map">
+			<![CDATA[
+  				insert into product( 
+  									cuId,  
+ 									manufacturerNo,
+  									name,  
+  									addr,  
+   									officer,  
+  									tel  
+									
+   									)   
+           		values(    
+        		
+           							#{cuId}, 
+   									#{manufacturerNo}, 
+  									#{name}, 
+   									#{addr},  
+   									#{officer},  
+   									#{tel}  
+        			
+           		);  
+  			]]> 
+	</insert>
+ -->
+	<!-- 승인여부 업데이트 -->
+	<!-- 
+ 	<update id="updateManufacApprovalStatus" 
+ 		parameterType="java.util.Map"> 
+	
+   <![CDATA[
+ 	update ManufacturerApproval 
+		set approvalstatus = #{approvalstatus}
+		where
+		manufacturerNo=#{manufacturerNo}
+
+ 	]]>
+
+ 	</update>
+ -->
+</mapper>

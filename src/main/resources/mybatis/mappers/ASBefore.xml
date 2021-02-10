@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ASBefore">
+	<resultMap type="ASBeforeListVO" id="resultASBeforeList">
+		<result property="asno" column="asno"/>
+		<result property="name" column="name"/>
+		<result property="prodgroup" column="prodgroup"/>
+		<result property="addr" column="addr"/>
+		<result property="meeting" column="meeting"/>
+		<result property="respDate" column="respDate"/>
+		<result property="sta" column="sta"/>
+	</resultMap>
+	
+	<resultMap type="ASBeforeRepearPartVO" id="resultASBeforeRepearPartList">
+		<result property="componentNo" column="componentNo"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+	</resultMap>
+
+	<!-- 승인된 as의 상세  출력 -->
+	<select id="selectASBeforeView" parameterType="java.util.Map" resultType="ASBeforeVO">
+		<![CDATA[
+			select * from ASBefore where asno=#{asno}
+		]]>
+	</select>
+	<!-- 출장비 출력 -->
+	<select id="selectCost" resultType="int">
+		<![CDATA[
+			select * from cost
+		]]>
+	</select>
+	
+	<!-- ajax 페이징 버튼 count-->
+	<select id="selectASBeforeListCount" resultType="int" parameterType="java.util.Map">
+<!-- 	testTempList=>ASBeforeList로 변경 -->
+		<![CDATA[
+			select count(asno) from ASBeforeList
+		]]>
+		<where>
+			<choose>
+				<when test="uNo != ''">
+				<if test="sta !=0">
+					<choose>
+						<when test="uNo==4">
+							sta = #{sta} order by sta , no
+						</when>
+						<when test="uNo==3">
+							manufacturerid = #{cuid} and sta=#{sta} order by sta , no
+						</when>
+						<when test="uNo==2">
+							engineerid = #{cuid} and sta=#{sta} order by sta , no
+						</when>
+						<when test="uNo==1">
+							customerid = #{cuid} and sta=#{sta} order by sta , no
+						</when>
+					</choose>
+				</if>
+				<if test="sta==0">
+					<choose>
+						<when test="uNo==4">
+							asno > 0 order by sta, no
+						</when>
+						<when test="uNo==3">
+							manufacturerid = #{cuid} order by sta , no
+						</when>
+						<when test="uNo==2">
+							engineerid = #{cuid} order by sta , no
+						</when>
+						<when test="uNo==1">
+							customerid = #{cuid} order by sta , no
+						</when>
+					</choose>
+				</if>
+				</when>
+			</choose>
+		</where>
+		
+	</select>
+	
+	<!-- ajax ASBeforelist 호출-->
+	<select id="selectASBeforeListAjax" resultMap="resultASBeforeList" parameterType="java.util.Map">
+	<!-- 	testTempList=>ASBeforeList로 변경 -->
+		<![CDATA[
+			select * from ASBeforeList
+		]]>
+		<where>
+			<choose>
+				<when test="uNo != ''">
+				<if test="sta !=0">
+					<choose>
+						<when test="uNo==4">
+							sta = #{sta} order by sta , no
+						</when>
+						<when test="uNo==3">
+							manufacturerid = #{cuid} and sta=#{sta} order by sta , no
+						</when>
+						<when test="uNo==2">
+							engineerid = #{cuid} and sta=#{sta} order by sta , no
+						</when>
+						<when test="uNo==1">
+							customerid = #{cuid} and sta=#{sta} order by sta , no
+						</when>
+					</choose>
+				</if>
+				<if test="sta==0">
+					<choose>
+						<when test="uNo==4">
+							asno > 0 order by sta, no
+						</when>
+						<when test="uNo==3">
+							manufacturerid = #{cuid} order by sta , no
+						</when>
+						<when test="uNo==2">
+							engineerid = #{cuid} order by sta , no
+						</when>
+						<when test="uNo==1">
+							customerid = #{cuid} order by sta , no
+						</when>
+					</choose>
+				</if>
+				</when>
+			</choose>
+		</where>
+		
+	</select>
+				
+	<select id="selectRepearPartListAjax" resultMap="resultASBeforeRepearPartList" parameterType="java.util.Map">
+<!-- 	testTemp=>component로 변경할것 -->
+		<![CDATA[
+			select componentNo,name, price from testTemp where productNo = #{productNo}
+		]]>
+	</select>
+	
+<!-- 	수리 이력작성시 sql -->
+	<update id="updateASFormSta" parameterType="int">
+		<![CDATA[
+			update asform set sta=3 where asno=#{asno}
+		]]>
+	</update>
+	
+	<update id="updateASRespondASBefore" parameterType="ASBeforeVO">
+		<![CDATA[
+			update ASrespond set 
+				asComment= #{asComment}, 
+				manCost = #{manCost}, 
+				serviceCost = #{serviceCost}
+			where asno = #{asno}
+		]]>
+	</update>
+
+	<insert id="insertAScomponentLog" parameterType="java.util.List">
+		<foreach item="item" collection="list" separator=" " open="INSERT ALL " close="SELECT * FROM DUAL">
+			INTO AScomponentLog(componentNo,asNo,amount)
+			VALUES (#{item.partNo},#{item.asno},#{item.amount})
+		</foreach>
+	</insert>
+	
+	
+</mapper>

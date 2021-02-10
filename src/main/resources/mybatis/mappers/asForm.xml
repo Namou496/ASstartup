@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- AS신청서 작성내용을 저장하는 resultMap입니다. -->
+<mapper namespace="mapper.asform">
+	<resultMap id="asformResult" type="asformVO">
+		<result property="asNo" column="asNo" />
+		<result property="phone" column="phone" />
+		<result property="addr" column="addr" />
+		<result property="symptoms" column="symptoms" />
+		<result property="meeting" column="meeting" />
+		<result property="fileImg" column="fileImg" />
+		<result property="sta" column="sta" />
+		<result property="cuId" column="cuId" />
+		<result property="productNo" column="productNo" />
+		<result property="meetDate" column="meetDate" />
+	</resultMap>
+
+<!-- 신청서 작성하여 DB에 INSERT 동작 -->
+<!-- 	<insert id="insertNewAsForm" resultType="asformVO" parameterType="java.util.Map"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			insert into ASFORM(asNo, phone, addr, symptoms, meeting, meetDate, fileimg, sta, cuid, productno)  -->
+<!-- 			values(#{asNo}, #{phone},  -->
+<!-- 			#{addr}, #{symptoms},  -->
+<!-- 			#{meeting}, #{meetDate},  -->
+<!-- 			#{fileimg}, #{sta},  -->
+<!-- 			#{cuid}, #{productno}) -->
+<!-- 		]]> -->
+<!-- 	</insert> -->
+
+</mapper>

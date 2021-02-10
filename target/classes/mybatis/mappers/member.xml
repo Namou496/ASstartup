@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.member">
+	<resultMap type="MemberVO" id="resultlogin">
+		<result property="cuId" column="cuId" />
+		<result property="pw" column="pw" />
+		<result property="uNo" column="uNo" />
+	</resultMap>
+	
+	<select id="loginById" resultType="MemberVO" parameterType="MemberVO">
+		<![CDATA[
+			select * from member
+			where cuid = #{cuId} and pw = #{pw} 
+		]]>
+	</select>
+	
+</mapper>

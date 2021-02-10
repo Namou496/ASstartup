@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="mapper.Manual">
+	<resultMap type="ProductVO" id="resultManual">
+	<!-- 			기본 제품VO			 -->
+		<result property="cuId" column="cuId"/>
+		<result property="productNo" column="productNo"/>
+		<result property="productName" column="productName"/>
+		<result property="productgroup" column="productgroup"/>
+		<result property="useManual" column="useManual"/>
+		<result property="asManual" column="asManual"/>
+		<result property="productImage" column="productImage"/>
+		
+		
+		
+		<!--				 추가	 				-->
+		<!-- 				승인 VO		 		-->
+		<result property="approvalStatus" column="approvalStatus"/> <!-- appr.approvalstatus -->
+		<result property="approvalNum" column="approvalNum"/> <!-- appr.approvalnum -->
+		
+		<!-- 				member		 		-->
+		<result property="manufacName" column="manufacName"/> <!-- m.name -->
+		<result property="memberId" column="memberId"/> <!-- mb.uno -->
+		<result property="uno" column="uno"/> <!-- mb.uno -->
+	</resultMap>
+	
+	
+		
+		<!-- 매뉴얼 리스트 / **제품리스트와 같다 -->
+		<select id="selectManualList" resultMap="resultManual">
+			<![CDATA[
+				select productName, 
+                       productGroup, 
+                       manufacName, 
+                       approvalStatus, 
+                       approvalNum 
+                from(
+    				select  rowNum as recNum,
+         			productName, productGroup, manufacName, approvalStatus, approvalNum
+                    from (  select  p.name productName, p.prodgroup productGroup, 
+                               		m.name manufacName, appr.approvalstatus approvalStatus,
+                               		appr.approvalNum approvalNum
+                            from product p, productapproval appr, manufacturer m
+                            where p.productno = appr.productno and m.cuid = p.cuid
+                            order by approvalNum desc
+                            )
+            		)
+			]]>
+		     	where recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 
+		        	  and (#{section}-1)*100+(#{pageNum})*10
+		        <if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
+		        and appr.approvalstatus=1                                                                     
+		        </if>
+		        
+		</select>
+		
+		<!-- 매뉴얼 검색 -->
+		<select id="searchManual" resultMap="resultManual" parameterType="String">
+				<![CDATA[
+				select productName, 
+                       productGroup, 
+                       manufacName, 
+                       approvalStatus, 
+                       approvalNum 
+                from(
+    				select  rowNum as recNum,
+         			productName, productGroup, manufacName, approvalStatus, approvalNum
+                    from (  select p.name productName, p.prodgroup productGroup, 
+                               m.name manufacName, appr.approvalstatus approvalStatus,
+                               appr.approvalNum approvalNum
+                            from product p, productapproval appr, manufacturer m
+                            where p.productno = appr.productno and m.cuid = p.cuid
+                            order by approvalNum desc
+                            )
+            		)
+            	]]>
+		        where
+		        <if test = "productGroup != ''">
+		        	productGroup=#{productGroup}
+		        </if>	
+		        <if test = "manufacName != ''">
+		        	and manufacName=#{manufacName}
+		        </if>
+		        <if test = "productName != ''">
+		        	and productName like '%#{productName}%'
+		        </if>
+		        <if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
+		        	and appr.approvalstatus=1                                                                     
+		        </if>
+                	and recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 
+		        	and (#{section}-1)*100+(#{pageNum})*10
+		        
+				
+		</select>
+		
+		<!-- 매뉴얼상세  -->
+		<select id="selectManualDetail" resultMap="resultManual" parameterType="String">
+			<![CDATA[
+			select p.productimage 	productImage, 
+					   p.name 		productName, 
+                   	   m.name 		manufacName, 
+                   	   p.prodgroup 	productGroup, 
+                   	   p.usemanual 	useManual,
+                   	   p.asmanual 	asManual 
+<!-- JSP에서 Manual보기 권한 주기 -->
+            from product p, productapproval appr, manufacturer m
+			]]>
+            	where p.productno = appr.productno and m.cuid = p.cuid
+            		  and appr.approvalstatus=1
+            		  order by appr.approvalnum desc;
+		</select>
+		
+	<!-- 접근권한  -->
+		
+		<select id="selectUserRight" parameterType="int" resultType="ProductVO">
+			<![CDATA[
+				select mb.uno uno from member mb where mb.cuid=#{memberId};
+			]]>
+		</select>
+		
+	</mapper>

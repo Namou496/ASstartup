@@ -1,0 +1,54 @@
+# Directories
+/build/
+/bin/
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+######################
+# Windows
+######################
+   
+# Windows image file caches
+Thumbs.db
+   
+# Folder config file
+Desktop.ini
+   
+######################
+# OSX
+######################
+   
+.DS_Store
+.svn
+   
+# Thumbnails
+._*
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+######################
+# Eclipse
+######################
+   
+*.pydevproject
+
+MANIFEST.MF
+
+local.properties
+.classpath
+.settings/
+.loadpath
+pom.properties
+*.txt
