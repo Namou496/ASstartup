@@ -5,6 +5,7 @@ public class ASBeforeRepearPartVO {
 	private int componentNo;
 	private String name;
 	private int price;
+	private int amount;
 	
 	
 	public String getName() {
@@ -30,6 +31,12 @@ public class ASBeforeRepearPartVO {
 	}
 	public void setAsno(int asno) {
 		this.asno = asno;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	
 	

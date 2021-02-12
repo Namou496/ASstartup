@@ -17,12 +17,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="componentNo" column="componentNo"/>
 		<result property="name" column="name"/>
 		<result property="price" column="price"/>
+		<result property="amount" column="amount"/>
 	</resultMap>
 
 	<!-- 승인된 as의 상세  출력 -->
 	<select id="selectASBeforeView" parameterType="java.util.Map" resultType="ASBeforeVO">
 		<![CDATA[
 			select * from ASBefore where asno=#{asno}
+		]]>
+	</select>
+	<!-- 처리된 as의 소모품 내역출력 -->
+	<select id="selectASBeofreRepearPartList" parameterType="int" resultMap="resultASBeforeRepearPartList">
+		<![CDATA[
+			select c.name, c.price, a.amount
+			from component c, ascomponentlog a
+			where a.asno=#{asno} and c.componentNo=a.componentno
 		]]>
 	</select>
 	<!-- 출장비 출력 -->
@@ -34,7 +43,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- ajax 페이징 버튼 count-->
 	<select id="selectASBeforeListCount" resultType="int" parameterType="java.util.Map">
-<!-- 	testTempList=>ASBeforeList로 변경 -->
 		<![CDATA[
 			select count(asno) from ASBeforeList
 		]]>
@@ -81,7 +89,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- ajax ASBeforelist 호출-->
 	<select id="selectASBeforeListAjax" resultMap="resultASBeforeList" parameterType="java.util.Map">
-	<!-- 	testTempList=>ASBeforeList로 변경 -->
 		<![CDATA[
 			select * from ASBeforeList
 		]]>
@@ -127,9 +134,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 				
 	<select id="selectRepearPartListAjax" resultMap="resultASBeforeRepearPartList" parameterType="java.util.Map">
-<!-- 	testTemp=>component로 변경할것 -->
 		<![CDATA[
-			select componentNo,name, price from testTemp where productNo = #{productNo}
+			select componentNo,name, price from component where productNo = #{productNo}
 		]]>
 	</select>
 	

@@ -77,15 +77,9 @@
 
 		$(".buttonBox").click(function() {//view 페이지 이동 펑션
 			var asno = $(this).find("th").text();
-			var sta = $(this).find("td:nth-last-child(1)").text();
 			
 			$("#asno").val(asno);
 			
-			if (sta =='처리완료') {
-				$("#sta").val(3);
-			} else {
-				$("#sta").val(2);
-			}
 			$("#moveFunction").submit();
 
 		});
@@ -275,7 +269,6 @@
 	<form id="moveFunction"
 		action="${contextPath}/ASBefore/viewASBefore.do" method="post">
 		<input type="hidden" name="asno" id="asno"> 
-		<input type="hidden" name="sta" id="sta">
 	</form>
 
 </body>

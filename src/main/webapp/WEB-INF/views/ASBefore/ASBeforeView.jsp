@@ -7,6 +7,8 @@
 
 <head>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	<c:set var="ASbefore" value="${ASbeforeMap.ASbefore}"/>
+	<c:set var="repearPartList" value="#{ASbeforeMap.repearPartList}"/>
 
     <meta charset="UTF-8">
     <title>Document</title>
@@ -172,6 +174,7 @@
     
     <!--jqueryScript-->
     <script>
+    	var sta = ${ASbefore.sta};
     	var productNum=${ASbefore.productNo};
     	var selectContent="";
     	var partNoJson;
@@ -213,9 +216,6 @@
 	                    			'</li>\n'+
 	                    			'<li class="input-group mb-3">\n'+
 	                    				'<input type="text" class="amount form-control button-addon2" placeholder="수량입력" aria-describedby="button-addon2">\n'+
-	                    				'<button class="btn btn-outline-secondary costBtn">\n'+
-	                   						'비용계산\n'+
-	                    				'</button>\n'+
 	                    				'<input type="hidden" class="partNo" value="'+partNoJson[startKey]+'">'+
 	                    			'</li>\n'+
 				                    '<li class="input-group mb-3">\n'+
@@ -241,18 +241,29 @@
     	
     	
         $(function() {
-        	partList(productNum);
+        	
+        	if(sta==2){
+        		partList(productNum);
+        	}else{
+        		$(".amount").each(function(){
+        			var amount = $(this).val();
+        			var cost = $(this).parent().parent().find(".partSelect").val();
+        			var price=$(this).parent().parent().find(".price");
+        			
+        			price.val(cost*amount);
+        		});
+        		totalCost();
+        	}
         	
         	$("#appendPartButton").click(function(){
         		$(".partListContants").append(selectContent);
         		
-        		$(".costBtn").click(function(e){
-        			e.preventDefault();
+        		$(".amount").on("propertychange change keyup paste", function() {
             		var cost=$(this).parent().parent().find(".partSelect").val();
-            		var count=$(this).prev().val();
+            		var amount=$(this).val();
             		var price=$(this).parent().parent().find(".price");
-            		if(count != null && count.length!=0){
-            			price.val(cost*count);
+            		if(amount != null && amount.length!=0){
+            			price.val(cost*amount);
             		}else{
             			price.val(cost*0);
             		}
@@ -347,7 +358,8 @@
         	});
         	
         	$("#testBtn").click(function(){
-        		console.log($(".manPrice").val());
+        		alert('처리완료');
+        		location.href='/startup/ASBefore/viewASBefore.do?asno=7&sta=3';
         	});
         });
         
@@ -416,13 +428,13 @@
                     <span class="headFont input-group-text" id="inputGroup-sizing-sm">
                         희망방문일자
                  	</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${ASbefore.meetDate}">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${ASbefore.meetDate}" readonly>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="headFont input-group-text" id="inputGroup-sizing-sm">
                         기사방문일
                     </span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${ASbefore.respDate}">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${ASbefore.respDate}" readonly>
                 </div>
             </div>
 
@@ -440,12 +452,12 @@
 	                <div>
 	                    <p class="headFont">수리기사 의견</p>
 	                </div>
-	            	<c:if test="${sta==2}">
+	            	<c:if test="${ASbefore.sta==2}">
 		                <div class="form-floating">
 		                    <textarea name="asComment" class="form-control commentsArea" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px">내용</textarea>
 		                </div>
 	                </c:if>
-	                <c:if test="${sta==3}">
+	                <c:if test="${ASbefore.sta==3}">
 		                <div class="form-floating">
 		                    <textarea class="form-control commentsArea" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 300px" readonly>${ASbefore.asComment}</textarea>
 		                </div>
@@ -467,15 +479,33 @@
 	                    </ul>
 	
 	                    <ul class="partList partListContants"><!-- 부품 append -->
-							
+							<c:if test="${repearPartList != null}">
+								<c:forEach var="repearPart" items="${repearPartList}">
+								<li>
+									<ul>
+										<li class="clearLi">
+											<select class="form-select partSelect" disabled>
+												<option value="${repearPart.price}">${repearPart.name}</option>
+											</select>
+										</li>
+										<li class="input-group mb-3">
+											<input type="text" class="amount form-control button-addon2" placeholder="수량입력" aria-describedby="button-addon2" value="${repearPart.amount}" readonly>
+										</li>
+										<li class="input-group mb-3">
+											<input type="text" class="form-control price cost button-addon2" placeholder="0" aria-describedby="button-addon2" readonly>
+										</li>
+									</ul>
+								</li>
+								</c:forEach>
+							</c:if>
 	                    </ul>
 	                </div>
 	            </div>
-
-	            <div id="appendPart">
-	                <input id="appendPartButton" class="headFont" type="button" value="소모품 추가">
-	            </div>
-            
+				<c:if test="${ASbefore.sta==2}">
+		            <div id="appendPart">
+		                <input id="appendPartButton" class="headFont" type="button" value="소모품 추가">
+		            </div>
+            	</c:if>
 	            <div id="costBox">
 	                <div class="input-group input-group-sm mb-3">
 	                    <span class="headFont input-group-text" id="inputGroup-sizing-sm">출장비</span>
@@ -490,7 +520,7 @@
 	                    >
 
 	                </div>
-	                <c:if test="${sta==2}">
+	                <c:if test="${ASbefore.sta==2}">
 		                <div class="input-group input-group-sm mb-3">
 		                    <span class="headFont input-group-text" id="inputGroup-sizing-sm">인건비</span>
 		                    <input 
@@ -502,7 +532,7 @@
 		                    >
 		                </div>
 	                </c:if>
-	                <c:if test="${sta==3}">
+	                <c:if test="${ASbefore.sta==3}">
 	                 	<div class="input-group input-group-sm mb-3">
 		                    <span class="headFont input-group-text" id="inputGroup-sizing-sm">인건비</span>
 		                    <input
@@ -529,7 +559,7 @@
 	                </div>
 	            </div>
             </form>
-			<c:if test="${sta==2}">
+			<c:if test="${ASbefore.sta==2}">
 	            <div id="submit">
 	                <input type="button" id="submitBtn" class="headFont" value="수리완료">
 	            </div>
@@ -537,7 +567,6 @@
 
         </div>
     </div>
-    <input type="button" value="test" id="testBtn">
 </body>
 
 </html>

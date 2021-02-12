@@ -82,4 +82,12 @@ public class ASBeforeDAOImpl implements ASBeforeDAO{
 		
 	}
 	
+	@Override
+	public List<ASBeforeRepearPartVO> selectASBeofreRepearPartList(int asno) throws DataAccessException {
+		List<ASBeforeRepearPartVO> repearPartList = sqlSession.selectList("mapper.ASBefore.selectASBeofreRepearPartList", asno);
+		return repearPartList;
+		
+		
+	}
+	
 }
