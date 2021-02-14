@@ -17,10 +17,12 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 
     <!-- JavaScript -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-    <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="../resources/js/join.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!--     <script type="text/javascript" src="../resources/js/join.js"></script> -->
+    <script type="text/javascript" src="../resources/js/asform.js"></script>
+
 </head>
 
 <body>
@@ -30,7 +32,7 @@
         	<h1 style="text-align: center">AS신청서</h1>
         </div>
            <div class="form">
-            <form class="form-horizontal" method="post" action="${contextPath}/ASForm/addForm.do">
+            <form class="form-horizontal" name="form-horizontal" onsubmit="return validate();" method="post" enctype="multipart/form-data" action="${contextPath}/ASForm/addForm.do">
                 <div class="form-group">
                     <h4><label for="memberInfo" class="col-lg-2 control-label">개인정보취급방침</label></h4>
                     <div class="col-lg-10" id="memberInfo">
@@ -145,39 +147,39 @@
                         </div><br/>
                         <div class="form-group" id="divId">
                             <label for="phonenum" class="col-lg-2 control-label">전화번호</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <input type="text" class="form-control onlyAlphabetAndNumber" id="phone" name="phone" data-rule-required="true" placeholder="-빼고 입력해주세요." maxlength="11">
                             </div>
                         </div><br/>
                         <div class="form-group" id="divNickname">
                             <label for="addr" class="col-lg-2 control-label">주소</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <input type="text" class="col-lg-4" id="postCode" style="padding: 5px;  border-radius: 5px;" name="postCode" data-rule-required="true" placeholder="우편주소" maxlength="30" disabled>
                                 
                                 <input type="button" class="col-lg-2 btn btn-primary"  onclick="sample5_execDaumPostcode()" value="주소 검색">
                                 
-                                <input type="text" class="form-control" id="addr" name="addr_ab" data-rule-required="true" placeholder="주소" maxlength="30" disabled>
+                                <input type="text" class="form-control" id="addr1" name="addr1" data-rule-required="true" placeholder="주소" maxlength="30" disabled>
                                 
-                                <input type="text" class="form-control" id="addr" name="addr" data-rule-required="true" placeholder="상세 주소" maxlength="30">
+                                <input type="text" class="form-control" id="addr2" name="addr2" data-rule-required="true" placeholder="상세 주소" maxlength="30">
                                 
                                 <br>
                             </div>
                         </div><br/>
                         <div class="form-group" id="divPhoneNumber">
                             <label for="meetDate" class="col-lg-2 control-label">희망방문 날짜</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <input type="date" class="form-control onlyNumber" id="meetDate" name="meetDate" data-rule-required="true">
                             </div>
                         </div><br/>
                         <div class="form-group" id="divEmail">
                             <label for="symptoms" class="col-lg-2 control-label">증상</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <textarea class="form-control" id="symptoms" name="symptoms" data-rule-required="true" placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000"></textarea>
                             </div>
                         </div><br/>
                         <div class="form-group" id="divPasswordCheck">
                             <label for="fileinput" class="col-lg-2 control-label">첨부파일</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <input type="file" class="form-control" id="fileImgName" name="fileImgName" accept="image/*">
                             </div>
                         </div>                     
@@ -193,8 +195,5 @@
         </div>
         </div>
     </main>
-    <footer>
-        <!-- 푸터를 사용하는 곳 -->
-    </footer>
 </body></html>
 

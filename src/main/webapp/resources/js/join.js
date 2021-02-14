@@ -1,4 +1,3 @@
- // 우편번호 찾기 화면을 넣을 element
     var element_layer = document.getElementById('layer');
 
     function closeDaumPostcode() {
@@ -12,7 +11,7 @@
                     var addr = data.address; // 최종 주소 변수
 
                     // 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById("addr").value = addr;
+                    document.getElementById("addr1").value = addr;
 					document.getElementById("postCode").value = data.zonecode;
                 }
             }).open();
