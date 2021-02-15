@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +45,7 @@ public class ProductControllerImpl implements ProductController{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		System.out.println("gd");
-		String memberId = "park";  //테스트용
+		String memberId = "samS";  //테스트용
 		//123123123
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
@@ -56,11 +57,12 @@ public class ProductControllerImpl implements ProductController{
 //		String memberId = (String) session.getAttribute("memberId");
 
 		System.out.println("memberId:" + memberId);
-		
+		String manufacName = ProductService.manufacName(memberId);
+		System.out.println("manufacName:" + manufacName);
 		Map pageMap = new HashMap();
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
-		
+		pageMap.put("manufacName", manufacName);
 
 		Map productMap= ProductService.ProductList(pageMap, memberId);
 		productMap.put("section", section);
@@ -78,6 +80,7 @@ public class ProductControllerImpl implements ProductController{
 //		테스트 중
 
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pageMap", pageMap);
 		mav.addObject("productMap", productMap);
 		mav.setViewName("/product/productApplyBoard");
 		return mav;
@@ -92,14 +95,18 @@ public class ProductControllerImpl implements ProductController{
 		request.setCharacterEncoding("UTF-8");
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
-		System.out.println("section:"+ _section+" pageNum:"+ _pageNum);
+		String manufacName = request.getParameter("manufacName");
 		int section = Integer.parseInt(_section);
 		int pageNum = Integer.parseInt(_pageNum);
-		
+		int productNo = Integer.parseInt(request.getParameter("productNo"));
+		if(_section == "") {
+			section = 1;
+		}
+		if(_pageNum == "") {
+			pageNum = 1;
+		}
 //		String memberId = (String) session.getAttribute("memberId");
-		String memberId = "park";  
-		String productNo = request.getParameter("productNo");
-
+		String memberId = "samS";  
 		if(section == 0) {
 			section = 1;
 		}
@@ -110,15 +117,21 @@ public class ProductControllerImpl implements ProductController{
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
 		pageMap.put("productNo", productNo);
+		
+		
 		System.out.println("memberId: "+memberId);
 		ProductVO product = ProductService.ProductDetail(pageMap, memberId);
 		System.out.println("section:" + section);
 		System.out.println("pageNum:" + pageNum);
 		System.out.println("memberId:" + memberId);
 		
+		System.out.println("componentList Controller");
+		List componentList = ProductService.compoDetail(product.getProductNo());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("product", product);
 		mav.addObject("pageMap", pageMap);
+		mav.addObject("componentList", componentList);
 		mav.setViewName("/product/productApplyDetail");
 		return mav;
 	}
@@ -161,7 +174,7 @@ public class ProductControllerImpl implements ProductController{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 //		테스트
-		String memberId = "park";  //테스트용
+		String memberId = "samS";  //테스트용
 		//123123123
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
@@ -221,21 +234,23 @@ public class ProductControllerImpl implements ProductController{
 	public ModelAndView applyProduct(HttpServletRequest request, 
 									 HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
+		String cuId = "samS";
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
-
-		int section = 0;
-		int pageNum = 0;
-		if(_section == null) {
+		String manufacName = request.getParameter("manufacName");
+		int section = Integer.parseInt(_section);
+		int pageNum = Integer.parseInt(_pageNum);
+		if(_section == "") {
 			section = 1;
 		}
-		if(_pageNum == null) {
+		if(_pageNum == "") {
 			pageNum = 1;
 		}
-		System.out.println("section:"+ section+" pageNum:"+ pageNum);
+		System.out.println("section:"+ section+" pageNum:"+ pageNum + " manufacName:" +manufacName);
 		Map pageMap = new HashMap();
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
+		pageMap.put("manufacName", manufacName);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pageMap", pageMap);
 		mav.setViewName("/product/productApplyView");
@@ -246,33 +261,45 @@ public class ProductControllerImpl implements ProductController{
 	public ModelAndView applyProduct(MultipartHttpServletRequest multipartRequest, 
 									 HttpServletResponse response) throws Exception{
 		multipartRequest.setCharacterEncoding("utf-8");
-		upload(multipartRequest, response);
-//		product
-		int uno = 3;
-		String 	productName = multipartRequest.getParameter("productName");
-		String 	productGroup = multipartRequest.getParameter("productGroup");
-		String 	useManual = multipartRequest.getParameter("useManual");
-		String 	asManual = multipartRequest.getParameter("asManual");
-		String 	productImage = multipartRequest.getParameter("productImage");
-//		component
-		Map product = new HashMap();
-		product.put("productName", productName);
+		response.setContentType("text/html;charset=utf-8");
+		System.out.println("start~~!!!");
+		Map product = upload(multipartRequest, response);
+		String cuid = "samS";
+		String productGroup = multipartRequest.getParameter("productGroup");
+		System.out.println("productGroup::" + productGroup);
+		product.put("cuId", cuid);
 		product.put("productGroup", productGroup);
-		product.put("useManual", useManual);
-		product.put("asManual", asManual);
-		product.put("productImage", productImage);
-
-//		List component = new ArrayList();
-		Map<String, Integer> component = new HashMap<String, Integer>();
-		String[] componentName = multipartRequest.getParameterValues("componentName");
-		for(int i=0; i < componentName.length; i++) {
-			String[] componentPart = multipartRequest.getParameterValues("componentPart");
-
-			component.put(componentName[i], Integer.parseInt(componentPart[i]));
-		}
+		System.out.println("start~~!!!");
 		
+//		List component = new ArrayList();
+		List fileList;
+		fileList = (List) product.get("fileList");
+		for(int i=0; i<fileList.size();i++) {
+				product.put("useManual", fileList.get(0));
+				product.put("asManual", fileList.get(1));
+				product.put("productImage", fileList.get(2));
+				System.out.println("fileList::" + fileList.get(i));
+		}
+		System.out.println("fileList::" + fileList);
+		
+		
+		
+		String[] componentName = multipartRequest.getParameterValues("componentName");
+		String[] componentPart = multipartRequest.getParameterValues("componentPart");
+		for (int i = 0; i < componentName.length; i++) {
+			System.out.println(componentName[i]);
+			}
+		System.out.println("~!~!~start~~!!!");
+		int productNo=ProductService.applyProduct(componentName, componentPart, product);
+		product.put("productNo", productNo);
+		System.out.println("productNo::::  "+ productNo);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/product/productApply");
+		mav.addObject("product", product);
+		
+		PrintWriter pw = response.getWriter();
+		pw.print("<script>"+"alert('요청되었습니다!!');"+"location.href='"+multipartRequest.getContextPath()
+					+ "/Product/listProduct.do';"
+					+ "</script>");
 		return mav;
 	}
 	
@@ -285,21 +312,22 @@ public class ProductControllerImpl implements ProductController{
 			
 			String name = (String)enu.nextElement();
 			String value = multipartRequest.getParameter(name);
+			System.out.println(name + ", " + value);
 			map.put(name, value);
 		}
 		
 		List fileList = fileProcess(multipartRequest, uno);
-		
+		map.put("fileList", fileList);
 		return map;
 	}
 	private List fileProcess(MultipartHttpServletRequest multipartRequest, int uno) throws Exception{
 		String productName = multipartRequest.getParameter("productName");
 		List fileList = new ArrayList();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
-		
+		int i=0;
 		while(fileNames.hasNext()) {
-			
 			String fileName = fileNames.next();
+			System.out.println("??? fileName:" + fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			String originalFileName = mFile.getOriginalFilename();
 			fileList.add(originalFileName);
@@ -307,6 +335,8 @@ public class ProductControllerImpl implements ProductController{
 			
 			
 			String manufacPath = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\" + fileName;
+			String manufacPath_useManual = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\"+ "useManual" + "\\";
+			String manufacPath_asManual = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\" + "asManual" + "\\";
 			String manufacPath_original = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\" + originalFileName;
 			String userPath = CURR_FILE_REPO_PATH+"\\"+"user" + "\\" + fileName;
 			String userPath_original =  CURR_FILE_REPO_PATH+"\\"+"user" + "\\" + originalFileName;
@@ -314,15 +344,48 @@ public class ProductControllerImpl implements ProductController{
 			String asPath_original = CURR_FILE_REPO_PATH+"\\"+"as" + "\\" + originalFileName;
 			
 			if(uno == 3) {
-				File file = new File(manufacPath);
-				if(mFile.getSize()!=0) {
-					if(! file.exists()) {
-						if(file.getParentFile().mkdirs()) {
-							file.createNewFile();
+//				useMaunual
+				if(i == 0) {
+				File file = new File(manufacPath_useManual + fileName);
+					if(mFile.getSize()!=0) {
+						if(! file.exists()) {
+							if(file.getParentFile().mkdirs()) {
+								file.createNewFile();
+								
+							}
 						}
+						mFile.transferTo(new File(manufacPath_useManual + originalFileName));
+						file.delete();
+						System.out.println("useManual");
 					}
-					mFile.transferTo(new File(manufacPath_original));
+//				asManual
+				} else if(i == 1) {
+				File file = new File(manufacPath_asManual  + fileName);
+					if(mFile.getSize()!=0) {
+						if(! file.exists()) {
+							if(file.getParentFile().mkdirs()) {
+								file.createNewFile();
+							}
+						}
+						System.out.println("ASManual");
+						mFile.transferTo(new File(manufacPath_asManual + originalFileName));
+						file.delete();
+					}
+//				productImage
+				} else {
+					File file = new File(manufacPath);
+					if(mFile.getSize()!=0) {
+						if(! file.exists()) {
+							if(file.getParentFile().mkdirs()) {
+								file.createNewFile();
+							}
+						}
+						mFile.transferTo(new File(manufacPath_original));
+						System.out.println("IMAGE");
+					}
+				
 				}
+				
 				
 			}
 			
@@ -352,8 +415,8 @@ public class ProductControllerImpl implements ProductController{
 				
 			}
 			
-			
-			
+			System.out.println("i:" + i);
+			i++;
 		}
 		return fileList;
 	}

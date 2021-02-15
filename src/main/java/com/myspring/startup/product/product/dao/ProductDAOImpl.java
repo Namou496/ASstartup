@@ -41,6 +41,13 @@ public class ProductDAOImpl implements ProductDAO{
 				System.out.println("제품상세 pageMap: " + pageMap.get("pageNum"));
 				return proVO;
 			}
+			@Override
+			public List selectCompo(int productNo) throws Exception{
+				System.out.println("componentList DAO");
+				List componentList = new ArrayList();
+				componentList = sqlSession.selectList("mapper.Product.selectCompo", productNo);
+				return componentList;
+			}
 		//	3)제품검색
 			@Override
 			public List<ProductVO> searchProduct(Map searchMap) throws Exception{
@@ -60,7 +67,12 @@ public class ProductDAOImpl implements ProductDAO{
 				int productNo = sqlSession.selectOne("mapper.Product.selectRecentProd");
 				return productNo;
 			}
-		//  4-2)부품등록-최신 번호 가져오기
+//* 제조사 이름 가져오기
+			@Override
+			public String manufacName(String cuId) throws Exception{
+				return sqlSession.selectOne("mapper.Product.manufacName", cuId);
+			}
+			//  4-2)부품등록-최신 번호 가져오기
 			@Override
 			public int selectRecentCompo() throws Exception{
 				int componentNo = sqlSession.selectOne("mapper.Product.selectRecentCompo");
@@ -68,18 +80,22 @@ public class ProductDAOImpl implements ProductDAO{
 			}
 		//	4-3)제품등록
 			@Override
-			public void insertProduct(Map product) throws Exception{
+			public void insertProduct(Map product) throws DataAccessException{
+				System.out.println("product.size:: " + product.size());
+				System.out.print("product:: " + product.toString() + ", ");
 				sqlSession.insert("mapper.Product.insertProduct", product);
+
 			}
 		//	4-4)부품등록
 			@Override
-			public void insertComponent(Map component) throws Exception{
-				sqlSession.insert("mapper.Product.insertComponent", component);
+			public void insertComponent(List componentList) throws Exception{
+				System.out.println("componentList::" + componentList.toString());
+				sqlSession.insert("mapper.Product.insertComponent", componentList);
 			}
 		//	4-5)제품 승인등록- 최신번호 가져오기
 			@Override
 			public int selectRecentApprNum() throws Exception{
-				int approvalNum = sqlSession.selectOne("mapper.Product.selectRecentApply");
+				int approvalNum = sqlSession.selectOne("mapper.Product.selectRecentApprNum");
 				return approvalNum;
 			}
 		//  4-6)제품 승인등록		

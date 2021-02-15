@@ -8,6 +8,7 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <c:set  var="pageMap"  value="${pageMap}" />
     <c:set  var="product"  value="${product}" />
+    <c:set  var="componentList"  value="${componentList}" />
     
 <!DOCTYPE html>
 <html>
@@ -69,6 +70,15 @@
                 <tr>
                     <td id="td1" scope="row">AS매뉴얼:</td>
                     <td id="td2" scope="row" name="asManual"><a href="#">${product.asManual }</a></td>
+                </tr>
+                <tr>
+                    <td id="td1" scope="row">부품:</td>
+				<c:forEach var="cL" items="${componentList}">
+                    <td id="td2" scope="row" name="asManual">${cL.componentName} : ${cL.componentPrice}</td>
+                </tr>
+                <tr>
+                	<td id="td1" scope="row"></td>
+                </c:forEach>
                 </tr>
                 <tr style="text-align: center">
                     <td style="width: 100%" colspan=2>

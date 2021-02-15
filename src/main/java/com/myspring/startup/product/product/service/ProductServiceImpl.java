@@ -1,5 +1,6 @@
 package com.myspring.startup.product.product.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ public class ProductServiceImpl implements ProductService{
 				
 				
 				int totProduct = proDAO.selectTotProduct();
+				System.out.println("totProduct" + totProduct);
 				
 				productMap.put("uno", uno);
 				productMap.put("productList", productList);
@@ -61,7 +63,14 @@ public class ProductServiceImpl implements ProductService{
 				int uno = proDAO.selectUserRight(memberVO);
 				pageMap.put("uno", uno);
 				ProductVO proVO = proDAO.selectProductDetail(pageMap);
+				
 				return proVO;
+			}
+			@Override
+			public List compoDetail(int productNo) throws Exception{
+				System.out.println("componentList Service");
+				List componentList = proDAO.selectCompo(productNo);
+				return componentList;
 			}
 		//	3)제품검색 + 사용자권한
 			@Override
@@ -96,18 +105,56 @@ public class ProductServiceImpl implements ProductService{
 			}
 		//	4)제품등록 부품,제품 최신번호 + 부품등록 및 제품등록
 			@Override
-			public void applyProduct(Map product, Map component) throws Exception{
-
+			public String manufacName(String cuId) throws Exception{
+				String manufacName = proDAO.manufacName(cuId); 
+				return manufacName;
+			}
+			
+			@Override
+			public int applyProduct(String[] componentName, String[] _componentPart, Map product) throws Exception{
+				
+				List componentList = new ArrayList<ProductVO>();
+				System.out.println("??RecentProd??");
 				int RecentProd = proDAO.selectRecentProd();
+				System.out.println("RecentProd:"+ RecentProd);
 				int RecentCompo = proDAO.selectRecentCompo();
+				System.out.println("RecentCompo:"+ RecentCompo);
 				int RecentApprNum = proDAO.selectRecentApprNum();
-
-				product.put("productNo", RecentProd);
-				product.put("approvalNum", RecentApprNum);
-				component.put("componentNo", RecentCompo);
+				System.out.println("RecentApprNum:"+ RecentApprNum);
+				int componentPart;
+				Map component = new HashMap();
+				
+				for(int i=0; i<componentName.length; i++) {
+					ProductVO proVO = new ProductVO();
+					int cnt = 1+i;
+					System.out.println("cnt:" + cnt);
+					if(_componentPart[i].equals("부품")) {
+						componentPart=1;
+					}else{
+						componentPart=2;
+					}
+					
+//					component.put("componentName", componentName[i]);
+//					component.put("componentPart", componentPart);
+//					component.put("componentNo", RecentCompo+cnt);
+//					component.put("productNo", RecentProd+1);
+					proVO.setComponentName(componentName[i]);
+					proVO.setComponentPart(componentPart);
+					proVO.setComponentNo(RecentCompo+cnt);
+					proVO.setProductNo(RecentProd+1);
+					componentList.add(proVO);
+					System.out.println("componentName.length!! --> " + componentName.length);
+					System.out.println("componentName["+i+"]:" + componentName[i] + " _  componentPart:" + componentPart);
+				}
+				
+				product.put("productNo", RecentProd+1);
+				product.put("approvalNum", RecentApprNum+1);
+				
+				
 				
 				proDAO.insertProduct(product);
-				proDAO.insertComponent(component);
+				proDAO.insertComponent(componentList);
 				proDAO.insertProductApply(product);
+				return RecentProd+1;
 			}
 }

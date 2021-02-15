@@ -8,8 +8,10 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <c:set var="productMap"  value="${productMap}" />
 	<c:set var="totProduct"  value="${productMap.totProduct}" />
+	<c:set var="pageMap"  value="${pageMap}" />
 	<c:set var="section"  value="${productMap.section}" />
 	<c:set var="pageNum"  value="${productMap.pageNum}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +77,7 @@
 	    <input type="submit" value="검색">
 	    </form>
 
-        <button style="float: right;"><a href="${contextPath }/Product/applyProductView.do?pageNum=${pageMap.pageNum}&section=${pageMap.section}">제품등록</a></button>
+        <button style="float: right;"><a href="${contextPath }/Product/applyProductView.do?manufacName=${pageMap.manufacName}&pageNum=${pageNum}&section=${section}">제품등록</a></button>
         <table class="table" id="list_view">
             <thead>
                 <tr>
@@ -142,7 +144,7 @@
                 	</c:forEach>
                 </c:when>
                 
-                <c:when test="${totArticles < 100}">
+                <c:when test="${totProduct < 100}">
                 	<c:forEach var="page" begin="1" end="${totProduct/10+1}" step="1">
                 		<c:choose>
 	                		<c:when test="${page==pageNum }">
