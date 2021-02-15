@@ -9,9 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface AdminProductController {
 
-	public ModelAndView AdminProductDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 
 	public ModelAndView adminProductList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+
+	public ModelAndView adminProductDetail(int productNO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+
+	public ModelAndView adminProductSearch(String name, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
 
 	
 

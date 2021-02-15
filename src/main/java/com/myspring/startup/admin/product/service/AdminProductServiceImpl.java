@@ -23,4 +23,17 @@ public class AdminProductServiceImpl implements AdminProductService{
 		return  adminProductDAO.selectProductApprovalList();
 	}
 	
+	@Override
+	public AdminProductVO AdminProductDetail(int productNO) {
+		AdminProductVO adminProductVO = adminProductDAO.selectProductApprovalDetail(productNO);
+		return adminProductVO;
+	}
+	
+	@Override
+	public List<AdminProductVO> AdminProductSearch(String name)  {
+		List searchList = adminProductDAO.selectByProduct(name);
+		return searchList;
+	}
+	
+	
 }

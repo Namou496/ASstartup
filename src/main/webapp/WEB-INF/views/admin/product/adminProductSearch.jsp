@@ -5,6 +5,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="productList" value="${productList}" />
 <c:set var="productDetail" value="${productDetail}" />
+<c:set var="searchList" value="${searchList}" />
+
 <%
 request.setCharacterEncoding("utf-8");
 %>
@@ -44,15 +46,15 @@ request.setCharacterEncoding("utf-8");
 			<div style="margin-left: 25%">
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
-				<option selected>선택</option>
+				<option selected>--선택--</option>
 				<option value="name">제품명</option>
 				<option value="1">제조사명</option>
 				<option value="productNO">제품번호</option>
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/product/adminProductSearch.do">
+			<form class="d-flex" style="width: 40%; position: relative;">
 				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search" name="name">
+					aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
@@ -77,28 +79,26 @@ request.setCharacterEncoding("utf-8");
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${productList==null }">
-
+					<c:when test="${searchList==null }">
 
 						<tr>
-							<td colspan=5 style="text-align: center"><b>등록 요청된 제품이
+							<td colspan=5 style="text-align: center"><b>검색 결과가
 									없습니다</b>
 						</tr>
-
 					</c:when>
 
-					<c:when test="${productList != null }">
+					<c:when test="${searchList != null }">
 		
 					
-						<c:forEach var="adminPro" items="${productList }">
+						<c:forEach var="search" items="${searchList }">
 
 							<tr>
-								<th scope="row">${adminPro.productNO}</th>
+								<th scope="row">${search.productNO}</th>
 
-								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">${adminPro.name}</a></td>
-								<td>${adminPro.prodGroup}</td>
-								<td>${adminPro.approvalNum}</td>
-								<td>${adminPro.approvalStatus}</td>
+								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${search.productNO}">${search.name}</a></td>
+								<td>${search.prodGroup}</td>
+								<td>${search.approvalNum}</td>
+								<td>${search.approvalStatus}</td>
 
 							</tr>
 

@@ -22,5 +22,27 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList");
 		return productList;
 	}
+	
+	@Override
+	public AdminProductVO selectProductApprovalDetail(int productNO) throws DataAccessException {
+		return sqlSession.selectOne("mapper.adminProduct.selectProductApprovalDetail",productNO);
+		
+	}
+	
+//	@Override
+//	public List<AdminProductVO> selectByProduct(String name) throws DataAccessException {
+//		List<AdminProductVO> searchList= sqlSession.selectList("mapper.adminProduct.selectByProduct",name);
+//		return searchList;
+//		
+//	}
+	
+	@Override
+	public ArrayList selectByProduct(String name) throws DataAccessException {
+		ArrayList List= (ArrayList)sqlSession.selectList("mapper.adminProduct.selectByProduct",name);
+		return List;
+		
+	}
+	
+	
 }
 

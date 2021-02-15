@@ -13,4 +13,8 @@ public interface AdminProductDAO {
 
 	public List<AdminProductVO> selectProductApprovalList() throws DataAccessException;
 
+	AdminProductVO selectProductApprovalDetail(int productNO) throws DataAccessException;
+
+	public List<AdminProductVO> selectByProduct(String name) throws DataAccessException;
+
 }

@@ -25,30 +25,45 @@ public class AdminProductControllerImpl implements AdminProductController {
 
 	@Autowired
 	private AdminProductService adminProductService;
+	@Autowired
+	private AdminProductVO adminProductVO;
 	
 	//제품승인요청리스트
 	@Override
 	@RequestMapping(value="/admin/product/adminProductList.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminProductList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
-		List<AdminProductVO> newProductList=adminProductService.AdminProductList();
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject(newProductList);
-		mav.setViewName("/product/adminProductList");
+		List<AdminProductVO> ProductList=adminProductService.AdminProductList();
+		ModelAndView mav = new ModelAndView("/product/adminProductList");
+		mav.addObject("productList",ProductList);
 		return mav;
 		
 	}
 
-	//제품상세
-	@Override
-	public ModelAndView AdminProductDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		return null;
-	}
-
+	// 제품상세
+		@Override
+		@RequestMapping(value = "/admin/product/adminProductDetail.do", method = {RequestMethod.GET, RequestMethod.POST })
+		public ModelAndView adminProductDetail(@RequestParam("productNo") int productNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+			adminProductVO=adminProductService.AdminProductDetail(productNo);
+			ModelAndView mav = new ModelAndView("/product/adminProductDetail");
+			mav.addObject("productDetail", adminProductVO);
+			return mav;
+		}
 	
-
+//제품명으로검색
+		
+		@Override
+		@RequestMapping(value = "/admin/product/adminProductSearch.do", method = {RequestMethod.GET, RequestMethod.POST })
+		public ModelAndView adminProductSearch(@RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+			List<AdminProductVO> searchList=adminProductService.AdminProductSearch(name);
+			ModelAndView mav = new ModelAndView("/product/adminProductSearch");
+			mav.addObject("searchList",searchList );
+			return mav;
+		}
+		
+		
 
 	//제품 승인및거절
 

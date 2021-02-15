@@ -7,37 +7,69 @@
 
 <mapper namespace="mapper.adminProduct">
 
-<!-- 승인요청리스트에 페이징기능 추가해야됨 -->
+	<!-- 승인요청리스트에 페이징기능 추가해야됨 -->
 
 
 	<!-- 제품승인 vo -->
 	<resultMap type="AdminProductVO" id="productApprovalResult">
-		<result property="name" column="name"/>
-		<result property="productNO" column="productNO"/>
+		<result property="name" column="name" />
+		<result property="productNO" column="productNO" />
 		<result property="approvalNum" column="approvalNum" />
 		<result property="approvalStatus" column="approvalStatus" />
 		<result property="prodGroup" column="prodGroup" />
 		<result property="rejectionReason" column="rejectionReason" />
+		<result property="useManual" column="useManual" />
+		<result property="ASManual" column="ASManual" />
+		<result property="productImage" column="productImage" />
+
 	</resultMap>
 
 	<!-- 승인요청리스트 -->
-	<select id="selectProductApprovalList" resultMap="productApprovalResult">
+	<select id="selectProductApprovalList"
+		resultMap="productApprovalResult">
 
 		<![CDATA[
 			select
-			product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus
+			 product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus
+            
 			
 			from
 			product, productApproval
 	
 			where product.productNo = productApproval.productNo
-	
 			order by approvalnum desc
 		
 		]]>
 
 
 	</select>
+
+	<!-- 승인상세 -->
+	<select id="selectProductApprovalDetail"
+		resultType="AdminProductVO" parameterType="int">
+
+		<![CDATA[
+		select
+		productNO,name,prodGroup,useManual,ASManual,productImage
+		from
+		product where
+		productNo=#{productNO}
+		]]>
+
+	</select>
+
+	<!-- 제품명검색 -->
+	<select id="selectByProduct" resultType="AdminProductVO"
+		parameterType="String">
+		<![CDATA[
+		select product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus
+		from product,productApproval
+		where name like '%'||#{name}||'%' and product.productNo=productApproval.productNo
+		order by approvalnum desc
+		]]>
+	</select>
+
+
 
 	<!-- 승인여부 업데이트 -->
 	<update id="updateProductApprovalStatus"
