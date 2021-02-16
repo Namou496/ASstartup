@@ -1,40 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
-    <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <%
-    	request.setCharacterEncoding("utf-8");
-    %>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <title>신청서</title>
-    <!-- css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<meta charset="UTF-8">
+<title>신청서</title>
+<!-- css -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
 
-    <!-- JavaScript -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-    <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="../resources/js/join.js"></script>
+<!-- JavaScript -->
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!--     <script type="text/javascript" src="../resources/js/join.js"></script> -->
+<script type="text/javascript" src="../resources/js/asform.js"></script>
+
 </head>
 
 <body>
-    <main>
-        <div class="container">
-        <div class="pageName">
-        	<h1 style="text-align: center">AS신청서</h1>
-        </div>
-           <div class="form">
-            <form class="form-horizontal" method="post" action="${contextPath}/ASForm/addForm.do">
-                <div class="form-group">
-                    <h4><label for="memberInfo" class="col-lg-2 control-label">개인정보취급방침</label></h4>
-                    <div class="col-lg-10" id="memberInfo">
-                        <textarea class="form-control" rows="8" style="resize:none">
+	<main>
+		<div class="container">
+			<div class="pageName">
+				<h1 style="text-align: center">AS신청서</h1>
+			</div>
+			<div class="form">
+				<form class="form-horizontal" name="form-horizontal"
+					onsubmit="return validate();" method="post"
+					enctype="multipart/form-data"
+					action="${contextPath}/ASForm/addForm.do"><br /><br /><br />
+					<div class="form-group">
+						<h4>
+							<label for="memberInfo" class="col-lg-2 control-label">개인정보취급방침</label>
+						</h4>
+						<div class="col-lg-10" id="memberInfo">
+							<textarea class="form-control" rows="8" style="resize: none">
 제1조 (개인정보의 처리 목적)
 ① 개인정보보호위원회는 개인정보를 다음의 목적을 위해 처리합니다. 처리한 개인정보는 다음의 목적이외의 용도로는 사용되지 않으며 이용 목적이 변경되는 경우에는 개인정보 보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
 가. 서비스 제공
@@ -121,80 +137,110 @@
 
 ☞ 중앙행정심판위원회(www.simpan.go.kr)의 전화번호 안내 참조
                         </textarea>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" id="memberInfoYn" name="memberInfoYn">
-                                개인정보 취급 방침에 동의합니다.
-                            </label>
-                        </div>
-                        <br/>
-                        <input type="hidden" id="asNo" name="asNo" onclick="randAsNo()">
-                        <input type="hidden" id="sta" name="sta" value="1">
-                        <input type="hidden" id="cuId" name="cuId" value="hong">
-                        <input type="hidden" id="productNo" name="productNo" value="1">
-                        <div class="form-group">
-                            <h5><label for="vistype" class="col-lg-2 control-label">방문 구분</label></h5>
-                            <div class="col-lg-10">
-                                <label class="radio-inline">
-                                    <input type="radio" id="meeting" name="meeting" value="Y" checked> 수리지점 방문
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" id="meeting" name="meeting" value="N"> A/S기사 직접 방문
-                                </label>
-                            </div>
-                        </div><br/>
-                        <div class="form-group" id="divId">
-                            <label for="phonenum" class="col-lg-2 control-label">전화번호</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyAlphabetAndNumber" id="phone" name="phone" data-rule-required="true" placeholder="-빼고 입력해주세요." maxlength="11">
-                            </div>
-                        </div><br/>
-                        <div class="form-group" id="divNickname">
-                            <label for="addr" class="col-lg-2 control-label">주소</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="col-lg-4" id="postCode" style="padding: 5px;  border-radius: 5px;" name="postCode" data-rule-required="true" placeholder="우편주소" maxlength="30" disabled>
-                                
-                                <input type="button" class="col-lg-2 btn btn-primary"  onclick="sample5_execDaumPostcode()" value="주소 검색">
-                                
-                                <input type="text" class="form-control" id="addr" name="addr_ab" data-rule-required="true" placeholder="주소" maxlength="30" disabled>
-                                
-                                <input type="text" class="form-control" id="addr" name="addr" data-rule-required="true" placeholder="상세 주소" maxlength="30">
-                                
-                                <br>
-                            </div>
-                        </div><br/>
-                        <div class="form-group" id="divPhoneNumber">
-                            <label for="meetDate" class="col-lg-2 control-label">희망방문 날짜</label>
-                            <div class="col-lg-10">
-                                <input type="date" class="form-control onlyNumber" id="meetDate" name="meetDate" data-rule-required="true">
-                            </div>
-                        </div><br/>
-                        <div class="form-group" id="divEmail">
-                            <label for="symptoms" class="col-lg-2 control-label">증상</label>
-                            <div class="col-lg-10">
-                                <textarea class="form-control" id="symptoms" name="symptoms" data-rule-required="true" placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000"></textarea>
-                            </div>
-                        </div><br/>
-                        <div class="form-group" id="divPasswordCheck">
-                            <label for="fileinput" class="col-lg-2 control-label">첨부파일</label>
-                            <div class="col-lg-10">
-                                <input type="file" class="form-control" id="fileImgName" name="fileImgName" accept="image/*">
-                            </div>
-                        </div>                     
-                    </div>
-                </div>
-                <br/>
-                <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                        <button type="submit" class="btn btn-primary form-control">접수</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
-    </main>
-    <footer>
-        <!-- 푸터를 사용하는 곳 -->
-    </footer>
-</body></html>
+							<div class="radio">
+								<label> <input type="radio" id="memberInfoYn">
+									개인정보 취급 방침에 동의합니다.
+								</label>
+							</div>
+							<br /> <input type="hidden" id="sta" name="sta" value="1">
+							<div class="form-group">
+							<h5>
+									<label for="vistype" class="col-lg-2 control-label">제품</label>
+								</h5>
+								<select name="productNo" class="form-control">
+									<option label="제품" selected="selected" disabled>제품</option>
+									<option label="엘지티비" value="1">엘지티비</option>
+									<option label="한성컴" value="2">한성컴</option>
+									<option label="삼성냉장고" value="3">삼성냉장고</option>
+									<option label="삼성티비" value="4">삼성티비</option>
+									<option label="엘지컴" value="5">엘지컴</option>
+									<option label="DC냉장고" value="6">DC냉장고</option>
+									<option label="소니티비" value="7">소니티비</option>
+									<option label="일텔컴" value="8">인텔컴</option>
+									<option label="엘지냉장고" value="9">엘지냉장고</option>
+									<option label="비보북" value="10">비보북</option>
+									<option label="울트라북17" value="11">울트라북17</option>
+									<option label="트라트라23" value="12">트라트라23</option>
+								</select>
+							</div><br/>
+							<div class="form-group">
+								<h5>
+									<label for="vistype" class="col-lg-2 control-label">방문
+										구분</label>
+								</h5>
+								<div class="col-lg-10">
+									<label class="radio-inline"> <input type="radio"
+										id="meeting" name="meeting" value="1" checked> 수리지점 방문
+									</label> <label class="radio-inline"> <input type="radio"
+										id="meeting" name="meeting" value="2"> A/S기사 직접 방문
+									</label>
+								</div>
+							</div>
+							<br />
+							<div class="form-group" id="divId">
+								<label for="phonenum" class="col-lg-2 control-label">전화번호</label>
+								<div class="col-lg-12">
+									<input type="text" class="form-control onlyAlphabetAndNumber"
+										id="phone" name="phone" data-rule-required="true"
+										placeholder="-빼고 입력해주세요." maxlength="13">
+								</div>
+							</div>
+							<br />
+							<div class="form-group" id="divNickname">
+								<label for="addr" class="col-lg-2 control-label">주소</label>
+								<div class="col-lg-12">
+									<input type="text" class="col-lg-4" id="postCode"
+										style="padding: 5px; border-radius: 5px;" name="postCode"
+										data-rule-required="true" placeholder="우편주소" maxlength="30"
+										disabled> <input type="button"
+										class="col-lg-2 btn btn-primary"
+										onclick="sample5_execDaumPostcode()" value="주소 검색"> 
+										<input type="text" class="form-control" id="addr1" name="addr1"
+										data-rule-required="true" placeholder="주소" maxlength="30"
+										readonly> 
+										<input type="text" class="form-control"
+										id="addr2" name="addr2" data-rule-required="true"
+										placeholder="상세 주소" maxlength="30"> <br>
+								</div>
+							</div>
+							<br />
+							<div class="form-group" id="divPhoneNumber">
+								<label for="meetDate" class="col-lg-2 control-label">희망방문
+									날짜</label>
+								<div class="col-lg-12">
+									<input type="date" class="form-control onlyNumber"
+										id="meetDate" name="meetDate" data-rule-required="true">
+								</div>
+							</div>
+							<br />
+							<div class="form-group" id="divEmail">
+								<label for="symptoms" class="col-lg-2 control-label">증상</label>
+								<div class="col-lg-12">
+									<textarea class="form-control" id="symptoms" name="symptoms"
+										data-rule-required="true"
+										placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000"></textarea>
+								</div>
+							</div>
+							<br />
+							<div class="form-group" id="divPasswordCheck">
+								<label for="fileinput" class="col-lg-2 control-label">첨부파일</label>
+								<div class="col-lg-12">
+									<input type="file" class="form-control" id="fileimg"
+										name="fileimg" accept="image/*">
+								</div>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button type="submit" class="btn btn-primary form-control">접수</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
 

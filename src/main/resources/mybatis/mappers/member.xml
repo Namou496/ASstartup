@@ -17,4 +17,11 @@
 		]]>
 	</select>
 	
+	<insert id="insertNewMember" parameterType="java.util.Map">
+		<![CDATA[
+ 			insert into MEMBER()
+ 			values()
+		]]>
+</insert>
+	
 </mapper>
