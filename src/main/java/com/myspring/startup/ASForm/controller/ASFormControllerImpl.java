@@ -57,41 +57,67 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			Enumeration enu = multipartRequest.getParameterNames();
 			while(enu.hasMoreElements()) {
 				String name=(String)enu.nextElement();
+//				System.out.println(name);
 				String value=multipartRequest.getParameter(name);
+//				System.out.println(value);
 				asformMap.put(name, value);
 			}
+			
+			//주소 합치는 부분 addr1 + addr2
+			String addr1 = null;
+			String addr2 = null;
+			for(String mapkey : asformMap.keySet()) {
+				if(mapkey.equals("addr1")) {
+					addr1 = (String) asformMap.get(mapkey);
+					System.out.println(addr1);
+				}else if(mapkey.equals("addr2")) {
+					addr2 = (String) asformMap.get(mapkey);
+					System.out.println(addr2);
+				}
+			}			
+			String addr = addr1 + " " + addr2;			
+			asformMap.put("addr", addr);
 			
 			String imageFileName = upload(multipartRequest);
 			HttpSession session = multipartRequest.getSession();
 			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+//			memberVO.setCuId("hong");
 			String id = memberVO.getCuId();
-			asformMap.put("CuId", id);
+			asformMap.put("cuId", id);
 			asformMap.put("imageFileName", imageFileName);
 			
-			System.out.println("여기로 오냐");
-			String message = null;
+			int asNo = (int)(Math.random()*5000);
+			asformMap.put("asNo", asNo);
+			
+//			System.out.println("여기로 오냐");
+//			System.out.println(memberVO.getCuId());
+//			System.out.println(multipartRequest.getParameter(imageFileName));
+			String message;
 			ResponseEntity resEntity = null;
 			HttpHeaders resHeaders = new HttpHeaders();
 			resHeaders.add("Content-Type", "text/html; charset=utf-8");
 			try {
-				asformService.addAsForm(asformVO);
+				int asNum = asformService.addAsForm(asformMap);
 				if(imageFileName!=null && imageFileName.length() != 0) {
 					File srcFile = new File(IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 					File destDir = new File(IMAGE_REPO + "\\" + id);
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+//					System.out.println("성공");
 				}
 				message = "<script>";
 				message += "alert('AS신청서 접수가 완료 되었습니다.');";
 				message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
 				message += " </script>";
+				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}catch(Exception e) {
 				message = "<script>";
 				message += "alert('접수 중 오류가 발생했습니다. 다시 시도해 주세요.');";
 				message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
 				message += " </script>";
+//				System.out.println("실패");
+				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 				e.printStackTrace();
-			}
-			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.OK);
+			}	
 			return resEntity;
 		}
 

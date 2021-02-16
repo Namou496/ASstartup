@@ -1,8 +1,7 @@
 package com.myspring.startup.ASForm.service;
 
-import com.myspring.startup.ASForm.vo.ASFormVO;
+import java.util.Map;
 
 public interface ASFormService {
-	public void addAsForm(ASFormVO asformVO) throws Exception;
-
+	public int addAsForm(Map<String, Object> asformMap);
 }

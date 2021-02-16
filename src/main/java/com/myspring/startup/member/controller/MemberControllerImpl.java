@@ -1,15 +1,24 @@
 package com.myspring.startup.member.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,6 +40,10 @@ public class MemberControllerImpl implements MemberController{
 		ModelAndView mav = new ModelAndView();
 //		member.setCuId("hong");
 //		member.setPw("12345");
+//		String message;
+//		ResponseEntity resEntity = null;
+//		HttpHeaders resHeaders = new HttpHeaders();
+//		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			memberVO = memberService.login(member);
 			if(memberVO != null) {
@@ -39,13 +52,18 @@ public class MemberControllerImpl implements MemberController{
 				session.setAttribute("isLogOn", true);
 				mav.setViewName("redirect:/ASForm/ASForm.do");
 			}else {
-				rAttr.addAttribute("result", "loginFailed");
+				mav.addObject("message", "로그인에 실패하였습니다. 아이디 및 비밀번호를 정확히 입력해 주세요.");
 				mav.setViewName("redirect:/member/login.do");
+//				message = "<script>";
+//				message += "alert('AS신청서 접수가 완료 되었습니다.');";
+//				message += " location.href='"+"/member/login.do';";
+//				message += " </script>";
+//				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}
 		}catch(Exception e){
 			mav.setViewName("/member/login");
-		}			
-		return mav;
+		}
+		return mav;			
 	}
 
 	@Override
@@ -66,16 +84,58 @@ public class MemberControllerImpl implements MemberController{
 	}
 
 	@Override
-	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/addMember.do", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public ResponseEntity addMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+		Map<String, Object> memberJoinMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name=(String)enu.nextElement();
+			String value=multipartRequest.getParameter(name);
+			memberJoinMap.put(name, value);
+		}
+		
+		String addr1 = null;
+		String addr2 = null;
+		for(String mapkey : memberJoinMap.keySet()) {
+			if(mapkey.equals("addr1")) {
+				addr1 = (String) memberJoinMap.get(mapkey);
+			}else if(mapkey.equals("addr2")) {
+				addr2 = (String) memberJoinMap.get(mapkey);
+			}
+		}
+		String addr = addr1 + " " + addr2;
+		memberJoinMap.put("addr", addr);
+		
+		String message;
+		ResponseEntity resEntity = null;
+		HttpHeaders resHeaders = new HttpHeaders();
+		resHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			memberService.addMember(memberJoinMap);
+			message = "<script>";
+			message += "alert('회원가입이 완료 되었습니다.');";
+			message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+		}catch(Exception e) {
+			message = "<script>";
+			message += "alert('회원가입이 실패헀습니다. 다시 시도해 주세요.');";
+			message += " location.href='"+multipartRequest.getContextPath()+"/member/join.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		
+		return resEntity;
+		
 	}
 
 	@Override
-	public ModelAndView removeMember(String id, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/join.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView joinPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/join");
+		return mav;
 	}
 }
