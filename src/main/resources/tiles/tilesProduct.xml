@@ -26,10 +26,5 @@
 		<definition name="/product/productApplyView" extends="baseLayout">
 			<put-attribute name="title" value="제품등록"/>
 			<put-attribute name="body" value="/WEB-INF/views/Product/productApply.jsp"/>
-		</definition>
-		<definition name="/product/productApply" extends="baseLayout">
-			<put-attribute name="title" value="제품등록 게시판 "/>
-			<put-attribute name="body" value="/WEB-INF/views/Product/productApply_board.jsp"/>
-		</definition>
-		
+		</definition>	
 	</tiles-definitions>

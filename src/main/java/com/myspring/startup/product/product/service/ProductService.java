@@ -9,7 +9,9 @@ public interface ProductService {
 	Map ProductList(Map pageMap, String memberId) throws Exception;
 	ProductVO ProductDetail(Map pageMap, String memberId) throws Exception;
 	Map searchProduct(Map searchMap, String memberId) throws Exception;
-	public void applyProduct(Map product, Map component) throws Exception;
 	List productGroup(String manufacturer) throws Exception;
+	String manufacName(String cuId) throws Exception;
+	public int applyProduct(String[] componentName, String[] componentPart, Map product) throws Exception;
+	List compoDetail(int productNo) throws Exception;
 
 }
