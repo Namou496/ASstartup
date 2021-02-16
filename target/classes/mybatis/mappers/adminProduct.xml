@@ -78,13 +78,12 @@
 		<![CDATA[
 		
 		update productApproval
-		set approvalstatus = #{approvalstatus}
+		set approvalStatus = #{approvalStatus} , rejectionReason=#{rejectionReasion}
 		where
-		productNo=#{productNo}
+		productNo=#{productNO}
 		
 		]]>
-
-
+		
 	</update>
 
 </mapper>

@@ -59,26 +59,19 @@ request.setCharacterEncoding("utf-8");
 
 		<table class="table">
 		
-		
-		
 			<thead>
 				<tr>
-
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">제품번호</th>
-					
 					<th scope="col" style="border-right: 1px solid #eee; width: 20%">제품명</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">분류</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인상태</th>
-
-
 
 				</tr>
 			</thead>
 			<tbody>
 				<c:choose>
 					<c:when test="${productList==null }">
-
 
 						<tr>
 							<td colspan=5 style="text-align: center"><b>등록 요청된 제품이
@@ -91,17 +84,13 @@ request.setCharacterEncoding("utf-8");
 		
 					
 						<c:forEach var="adminPro" items="${productList }">
-
 							<tr>
 								<th scope="row">${adminPro.productNO}</th>
-
 								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">${adminPro.name}</a></td>
 								<td>${adminPro.prodGroup}</td>
 								<td>${adminPro.approvalNum}</td>
 								<td>${adminPro.approvalStatus}</td>
-
 							</tr>
-
 						</c:forEach>
 
 					</c:when>

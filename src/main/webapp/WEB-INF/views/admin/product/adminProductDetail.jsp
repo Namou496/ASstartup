@@ -14,6 +14,7 @@ request.setCharacterEncoding("utf-8");
 
 <head>
 <meta charset="UTF-8">
+
 <title>제품상세</title>
 <!-- Bootstrap CSS -->
 <link
@@ -58,6 +59,24 @@ request.setCharacterEncoding("utf-8");
 	text-align: center;
 }
 </style>
+
+<script>
+function fn_adminApproval(productNO,approvalType){
+	var value;
+	var frm_adminApprival;
+		if(approvalType=='rejectionReason'){
+			value=;
+			
+		}else if(mod_type==''){
+			
+	}
+}
+
+
+</script>
+
+
+
 </head>
 
 <body>
@@ -87,7 +106,6 @@ request.setCharacterEncoding("utf-8");
 								<td id="td2" scope="row" colspan="1" name="productNO">${productDetail.productNO }</td>
 							</tr>
 							
-							
 							<tr>
 								<td id="td1" scope="row" colspan="1">제품명:</td>
 								<td id="td2" scope="row" colspan="1" name="productName">${productDetail.name }</td>
@@ -116,20 +134,22 @@ request.setCharacterEncoding("utf-8");
 					</c:when>
 				</c:choose>
 			</tbody>
-
-
 		</table>
 		<p></p>
+		
+		<form name="frm_adminApproval">
 		<div class="input-group"
 			style="width: 80%; text-align: center; margin: 0 auto;">
 			<span class="input-group-text">승인불가 사유</span>
-			<textarea class="form-control" aria-label="With textarea"></textarea>
+			<textarea class="form-control" aria-label="With textarea" name="rejectionReason" value=""></textarea>
 		</div>
 		<p></p>
 		<div class="approvalBtn">
-			<input class="btn btn-outline-primary" type="submit" value="승인">
-			<input class="btn btn-outline-primary" type="submit" value="승인불가">
+			<input class="btn btn-outline-primary" type="button" name="ok" value="승인" >
+			<input class="btn btn-outline-primary" type="button" name="no" value="승인불가">
 		</div>
+		</form>
+		
 		<p></p>
 	</div>
 
