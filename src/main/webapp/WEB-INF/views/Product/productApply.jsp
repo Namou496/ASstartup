@@ -57,9 +57,15 @@
       $("#component tr:last").remove();
     };
     
-    function nextPage(){
-    	document.getElementById('frmProductApply').submit();
-    };
+	function readURL(input){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+			$('#preview').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
 	</script>
 <style>
     #td1{width: 50%; text-align: right;padding-right: 30px;}
@@ -107,7 +113,10 @@
                 </tr>
                 <tr> 
                     <td id="td1" scope="row">이미지:</td>
-                    <td id="td2" scope="row"><input type="file" name="productImage"></td>
+                    <td id="td2" scope="row">
+                    <img id="preview" src="#">
+                    <input type="file" name="productImage" onchange="readURL(this);"/>
+                    </td>
                 </tr>
                 <tbody id="component">
 	                <tr> 

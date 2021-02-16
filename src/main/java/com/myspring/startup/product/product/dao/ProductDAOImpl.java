@@ -36,14 +36,11 @@ public class ProductDAOImpl implements ProductDAO{
 			@Override
 			public ProductVO selectProductDetail(Map pageMap) throws Exception{
 				ProductVO proVO = new ProductVO();
-				System.out.println("제품상세 pageMap: " + pageMap.get("pageNum"));
 				proVO = sqlSession.selectOne("mapper.Product.selectProductDetail", pageMap);
-				System.out.println("제품상세 pageMap: " + pageMap.get("pageNum"));
 				return proVO;
 			}
 			@Override
 			public List selectCompo(int productNo) throws Exception{
-				System.out.println("componentList DAO");
 				List componentList = new ArrayList();
 				componentList = sqlSession.selectList("mapper.Product.selectCompo", productNo);
 				return componentList;
@@ -53,7 +50,6 @@ public class ProductDAOImpl implements ProductDAO{
 			public List<ProductVO> searchProduct(Map searchMap) throws Exception{
 				List productList = new ArrayList<ProductVO>();
 				productList = (ArrayList)sqlSession.selectList("mapper.Product.searchProduct", searchMap);
-				System.out.println("productList.size():" + productList.size());
 				return productList;
 			}
 			@Override
@@ -81,8 +77,6 @@ public class ProductDAOImpl implements ProductDAO{
 		//	4-3)제품등록
 			@Override
 			public void insertProduct(Map product) throws DataAccessException{
-				System.out.println("product.size:: " + product.size());
-				System.out.print("product:: " + product.toString() + ", ");
 				sqlSession.insert("mapper.Product.insertProduct", product);
 
 			}
@@ -108,7 +102,6 @@ public class ProductDAOImpl implements ProductDAO{
 			public int selectUserRight(MemberVO memberVO) throws Exception{
 				String cuid = memberVO.getCuId();
 				int userRight = sqlSession.selectOne("mapper.Product.selectUserRight", cuid);
-				System.out.println("userRight:"+userRight);
 				return userRight;
 			}
 }

@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</select>
 		<select id="selectCompo" resultType="ProductVO" parameterType="int">
 			<![CDATA[
-				select componentNo, productNo, componentName, price, part from component
+				select componentNo, productNo, name, price, part from component
 				where productNo=#{productNo}
 			]]>
 		</select>
@@ -128,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        	  INTO component(
 											componentNo, 
 											productNo, 
-											componentName, 
+											name, 
 											price, 
 											part
 											)

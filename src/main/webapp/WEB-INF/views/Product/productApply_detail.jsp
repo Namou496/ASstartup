@@ -44,7 +44,7 @@
                         
 <!--                       제품이미지 jpg 파일을 보여준다.(기능구현)              -->
                         <div id="product_image">
-                        <a href="#"><img src="img/as.png"></a></div>
+                        <a href="#"><img src="${contextPath}/download?productName=${product.productName }&productImage=${product.productImage}&filePart=3"></a></div>
                     </td>
                 </tr>
                 <tr>
