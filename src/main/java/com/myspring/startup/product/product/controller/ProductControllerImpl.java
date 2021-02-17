@@ -36,7 +36,7 @@ public class ProductControllerImpl implements ProductController{
 	@Autowired
 	private ProductVO ProductVO;
 	
-//	1) 제품리스트(페이징)
+//	1) �젣�뭹由ъ뒪�듃(�럹�씠吏�)
 	@Override
 	@RequestMapping(value="/Product/listProduct.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView listProduct(HttpServletRequest request, 
@@ -44,7 +44,7 @@ public class ProductControllerImpl implements ProductController{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		System.out.println("gd");
-		String memberId = "park";  //테스트용
+		String memberId = "park";  //�뀒�뒪�듃�슜
 		//123123123
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
@@ -62,12 +62,12 @@ public class ProductControllerImpl implements ProductController{
 		pageMap.put("pageNum", pageNum);
 		
 
-		Map productMap= ProductService.ProductList(pageMap, memberId);
+		Map productMap = ProductService.ProductList(pageMap, memberId);
 		productMap.put("section", section);
 		productMap.put("pageNum", pageNum);
 		
 		
-//		테스트 중
+//		�뀒�뒪�듃 以�
 		System.out.println("section:" + section);
 		System.out.println("pageNum:" + pageNum);
 		System.out.println("productList.size()"+productMap.size());
@@ -75,7 +75,7 @@ public class ProductControllerImpl implements ProductController{
 			System.out.println("productList:" + productMap.get(i));
 		}
 		System.out.println("memberId:" + memberId);
-//		테스트 중
+//		�뀒�뒪�듃 以�
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("productMap", productMap);
@@ -83,7 +83,7 @@ public class ProductControllerImpl implements ProductController{
 		return mav;
 		
 	}
-//	2) 제품상세
+//	2) �젣�뭹�긽�꽭
 	@Override
 	@RequestMapping(value="/Product/ProductDetail.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView ProductDetail(HttpServletRequest request, 
@@ -122,30 +122,30 @@ public class ProductControllerImpl implements ProductController{
 		mav.setViewName("/product/productApplyDetail");
 		return mav;
 	}
-//	3) 제품검색
+//	3) �젣�뭹寃��깋
 	@Override
 	@RequestMapping(value="/Product/selectManufacturer.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public void selectAjaxManufacName(HttpServletRequest req, HttpServletResponse res, String param) 
 	throws Exception{
 			   res.setCharacterEncoding("UTF-8");
 			   
-			   // 도 정보 받음
+			   // �룄 �젙蹂� 諛쏆쓬
 			   String manufacName = param;
-			   System.out.println("하이");
+			   System.out.println("�븯�씠");
 			   System.out.println("manufacturer:" + manufacName);
-			   // 알맞은 동적 select box info 생성
+			   // �븣留욎� �룞�쟻 select box info �깮�꽦
 			   List groupList = new ArrayList();
-			   System.out.println("하이");
+			   System.out.println("�븯�씠");
 			   groupList = ProductService.productGroup(manufacName);
-			   System.out.println("하이");
-			   // jsonArray에 추가
+			   System.out.println("�븯�씠");
+			   // jsonArray�뿉 異붽�
 			   JSONArray jsonArray = new JSONArray();
 			   for (int i = 0; i < groupList.size(); i++) {
 			      jsonArray.add(groupList.get(i));
 			      System.out.println("groupList:" + groupList.get(i));
 			   }
 			 
-			   // jsonArray 넘김
+			   // jsonArray �꽆源�
 			   PrintWriter pw = res.getWriter();
 			   pw.print(jsonArray.toString());
 			   pw.flush();
@@ -160,14 +160,14 @@ public class ProductControllerImpl implements ProductController{
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-//		테스트
-		String memberId = "park";  //테스트용
+//		�뀒�뒪�듃
+		String memberId = "park";  //�뀒�뒪�듃�슜
 		//123123123
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
 		int section = Integer.parseInt(((_section == null)? "1" : _section));
 		int pageNum = Integer.parseInt(((_pageNum == null)? "1" : _pageNum));
-//		테스트
+//		�뀒�뒪�듃
 		String productGroup = request.getParameter("productGroup");
 		String manufacName = request.getParameter("manufacName");
 		String productName = request.getParameter("productName");
@@ -195,7 +195,7 @@ public class ProductControllerImpl implements ProductController{
 		searchMap.put("manufacName", manufacName);
 		searchMap.put("productName", productName);
 		Map productMap = ProductService.searchProduct(searchMap, memberId);
-//		테스트 중
+//		�뀒�뒪�듃 以�
 		System.out.println("section:" + section);
 		System.out.println("pageNum:" + pageNum);
 		for(int i = 0; i < productMap.size(); i++) {
@@ -203,7 +203,7 @@ public class ProductControllerImpl implements ProductController{
 		}
 		System.out.println("memberId:" + memberId);
 		System.out.println("productMap.size():" + productMap.size());
-//		테스트 중
+//		�뀒�뒪�듃 以�
 		
 		productMap.put("section", section);
 		productMap.put("pageNum", pageNum);
@@ -214,8 +214,8 @@ public class ProductControllerImpl implements ProductController{
 		return mav;
 		
 	}
-//	4) 제품등록(미완)
-	//	Fileupload부분이 필요하다.
+//	4) �젣�뭹�벑濡�(誘몄셿)
+	//	Fileupload遺�遺꾩씠 �븘�슂�븯�떎.
 	@Override
 	@RequestMapping(value="/Product/applyProductView.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView applyProduct(HttpServletRequest request, 
