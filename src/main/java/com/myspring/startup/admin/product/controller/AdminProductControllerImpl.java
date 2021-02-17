@@ -59,28 +59,28 @@ public class AdminProductControllerImpl implements AdminProductController {
 		
 		//제품승인 및 거절
 		@Override
-		@ResponseBody
 		@RequestMapping(value = "/admin/product/adminProductApproval.do", method = {RequestMethod.GET, RequestMethod.POST })
-		public HashMap<String, String> adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception{
-			HashMap<String,String> approvalMap=new HashMap<String,String>();
+		public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception{
 			
-			String val[]=null;
-			String productNO=request.getParameter("productNO");
-			String approvalType=request.getParameter("approvalType");
-			String value =request.getParameter("value");
-			if(approvalType.equals("rejectionReason")){
-				approvalMap.put("rejectionReason",val[0]);
-				
-			}else if(approvalType.equals("ok")) {
-				approvalMap.put("",)
-			}
+			int productNO=Integer.parseInt(request.getParameter("productNO"));
+			int approvalStatus=Integer.parseInt(request.getParameter("approvalStatus"));
+			String rejectionReason=request.getParameter("rejectionReason");
 			
-			return approvalMap;
+			AdminProductVO adminProductVO=new AdminProductVO();
+
+			adminProductVO.setProductNO(productNO);
+			adminProductVO.setApprovalStatus(approvalStatus);
+			adminProductVO.setRejectionReason(rejectionReason);
+			
+			adminProductService.AdminProductApproval(adminProductVO);
+			
+			ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
+			
+			return mav;
 			
 		}
 		
 		
-	
 		//제품명으로검색
 		
 		@Override
@@ -93,8 +93,5 @@ public class AdminProductControllerImpl implements AdminProductController {
 			return mav;
 		
 		} 
-		
-		
-
 
 }

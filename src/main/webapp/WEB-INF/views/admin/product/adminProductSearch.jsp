@@ -46,7 +46,7 @@ request.setCharacterEncoding("utf-8");
 			<div style="margin-left: 25%">
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
-				<option selected>--선택--</option>
+				<option selected>선택</option>
 				<option value="name">제품명</option>
 				<option value="1">제조사명</option>
 				<option value="productNO">제품번호</option>

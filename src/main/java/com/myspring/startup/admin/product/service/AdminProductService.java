@@ -13,4 +13,6 @@ public interface AdminProductService {
 
 	public List<AdminProductVO> AdminProductSearch(String name);
 
+	public void AdminProductApproval(AdminProductVO adminProductVO);
+
 }

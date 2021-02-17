@@ -17,25 +17,21 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 	@Autowired
 	private SqlSession sqlSession;
 
+//	제품승인요청리스트
 	@Override
 	public List<AdminProductVO> selectProductApprovalList() throws DataAccessException {
 		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList");
 		return productList;
 	}
 	
+//	제품상세
 	@Override
 	public AdminProductVO selectProductApprovalDetail(int productNO) throws DataAccessException {
 		return sqlSession.selectOne("mapper.adminProduct.selectProductApprovalDetail",productNO);
 		
 	}
 	
-//	@Override
-//	public List<AdminProductVO> selectByProduct(String name) throws DataAccessException {
-//		List<AdminProductVO> searchList= sqlSession.selectList("mapper.adminProduct.selectByProduct",name);
-//		return searchList;
-//		
-//	}
-	
+//	제품검색
 	@Override
 	public ArrayList selectByProduct(String name) throws DataAccessException {
 		ArrayList List= (ArrayList)sqlSession.selectList("mapper.adminProduct.selectByProduct",name);
@@ -43,6 +39,13 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 		
 	}
 	
+//	제품승인거절
+	@Override
+	public void updateProductApprovalStatus(AdminProductVO adminProductVO) throws DataAccessException {
+		sqlSession.update("mapper.adminProduct.updateProductApprovalStatus",adminProductVO);
+		
+	}
 	
+
 }
 

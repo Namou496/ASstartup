@@ -60,21 +60,6 @@ request.setCharacterEncoding("utf-8");
 }
 </style>
 
-<script>
-function fn_adminApproval(productNO,approvalType){
-	var value;
-	var frm_adminApproval;
-		if(approvalType=='rejectionReason'){
-			value=frm_adminApproval.RejectionReason;
-			
-		}else if(approvalType==''){
-			
-	}
-}
-
-
-</script>
-
 
 
 </head>
@@ -137,7 +122,7 @@ function fn_adminApproval(productNO,approvalType){
 		</table>
 		<p></p>
 		
-		<form name="frm_adminApproval">
+		
 		<div class="input-group"
 			style="width: 80%; text-align: center; margin: 0 auto;">
 			<span class="input-group-text">승인불가 사유</span>
@@ -145,10 +130,16 @@ function fn_adminApproval(productNO,approvalType){
 		</div>
 		<p></p>
 		<div class="approvalBtn">
-			<input class="btn btn-outline-primary" type="button" name="ok" value="승인" >
-			<input class="btn btn-outline-primary" type="button" name="no" value="승인불가">
-		</div>
+		<form>
+			<input name="approvalStatus" type="hidden" value="1">
+			<input name="approvalStatus" type="hidden" value="2">
+			
+<%-- 			<button class="btn btn-outline-primary" name="approvalStatus" ><a href="${contextPath}/admin/product/adminProductApproval.do?approvalStatus=1&productNO=${productDetail.productNO}&rejectionReason=${}">승인</a></button> --%>
+<%-- 			<button class="btn btn-outline-primary" name="approvalStauts" ><a href="${contextPath}/admin/product/adminProductApproval.do?approvalStatus=2">승인불가</a></button> --%>
+			
 		</form>
+			
+		</div>
 		
 		<p></p>
 	</div>

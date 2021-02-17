@@ -21,8 +21,11 @@ public interface AdminProductController {
 	public ModelAndView adminProductSearch(String name, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
 
-//제품승인거절
-	HashMap<String, String> adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	//제품승인거절
+	
+	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	
 
 	
 	

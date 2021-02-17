@@ -72,13 +72,12 @@
 
 
 	<!-- 승인여부 업데이트 -->
-	<update id="updateProductApprovalStatus"
-		parameterType="java.util.Map">
+	<update id="updateProductApprovalStatus" parameterType="AdminProductVO">
 
 		<![CDATA[
 		
 		update productApproval
-		set approvalStatus = #{approvalStatus} , rejectionReason=#{rejectionReasion}
+		set approvalStatus = #{approvalStatus} , rejectionReason=#{rejectionReason}
 		where
 		productNo=#{productNO}
 		
