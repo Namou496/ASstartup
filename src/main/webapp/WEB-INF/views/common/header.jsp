@@ -47,7 +47,13 @@
 			$('.loginBtn').click(function(){
 				var url=contextPath+'/member/login.do';
 				location.href=url;
-			})
+			});
+			
+			$('.logoutBtn').click(function(){
+				var url=contextPath+'/member/logout.do';
+				location.href=url;
+			});
+			
 		});
 	</script>
 
@@ -100,9 +106,14 @@
 		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 리스트</a>
 		                                        </li>
 		                                    </ul>
-		                                    <c:if test="${uNo==0}">
-		                                    	<button class="loginBtn btn-outline-success" type="button">로그인</button>
-		                                    </c:if>
+		                                    <c:choose>
+			                                    <c:when test="${uNo==0}">
+			                                    	<button class="loginBtn btn-outline-success" type="button">로그인</button>
+			                                    </c:when>
+			                                    <c:when test="${uNo != 0}">
+			                                    	<button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
+			                                    </c:when>
+		                                    </c:choose>
 		                                </div>
 		                            </div>
 	                            </c:when>
@@ -134,6 +145,7 @@
 		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 리스트</a>
 		                                        </li>
 		                                    </ul>
+		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
 		                                </div>
 		                            </div>
 	                            </c:when>
@@ -168,8 +180,9 @@
 		                                        <li class="nav-item">
 		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
 		                                        </li>
-
 		                                    </ul>
+		                                    
+		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
 		                                </div>
 		                            </div>
 	                            </c:when>
@@ -205,8 +218,9 @@
 		                                        <li class="nav-item">
 		                                            <a class="nav-link actionBtn" href="/admin/satisfaction/adminSatisfactionList.do">소비자만족도확인</a>
 		                                        </li>
-
 		                                    </ul>
+		                                    
+		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
 		                                </div>
 		                            </div>
 	                            </c:when>
