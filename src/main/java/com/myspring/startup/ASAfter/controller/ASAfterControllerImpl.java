@@ -1,8 +1,6 @@
 package com.myspring.startup.ASAfter.controller;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
