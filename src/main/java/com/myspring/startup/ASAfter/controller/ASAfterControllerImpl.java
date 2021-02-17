@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.startup.ASAfter.service.ASAfterService;
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
-import com.myspring.startup.ASBefore.vo.TestMemberVO;
 
 @Controller("ASAfterController")
 

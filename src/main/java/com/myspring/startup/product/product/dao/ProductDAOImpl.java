@@ -36,17 +36,20 @@ public class ProductDAOImpl implements ProductDAO{
 			@Override
 			public ProductVO selectProductDetail(Map pageMap) throws Exception{
 				ProductVO proVO = new ProductVO();
-				System.out.println("제품상세 pageMap: " + pageMap.get("pageNum"));
 				proVO = sqlSession.selectOne("mapper.Product.selectProductDetail", pageMap);
-				System.out.println("제품상세 pageMap: " + pageMap.get("pageNum"));
 				return proVO;
+			}
+			@Override
+			public List selectCompo(int productNo) throws Exception{
+				List componentList = new ArrayList();
+				componentList = sqlSession.selectList("mapper.Product.selectCompo", productNo);
+				return componentList;
 			}
 		//	3)제품검색
 			@Override
 			public List<ProductVO> searchProduct(Map searchMap) throws Exception{
 				List productList = new ArrayList<ProductVO>();
 				productList = (ArrayList)sqlSession.selectList("mapper.Product.searchProduct", searchMap);
-				System.out.println("productList.size():" + productList.size());
 				return productList;
 			}
 			@Override
@@ -60,7 +63,12 @@ public class ProductDAOImpl implements ProductDAO{
 				int productNo = sqlSession.selectOne("mapper.Product.selectRecentProd");
 				return productNo;
 			}
-		//  4-2)부품등록-최신 번호 가져오기
+//* 제조사 이름 가져오기
+			@Override
+			public String manufacName(String cuId) throws Exception{
+				return sqlSession.selectOne("mapper.Product.manufacName", cuId);
+			}
+			//  4-2)부품등록-최신 번호 가져오기
 			@Override
 			public int selectRecentCompo() throws Exception{
 				int componentNo = sqlSession.selectOne("mapper.Product.selectRecentCompo");
@@ -68,18 +76,20 @@ public class ProductDAOImpl implements ProductDAO{
 			}
 		//	4-3)제품등록
 			@Override
-			public void insertProduct(Map product) throws Exception{
+			public void insertProduct(Map product) throws DataAccessException{
 				sqlSession.insert("mapper.Product.insertProduct", product);
+
 			}
 		//	4-4)부품등록
 			@Override
-			public void insertComponent(Map component) throws Exception{
-				sqlSession.insert("mapper.Product.insertComponent", component);
+			public void insertComponent(List componentList) throws Exception{
+				System.out.println("componentList::" + componentList.toString());
+				sqlSession.insert("mapper.Product.insertComponent", componentList);
 			}
 		//	4-5)제품 승인등록- 최신번호 가져오기
 			@Override
 			public int selectRecentApprNum() throws Exception{
-				int approvalNum = sqlSession.selectOne("mapper.Product.selectRecentApply");
+				int approvalNum = sqlSession.selectOne("mapper.Product.selectRecentApprNum");
 				return approvalNum;
 			}
 		//  4-6)제품 승인등록		
@@ -92,7 +102,6 @@ public class ProductDAOImpl implements ProductDAO{
 			public int selectUserRight(MemberVO memberVO) throws Exception{
 				String cuid = memberVO.getCuId();
 				int userRight = sqlSession.selectOne("mapper.Product.selectUserRight", cuid);
-				System.out.println("userRight:"+userRight);
 				return userRight;
 			}
 }

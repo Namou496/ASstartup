@@ -33,7 +33,7 @@
 <%-- 		<tiles:insertAttribute name="side" /> --%>
 <!-- 	</aside> -->
 
-	<div class="container">
+	<div class="container" style="padding-bottom: 160px;">
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>
@@ -41,7 +41,11 @@
 	</div>
 
 	<div class="container-fluid">
-		<footer>
+		<footer style="position: fixed;
+			    bottom: 0;
+			    width: 98%;
+			    margin: 0 auto;"
+		>
 			<tiles:insertAttribute name="footer" />
 		</footer>
 	</div>
