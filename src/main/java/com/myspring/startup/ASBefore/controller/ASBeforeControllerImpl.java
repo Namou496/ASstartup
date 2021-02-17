@@ -63,8 +63,6 @@ public class ASBeforeControllerImpl implements ASBeforeController{
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member); //end:테스트 종료후 삭제
 		
-		TestMemberVO memberVO=(TestMemberVO)session.getAttribute("member");
-		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("/ASBefore/listASBefore");
@@ -84,12 +82,12 @@ public class ASBeforeControllerImpl implements ASBeforeController{
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		TestMemberVO member=(TestMemberVO)session.getAttribute("member");
 		
-		String cuid = member.getCuid();
+		String cuId = member.getCuid();
 		int uNo = member.getuNo();
 		int sta = Integer.parseInt(request.getParameter("sta"));
 		
 		requestMap.put("uNo", uNo);
-		requestMap.put("cuid", cuid);
+		requestMap.put("cuId", cuId);
 		requestMap.put("sta", sta);
 		
 		int paging = ASbeforeService.countASBeforeList(requestMap);
@@ -113,13 +111,13 @@ public class ASBeforeControllerImpl implements ASBeforeController{
 		
 		TestMemberVO member=(TestMemberVO)session.getAttribute("member");
 		
-		String cuid = member.getCuid();
+		String cuId = member.getCuid();
 		int uNo = member.getuNo();
 		int inSta = Integer.parseInt(request.getParameter("sta"));
 
 		Map<String,Object> requestMap = new HashMap<String, Object>();
 		
-		requestMap.put("cuid", cuid);
+		requestMap.put("cuId", cuId);
 		requestMap.put("uNo", uNo);
 		requestMap.put("sta", inSta);
 		
@@ -182,20 +180,17 @@ public class ASBeforeControllerImpl implements ASBeforeController{
 	public ModelAndView viewASBefore(
 			HttpServletRequest request, 
 			HttpServletResponse response, 
-			@RequestParam("asno") int asno, 
-			@RequestParam("sta") int sta
+			@RequestParam("asno") int asno
 	)throws Exception {
 		Map<String, Object> requestMap = new HashMap<String, Object>();
 		
 		requestMap.put("asno", asno);
-		requestMap.put("sta",sta);
 		
-		ASBeforeVO ASbefore=ASbeforeService.viewASBefore(requestMap);
+		Map<String,Object> ASbeforeMap=ASbeforeService.viewASBefore(requestMap);
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("ASbefore", ASbefore);
-		mav.addObject("sta", sta);
+		mav.addObject("ASbeforeMap", ASbeforeMap);
 		
 		mav.setViewName("/ASBefore/viewASBefore");
 		
@@ -283,13 +278,15 @@ public class ASBeforeControllerImpl implements ASBeforeController{
 		try {
 			ASbeforeService.addASBefore(requestMap);
 			message="<script>"
-					+ "alert('처리완료');"
-					+ "location.href='"+request.getContextPath()+"/ASBefore/viewASBefore.do?asno"+asno+"&str=3';";
+						+ "alert('처리완료');"
+						+ "location.href='"+request.getContextPath()+"/ASBefore/viewASBefore.do?asno="+asno+"';"
+					+"</script>";
 		}catch(Exception e) {
 			e.printStackTrace();
 			message="<script>"
-					+ "alert('처리에실패했습니다. 사이트 관리자에게문의하세요.');"
-					+ "location.href='"+request.getContextPath()+"/ASBefore/viewASBefore.do?asno"+asno+"&str=2";
+						+ "alert('처리에실패했습니다. 사이트 관리자에게문의하세요.');"
+						+ "location.href='"+request.getContextPath()+"/ASBefore/viewASBefore.do?asno="+asno+"&sta=2';"
+					+"</script>";
 		}
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
