@@ -1,6 +1,8 @@
 package com.myspring.startup.ASAfter.controller;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,7 +91,8 @@ public class ASAfterControllerImpl implements ASAfterController {
 	@RequestMapping(value="/ASAfter/insertASrespond.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@Override
 	public ModelAndView insertASrespond(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Date respdate = (Date)request.getAttribute("respDate");
+
+		Date respdate = (Date) request.getAttribute("respDate");
 		int asno = Integer.parseInt(request.getParameter("asno"));
 		String cuid = request.getParameter("cuId");
 		
