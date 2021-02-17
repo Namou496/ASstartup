@@ -1,5 +1,6 @@
 package com.myspring.startup.ASBefore.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,17 +39,24 @@ public class ASBeforeServiceImpl implements ASBeforeService{
 	}
 	
 	@Override
-	public ASBeforeVO viewASBefore(Map<String, Object> requestMap) throws Exception {
+	public Map<String,Object> viewASBefore(Map<String, Object> requestMap) throws Exception {
+		Map<String,Object> ASBefore = new HashMap<String, Object>(); 
+		
 		ASBeforeVO vo = ASbeforeDAO.selectASBeforeView(requestMap);
 		
-		Integer sta= (Integer)requestMap.get("sta");
+		Integer sta= vo.getSta();
 		
 		if(sta==2) {
 			int serviceCost=ASbeforeDAO.selectCost();
 			vo.setServiceCost(serviceCost);
+		}else{
+			int asno=vo.getAsno();
+			List<ASBeforeRepearPartVO> RepearPartList = ASbeforeDAO.selectASBeofreRepearPartList(asno);
+			ASBefore.put("repearPartList", RepearPartList);
 		}
+		ASBefore.put("ASbefore", vo);
 		
-		return vo;
+		return ASBefore;
 		
 	}
 	
