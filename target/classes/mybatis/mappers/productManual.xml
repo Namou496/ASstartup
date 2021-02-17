@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="approvalStatus" column="approvalStatus"/> <!-- appr.approvalstatus -->
 		<result property="approvalNum" column="approvalNum"/> <!-- appr.approvalnum -->
 		
-<!-- 				member		 		-->
+<!-- 				member		 	a	-->
 		<result property="manufacName" column="manufacName"/> <!-- m.name -->
 		<result property="uno" column="uno"/> <!-- mb.uno -->
 		<result property="cuId" column="cuId"/>

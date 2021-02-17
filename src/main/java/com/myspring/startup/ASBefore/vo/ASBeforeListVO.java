@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
-@Component("ASbeforeListVO")
+@Component("ASBeforeListVO")
 public class ASBeforeListVO {
 	private int asno;
 	private String name;

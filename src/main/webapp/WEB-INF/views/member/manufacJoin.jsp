@@ -282,38 +282,27 @@
                         </div>
                         <br />
                         <div class="form-group">
-                            <h5><label for="inputPhoneNumber" class="col-lg-2 control-label">이용자 구분</label></h5>
-                            <div class="col-lg-10">
-                                <label class="radio-inline">
-                                    <input type="radio" id="smsReceiveYn" name="smsReceiveYn" value="Y" checked> A/S이용자
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" id="smsReceiveYn" name="smsReceiveYn" value="N"> 수리기사
-                                </label>
-                            </div>
-                        </div>
                         <div class="form-group" id="divId">
                             <label for="inputId" class="col-lg-2 control-label">아이디*</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control onlyAlphabetAndNumber" id="id" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
+                                <input type="text" class="form-control onlyAlphabetAndNumber" id="cuId"  name="cuId" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
                             </div>
                         </div>
                         <div class="form-group" id="divPassword">
                             <label for="inputPassword" class="col-lg-2 control-label">비밀번호*</label>
                             <div class="col-lg-10">
-                                <input type="password" class="form-control" id="password" name="excludeHangul" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
+                                <input type="password" class="form-control" id="password" name="pw" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
                             </div>
                         </div>
-                        <div class="form-group" id="divPasswordCheck">
+                       	<div class="form-group" id="divPasswordCheck">
                             <label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호 확인*</label>
                             <div class="col-lg-10">
-                                <input type="password" class="form-control" id="passwordCheck" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
-                            </div>
+                                <input type="password" class="form-control" id="pw_re" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
                         </div>
                         <div class="form-group" id="divName">
                             <label for="inputName" class="col-lg-2 control-label">제조사명*</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                                <input type="text" class="form-control onlyHangul" id="name" name="manufacName" data-rule-required="true" placeholder="제조사명" maxlength="15">
                             </div>
                         </div>
 
@@ -322,6 +311,19 @@
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" id="sample5_address" data-rule-required="true" placeholder="--" maxlength="15">
                                 <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="divName">
+                            <label for="inputName" class="col-lg-2 control-label">담당자*</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control onlyHangul" id="officer" name="officer" data-rule-required="true" placeholder="담당자 이름을 입력해주세요." maxlength="15">
+                            </div>
+                        </div>
+                        <div class="form-group" id="divName">
+                            <label for="inputName" class="col-lg-2 control-label">전화번호*</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control onlyHangul" id="tel" name="tel" data-rule-required="true" placeholder="'-'빼고 입력해주세요." maxlength="15">
                             </div>
                         </div>
                     </div>
