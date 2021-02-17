@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myspring.startup.ASAfter.vo.ASrespondVO;
-
 public interface ASAfterController {
 
 	public ModelAndView selectASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception;
