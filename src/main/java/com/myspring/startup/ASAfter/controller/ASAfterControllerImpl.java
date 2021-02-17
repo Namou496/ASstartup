@@ -1,12 +1,12 @@
 package com.myspring.startup.ASAfter.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.startup.ASAfter.service.ASAfterService;
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
-import com.myspring.startup.ASBefore.vo.TestMemberVO;
+import com.myspring.startup.ASAfter.vo.ASrespondVO;
+import com.myspring.startup.member.vo.MemberVO;
 
 @Controller("ASAfterController")
 
@@ -33,7 +34,14 @@ public class ASAfterControllerImpl implements ASAfterController {
 	@RequestMapping(value="/ASAfter/selectASAfterList.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView selectASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<ASAfterVO> list = ASAfterService.selectASAfterList();
+		// 로그인 가정
+		MemberVO memberVO = new MemberVO();
 		
+		memberVO.setCuId("hong");
+		memberVO.setuNo(2);
+		HttpSession session = request.getSession();
+		session.setAttribute("member", memberVO);
+		//
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ASAfterList", list);
 		mav.setViewName("/ASAfter/listASAfter");
@@ -72,8 +80,30 @@ public class ASAfterControllerImpl implements ASAfterController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ASAfterView", detaillist);
+		mav.addObject("asno",asno);
 		mav.setViewName("/ASAfter/detailListASAfter");
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/ASAfter/insertASrespond.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@Override
+	public ModelAndView insertASrespond(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Date respdate = (Date)request.getAttribute("respDate");
+		int asno = Integer.parseInt(request.getParameter("asno"));
+		String cuid = request.getParameter("cuId");
+		
+		ASrespondVO insertresp = new ASrespondVO();
+		
+		insertresp.setRespDate(respdate);
+		insertresp.setAsNo(asno);
+		insertresp.setCuId(cuid);
+		
+		ASAfterService.insertASrespond(insertresp);
+		
+		ModelAndView mav = new ModelAndView("redirect:/selectASAfterList.do");
+		
+		return mav;
+	}
+	
 }

@@ -56,11 +56,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where a.cuid = c.cuid and m.cuid = p.cuid and a.productno = p.productno and a.asno = #{asno}
 		]]>
 	</select>
-	<!-- AS상세 리스트 등록 -->
-<!--  	<insert id="insertASAfterListDetail" parameterType="ASAfterListDetail">
+	<!-- AS상세 리스트 승인 등록 -->
+	  <insert id="insertASrespond" parameterType="ASrespondVO">
 		<![CDATA[
-				
+			insert into asrespond(asNo, respDate, cuId)
+			values(#{asNo}, #{respDate}, #{cuId})
 		]]>
-	</insert> -->
+	</insert>
 
 </mapper>
