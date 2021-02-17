@@ -191,4 +191,14 @@ public class ManualControllerImpl implements ManualController{
 		
 	}
 	
+	
+	@RequestMapping(value="/member/manufacJoinView.do", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView manufacJoinView(HttpServletRequest request, 
+										HttpServletResponse response) throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/manufacJoin");
+		return mav;
+	}
+	
 }
