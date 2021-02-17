@@ -65,8 +65,8 @@ public class AdminProductControllerImpl implements AdminProductController {
 			HashMap<String,String> approvalMap=new HashMap<String,String>();
 			
 			String val[]=null;
-			String member_id=request.getParameter("productNO");
-			String mod_type=request.getParameter("approvalType");
+			String productNO=request.getParameter("productNO");
+			String approvalType=request.getParameter("approvalType");
 			String value =request.getParameter("value");
 			if(approvalType.equals("rejectionReason")){
 				val=value.split(",");

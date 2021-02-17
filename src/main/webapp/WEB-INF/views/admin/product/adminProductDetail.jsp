@@ -63,9 +63,9 @@ request.setCharacterEncoding("utf-8");
 <script>
 function fn_adminApproval(productNO,approvalType){
 	var value;
-	var frm_adminApprival;
+	var frm_adminApproval;
 		if(approvalType=='rejectionReason'){
-			value=;
+			value=frm_adminApproval.RejectionReason;
 			
 		}else if(mod_type==''){
 			
