@@ -50,7 +50,7 @@ public class MemberControllerImpl implements MemberController{
 				HttpSession session = request.getSession();
 				session.setAttribute("member",  memberVO);
 				session.setAttribute("isLogOn", true);
-				mav.setViewName("redirect:/ASForm/ASForm.do");
+				mav.setViewName("redirect:/main/main.do");
 			}else {
 				mav.addObject("message", "로그인에 실패하였습니다. 아이디 및 비밀번호를 정확히 입력해 주세요.");
 				mav.setViewName("redirect:/member/login.do");
