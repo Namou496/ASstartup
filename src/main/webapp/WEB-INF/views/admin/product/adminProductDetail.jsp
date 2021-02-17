@@ -67,7 +67,7 @@ function fn_adminApproval(productNO,approvalType){
 		if(approvalType=='rejectionReason'){
 			value=frm_adminApproval.RejectionReason;
 			
-		}else if(mod_type==''){
+		}else if(approvalType==''){
 			
 	}
 }

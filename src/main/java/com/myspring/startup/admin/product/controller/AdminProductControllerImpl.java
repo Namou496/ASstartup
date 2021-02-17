@@ -69,9 +69,10 @@ public class AdminProductControllerImpl implements AdminProductController {
 			String approvalType=request.getParameter("approvalType");
 			String value =request.getParameter("value");
 			if(approvalType.equals("rejectionReason")){
-				val=value.split(",");
 				approvalMap.put("rejectionReason",val[0]);
 				
+			}else if(approvalType.equals("ok")) {
+				approvalMap.put("",)
 			}
 			
 			return approvalMap;
