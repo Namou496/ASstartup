@@ -27,5 +27,6 @@ public interface ASBeforeDAO{
 	public List<ASBeforeListVO> selectASBeforeListAjax(Map<String,Object> requestMap) throws DataAccessException;
 	/*ajax 부품리스트 호출*/
 	public List<ASBeforeRepearPartVO> selectRepearPartListAjax(Map<String,Object> requestMap)throws DataAccessException;
-	
+	/*처리완료된 소모품 리스트 호출*/
+	public List<ASBeforeRepearPartVO> selectASBeofreRepearPartList(int asno)throws DataAccessException;
 }

@@ -16,10 +16,12 @@ public interface ProductDAO {
 	int selectRecentApprNum() throws Exception;
 	int selectUserRight(MemberVO memberVO) throws Exception;
 	void insertProduct(Map product) throws Exception;
-	void insertComponent(Map component) throws Exception;
+	void insertComponent(List<ProductVO> componentList) throws Exception;
 	void insertProductApply(Map product) throws Exception;
 	int selectTotProduct() throws Exception;
 	public List selectProductGroup(String manufacName) throws Exception;
+	String manufacName(String cuId) throws Exception;
+	List selectCompo(int productNo) throws Exception;
 
 
 

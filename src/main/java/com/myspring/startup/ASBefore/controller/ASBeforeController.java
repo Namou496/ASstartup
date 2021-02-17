@@ -10,7 +10,7 @@ public interface ASBeforeController {
 	/*전체 리스트조회*/
 	public ModelAndView listASBefore(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	/*상세 조회*/
-	public ModelAndView viewASBefore(HttpServletRequest request, HttpServletResponse response, int asno, int sta) throws Exception;
+	public ModelAndView viewASBefore(HttpServletRequest request, HttpServletResponse response, int asno) throws Exception;
 	/*이력 추가*/
 	public ResponseEntity addASBefore(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	/*ajax 하단 페이징 버튼 기능*/

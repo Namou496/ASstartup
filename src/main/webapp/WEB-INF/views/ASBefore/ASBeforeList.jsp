@@ -65,6 +65,14 @@
 		}
 
 	}
+	
+	function widthAction(winX){
+		if(winX<=630){
+			$('.thTdBase').css({fontSize: "10px"});
+		}else{
+			$('.thTdBase').removeAttr('style');
+		}
+	}
 
 	function appendASBeforeLists(ASBeforeListArray, pageNum) { /*2번 리스트 생성 펑션 생성*/
 		$("#ASBeforeList").empty();
@@ -74,21 +82,18 @@
 		for (var i = start; i <= last; i++) {
 			$("#ASBeforeList").append(ASBeforeListArray[i]);
 		}
-
+		
 		$(".buttonBox").click(function() {//view 페이지 이동 펑션
 			var asno = $(this).find("th").text();
-			var sta = $(this).find("td:nth-last-child(1)").text();
 			
 			$("#asno").val(asno);
 			
-			if (sta =='처리완료') {
-				$("#sta").val(3);
-			} else {
-				$("#sta").val(2);
-			}
 			$("#moveFunction").submit();
 
 		});
+		
+		var winX=$(this).width();
+		widthAction(winX);
 
 	}
 
@@ -174,6 +179,15 @@
 	$(function() {
 		listPagingNumBut(staNum); /*하단 페이징 넘버 처리*/
 		listAjax(staNum);
+		
+		var winX=$(window).width();
+		
+		widthAction(winX);
+		
+		$(window).resize(function(){
+			winX=$(this).width();
+    		widthAction(winX);
+		});
 
 		$("#back").click(function() {
 			if (cont <= 0) {
@@ -275,7 +289,6 @@
 	<form id="moveFunction"
 		action="${contextPath}/ASBefore/viewASBefore.do" method="post">
 		<input type="hidden" name="asno" id="asno"> 
-		<input type="hidden" name="sta" id="sta">
 	</form>
 
 </body>
