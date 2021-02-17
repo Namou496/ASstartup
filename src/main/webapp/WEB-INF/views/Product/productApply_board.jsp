@@ -6,10 +6,16 @@
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<% request.setCharacterEncoding("UTF-8"); %>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-    <c:set var="productMap"  value="${productMap}" />
-	<c:set var="totProduct"  value="${productMap.totProduct}" />
-	<c:set var="section"  value="${productMap.section}" />
+    <c:set var="productMap"  value="${productMap}" /> <!-- 제품리스트 -->
+	<c:set var="totProduct"  value="${productMap.totProduct}" /> <!-- 글 갯수 -->
+	<c:set var="pageMap"  value="${pageMap}" /> <!-- 로그인된 제조사명 -->
+	<c:set var="manufacSearch"  value="${productMap.manufacSearch}" /> <!-- 제조사명 리스트 -->
+	<!-- 페이징 -->
+	<c:set var="section"  value="${productMap.section}" /> 
 	<c:set var="pageNum"  value="${productMap.pageNum}" />
+	
+		
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +33,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	
+	/* 검색필터 => 제조사이름 리스트 --> 제품그룹 */
 	function manufacSelect(manufacName){
 	$.ajax({
     type: "POST",
@@ -59,11 +67,13 @@
 <body>
 
     <div class="container">
+<!-- 	제품검색 	-->
     	<form id="frmSearchProd" action="${contextPath }/Product/searchProduct.do" method="get">
+	<!-- 	ajax 필터기능 = manufacSelect(this.value)	   -->
     	<select id="manufacName" name="manufacName" onchange="manufacSelect(this.value)">
         <option value="">제조사</option>
-        	<c:forEach var="productMap" items="${productMap.productList}">
-        		<option value="${productMap.manufacName}">${productMap.manufacName}</option>
+        	<c:forEach var="manufacSearch" items="${manufacSearch}">
+        		<option value="${manufacSearch}">${manufacSearch}</option>
         	</c:forEach>
 	    </select>
 	    
@@ -75,7 +85,7 @@
 	    <input type="submit" value="검색">
 	    </form>
 
-        <button style="float: right;"><a href="${contextPath }/Product/applyProductView.do?pageNum=${pageMap.pageNum}&section=${pageMap.section}">제품등록</a></button>
+        <button style="float: right;"><a href="${contextPath }/Product/applyProductView.do?manufacName=${pageMap.manufacName}&pageNum=${pageNum}&section=${section}">제품등록</a></button>
         <table class="table" id="list_view">
             <thead>
                 <tr>
@@ -88,6 +98,7 @@
                 </tr>
             </thead>
             <tbody>
+            <!-- 제품리스트 -->
             <c:choose>
             <c:when test="${productMap == null }">
             <tr>
@@ -108,14 +119,26 @@
 	                    ${productMap.productName }</a></th>
 	                    <td>${productMap.productGroup}</td>
 	                    <td>${productMap.manufacName}</td>
-	                    <td>${productMap.approvalStatus}</td>
+	                    <c:choose>
+		                    <c:when test="${productMap.approvalStatus == 1}">
+		                    	<td>승인</td>
+		                    </c:when>
+		                    <c:when test="${productMap.approvalStatus == 2}">
+		                    	<td>승인불가</td>
+		                    </c:when>
+		                    <c:when test="${productMap.approvalStatus == 3}">
+	                    		<td>승인대기</td>
+	                    	</c:when>
+	                    </c:choose>
 	                </tr>
 				</c:forEach>	
 			</c:when>
 			</c:choose>
+			 <!-- 제품리스트 -->
             </tbody>
         </table>
 
+		<!-- 페이징 페이지 = 10개, 1페이지 = 10개글 -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
             <c:if test="${totProduct != null }">
@@ -142,7 +165,7 @@
                 	</c:forEach>
                 </c:when>
                 
-                <c:when test="${totArticles < 100}">
+                <c:when test="${totProduct < 100}">
                 	<c:forEach var="page" begin="1" end="${totProduct/10+1}" step="1">
                 		<c:choose>
 	                		<c:when test="${page==pageNum }">

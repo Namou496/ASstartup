@@ -55,13 +55,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							sta = #{sta} order by sta , no
 						</when>
 						<when test="uNo==3">
-							manufacturerid = #{cuid} and sta=#{sta} order by sta , no
+							manufacturerid = #{cuId} and sta=#{sta} order by sta , no
 						</when>
 						<when test="uNo==2">
-							engineerid = #{cuid} and sta=#{sta} order by sta , no
+							engineerid = #{cuId} and sta=#{sta} order by sta , no
 						</when>
 						<when test="uNo==1">
-							customerid = #{cuid} and sta=#{sta} order by sta , no
+							customerid = #{cuId} and sta=#{sta} order by sta , no
 						</when>
 					</choose>
 				</if>
@@ -71,13 +71,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							asno > 0 order by sta, no
 						</when>
 						<when test="uNo==3">
-							manufacturerid = #{cuid} order by sta , no
+							manufacturerid = #{cuId} order by sta , no
 						</when>
 						<when test="uNo==2">
-							engineerid = #{cuid} order by sta , no
+							engineerid = #{cuId} order by sta , no
 						</when>
 						<when test="uNo==1">
-							customerid = #{cuid} order by sta , no
+							customerid = #{cuId} order by sta , no
 						</when>
 					</choose>
 				</if>
@@ -101,13 +101,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							sta = #{sta} order by sta , no
 						</when>
 						<when test="uNo==3">
-							manufacturerid = #{cuid} and sta=#{sta} order by sta , no
+							manufacturerid = #{cuId} and sta=#{sta} order by sta , no
 						</when>
 						<when test="uNo==2">
-							engineerid = #{cuid} and sta=#{sta} order by sta , no
+							engineerid = #{cuId} and sta=#{sta} order by sta , no
 						</when>
 						<when test="uNo==1">
-							customerid = #{cuid} and sta=#{sta} order by sta , no
+							customerid = #{cuId} and sta=#{sta} order by sta , no
 						</when>
 					</choose>
 				</if>
@@ -117,13 +117,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							asno > 0 order by sta, no
 						</when>
 						<when test="uNo==3">
-							manufacturerid = #{cuid} order by sta , no
+							manufacturerid = #{cuId} order by sta , no
 						</when>
 						<when test="uNo==2">
-							engineerid = #{cuid} order by sta , no
+							engineerid = #{cuId} order by sta , no
 						</when>
 						<when test="uNo==1">
-							customerid = #{cuid} order by sta , no
+							customerid = #{cuId} order by sta , no
 						</when>
 					</choose>
 				</if>

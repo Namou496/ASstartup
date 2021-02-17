@@ -1,5 +1,7 @@
 package com.myspring.startup.member.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,8 +21,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void addMember(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
+	public int addMember(Map<String, Object> memberJoinMap) throws Exception {
+		return memberDAO.insertNewMember(memberJoinMap);
 		
 	}
 }

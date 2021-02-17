@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.startup.member.vo.MemberVO;
 import com.myspring.startup.product.product.service.ProductService;
 import com.myspring.startup.product.vo.ProductVO;
 
@@ -28,7 +30,8 @@ import net.sf.json.JSONArray;
 
 @Controller("ProductController")
 public class ProductControllerImpl implements ProductController{
-	private static String CURR_FILE_REPO_PATH = "C:\\Users\\du2sa\\Desktop\\work\\Java\\test\\startUp";
+//	private static String CURR_FILE_REPO_PATH = "C:\\Users\\du2sa\\Desktop\\work\\Java\\test\\startUp";
+	private static String CURR_FILE_REPO_PATH = "D:\\작업";
 	
 	
 	@Autowired
@@ -36,141 +39,119 @@ public class ProductControllerImpl implements ProductController{
 	@Autowired
 	private ProductVO ProductVO;
 	
-//	1) �젣�뭹由ъ뒪�듃(�럹�씠吏�)
+//	1) 제품리스트(페이징)
 	@Override
 	@RequestMapping(value="/Product/listProduct.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView listProduct(HttpServletRequest request, 
-									HttpServletResponse response) throws Exception{
+	public ModelAndView listProduct(@RequestParam(value="section", required=false, defaultValue="1") int section,
+									@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+									HttpServletRequest request, 
+									HttpServletResponse response
+									) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		System.out.println("gd");
-		String memberId = "park";  //�뀒�뒪�듃�슜
-		//123123123
-		String _section = request.getParameter("section");
-		String _pageNum = request.getParameter("pageNum");
-		int section = Integer.parseInt(((_section == null)? "1" : _section));
-		int pageNum = Integer.parseInt(((_pageNum == null)? "1" : _pageNum));
-//		int section = 1;
-//		int pageNum = 1;
-		HttpSession session = request.getSession();
-//		String memberId = (String) session.getAttribute("memberId");
-
-		System.out.println("memberId:" + memberId);
 		
+//		String memberId = "ga";
+		HttpSession session = request.getSession();
+		MemberVO memberId = (MemberVO) session.getAttribute("member");
+		String _memberId = memberId.getCuId();
+
+		String manufacName = ProductService.manufacName(_memberId);
+
 		Map pageMap = new HashMap();
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
+		pageMap.put("manufacName", manufacName);
 		
-
-		Map productMap = ProductService.ProductList(pageMap, memberId);
+		Map productMap= ProductService.ProductList(pageMap, _memberId); 
+			// productMap --> 제품리스트, 전체글수, 제조사이름리스트, 사용자권한
+		
+		//		페이징 section, pageNum
 		productMap.put("section", section);
 		productMap.put("pageNum", pageNum);
 		
-		
-//		�뀒�뒪�듃 以�
-		System.out.println("section:" + section);
-		System.out.println("pageNum:" + pageNum);
-		System.out.println("productList.size()"+productMap.size());
-		for(int i = 0; i < productMap.size(); i++) {
-			System.out.println("productList:" + productMap.get(i));
-		}
-		System.out.println("memberId:" + memberId);
-//		�뀒�뒪�듃 以�
-
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pageMap", pageMap);
 		mav.addObject("productMap", productMap);
 		mav.setViewName("/product/productApplyBoard");
 		return mav;
 		
 	}
-//	2) �젣�뭹�긽�꽭
+//	2) 제품상세
 	@Override
 	@RequestMapping(value="/Product/ProductDetail.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView ProductDetail(HttpServletRequest request, 
+	public ModelAndView ProductDetail(@RequestParam(value="section", required=false, defaultValue="1") int section,
+									  @RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+									  @RequestParam("productNo") int productNo,
+									  HttpServletRequest request, 
 						 			  HttpServletResponse response) throws Exception{
 		System.out.println("hi");
 		request.setCharacterEncoding("UTF-8");
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
-		System.out.println("section:"+ _section+" pageNum:"+ _pageNum);
-		int section = Integer.parseInt(_section);
-		int pageNum = Integer.parseInt(_pageNum);
+		//		String memberId = (String) session.getAttribute("memberId");
+		HttpSession session = request.getSession();
+		MemberVO memberId = (MemberVO) session.getAttribute("member");
+		String _memberId = memberId.getCuId();
 		
-//		String memberId = (String) session.getAttribute("memberId");
-		String memberId = "park";  
-		String productNo = request.getParameter("productNo");
 
-		if(section == 0) {
-			section = 1;
-		}
-		if(pageNum == 0) {
-			pageNum = 1;
-		}
 		Map pageMap = new HashMap();
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
 		pageMap.put("productNo", productNo);
-		System.out.println("memberId: "+memberId);
-		ProductVO product = ProductService.ProductDetail(pageMap, memberId);
-		System.out.println("section:" + section);
-		System.out.println("pageNum:" + pageNum);
-		System.out.println("memberId:" + memberId);
+		
+		ProductVO product = ProductService.ProductDetail(pageMap, _memberId); //제품상세 정보
+		List componentList = ProductService.compoDetail(product.getProductNo()); //부품리스트
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("product", product);
 		mav.addObject("pageMap", pageMap);
+		mav.addObject("componentList", componentList);
 		mav.setViewName("/product/productApplyDetail");
 		return mav;
 	}
-//	3) �젣�뭹寃��깋
+//	3) 제품검색
+	// ajax 필터
 	@Override
 	@RequestMapping(value="/Product/selectManufacturer.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public void selectAjaxManufacName(HttpServletRequest req, HttpServletResponse res, String param) 
 	throws Exception{
 			   res.setCharacterEncoding("UTF-8");
 			   
-			   // �룄 �젙蹂� 諛쏆쓬
+			   // 도 정보 받음
 			   String manufacName = param;
-			   System.out.println("�븯�씠");
-			   System.out.println("manufacturer:" + manufacName);
-			   // �븣留욎� �룞�쟻 select box info �깮�꽦
+			   // 알맞은 동적 select box info 생성
 			   List groupList = new ArrayList();
-			   System.out.println("�븯�씠");
 			   groupList = ProductService.productGroup(manufacName);
-			   System.out.println("�븯�씠");
-			   // jsonArray�뿉 異붽�
+			   // jsonArray에 추가
 			   JSONArray jsonArray = new JSONArray();
 			   for (int i = 0; i < groupList.size(); i++) {
 			      jsonArray.add(groupList.get(i));
-			      System.out.println("groupList:" + groupList.get(i));
 			   }
 			 
-			   // jsonArray �꽆源�
+			   // jsonArray 넘김
 			   PrintWriter pw = res.getWriter();
 			   pw.print(jsonArray.toString());
 			   pw.flush();
 			   pw.close();
 
 	}
-	
+	// 제품 검색
 	@Override
 	@RequestMapping(value="/Product/searchProduct.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView searchProduct(HttpServletRequest request, 
-									HttpServletResponse response) throws Exception{
+	public ModelAndView searchProduct(  @RequestParam(value="section", required=false, defaultValue="1") int section,
+			  							@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			  							@RequestParam(value="productGroup", required=false, defaultValue="") String productGroup,
+			  							@RequestParam(value="manufacName", required=false, defaultValue="") String manufacName,
+			  							@RequestParam(value="productName", required=false, defaultValue="") String productName,
+										HttpServletRequest request, 
+										HttpServletResponse response) throws Exception{
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-//		�뀒�뒪�듃
-		String memberId = "park";  //�뀒�뒪�듃�슜
-		//123123123
-		String _section = request.getParameter("section");
-		String _pageNum = request.getParameter("pageNum");
-		int section = Integer.parseInt(((_section == null)? "1" : _section));
-		int pageNum = Integer.parseInt(((_pageNum == null)? "1" : _pageNum));
-//		�뀒�뒪�듃
-		String productGroup = request.getParameter("productGroup");
-		String manufacName = request.getParameter("manufacName");
-		String productName = request.getParameter("productName");
+		//		테스트
+		HttpSession session = request.getSession();
+		MemberVO memberId = (MemberVO) session.getAttribute("member");
+		String _memberId = memberId.getCuId();
 		
 		if(!(productGroup.length() > 0)) {
 			productGroup = null;
@@ -182,28 +163,13 @@ public class ProductControllerImpl implements ProductController{
 			productName = null;
 		}
 		
-		System.out.println("productGroup:" + productGroup);
-		System.out.println("manufacName:"+manufacName);
-		System.out.println("productName:"+productName);
-		
-		HttpSession session = request.getSession();
-//		String memberId = (String) session.getAttribute("memberId");
 		Map searchMap = new HashMap();
 		searchMap.put("section", section);
 		searchMap.put("pageNum", pageNum);
 		searchMap.put("productGroup", productGroup);
 		searchMap.put("manufacName", manufacName);
 		searchMap.put("productName", productName);
-		Map productMap = ProductService.searchProduct(searchMap, memberId);
-//		�뀒�뒪�듃 以�
-		System.out.println("section:" + section);
-		System.out.println("pageNum:" + pageNum);
-		for(int i = 0; i < productMap.size(); i++) {
-			System.out.println("productList:" + productMap.get(i));
-		}
-		System.out.println("memberId:" + memberId);
-		System.out.println("productMap.size():" + productMap.size());
-//		�뀒�뒪�듃 以�
+		Map productMap = ProductService.searchProduct(searchMap, _memberId);
 		
 		productMap.put("section", section);
 		productMap.put("pageNum", pageNum);
@@ -214,65 +180,69 @@ public class ProductControllerImpl implements ProductController{
 		return mav;
 		
 	}
-//	4) �젣�뭹�벑濡�(誘몄셿)
-	//	Fileupload遺�遺꾩씠 �븘�슂�븯�떎.
+//	4) 제품등록
+	//	Fileupload부분이 필요하다.
+	
+	// 제품등록페이지
 	@Override
 	@RequestMapping(value="/Product/applyProductView.do", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView applyProduct(HttpServletRequest request, 
-									 HttpServletResponse response) throws Exception{
+	public ModelAndView applyProductView(HttpServletRequest request,
+			 						HttpServletResponse response,
+									 @RequestParam(value="section", required=false, defaultValue="1") int section,
+									 @RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+									 @RequestParam(value="manufacName", required=false, defaultValue="") String manufacName
+									 ) throws Exception{
 		request.setCharacterEncoding("UTF-8");
-		String _section = request.getParameter("section");
-		String _pageNum = request.getParameter("pageNum");
-
-		int section = 0;
-		int pageNum = 0;
-		if(_section == null) {
-			section = 1;
-		}
-		if(_pageNum == null) {
-			pageNum = 1;
-		}
-		System.out.println("section:"+ section+" pageNum:"+ pageNum);
 		Map pageMap = new HashMap();
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
+		pageMap.put("manufacName", manufacName);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pageMap", pageMap);
 		mav.setViewName("/product/productApplyView");
 		return mav;
 	}
+	// 제품등록
 	@Override
 	@RequestMapping(value="/Product/applyProduct.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView applyProduct(MultipartHttpServletRequest multipartRequest, 
 									 HttpServletResponse response) throws Exception{
 		multipartRequest.setCharacterEncoding("utf-8");
-		upload(multipartRequest, response);
-//		product
-		int uno = 3;
-		String 	productName = multipartRequest.getParameter("productName");
-		String 	productGroup = multipartRequest.getParameter("productGroup");
-		String 	useManual = multipartRequest.getParameter("useManual");
-		String 	asManual = multipartRequest.getParameter("asManual");
-		String 	productImage = multipartRequest.getParameter("productImage");
-//		component
-		Map product = new HashMap();
-		product.put("productName", productName);
+		response.setContentType("text/html;charset=utf-8");
+		Map product = upload(multipartRequest, response);
+		HttpSession session = multipartRequest.getSession();
+		MemberVO memberId = (MemberVO) session.getAttribute("member");
+		String _memberId = memberId.getCuId();
+		String productGroup = multipartRequest.getParameter("productGroup");
+		
+		product.put("cuId", _memberId);
 		product.put("productGroup", productGroup);
-		product.put("useManual", useManual);
-		product.put("asManual", asManual);
-		product.put("productImage", productImage);
-
-//		List component = new ArrayList();
-		Map<String, Integer> component = new HashMap<String, Integer>();
-		String[] componentName = multipartRequest.getParameterValues("componentName");
-		for(int i=0; i < componentName.length; i++) {
-			String[] componentPart = multipartRequest.getParameterValues("componentPart");
-
-			component.put(componentName[i], Integer.parseInt(componentPart[i]));
+		
+		List fileList;
+		fileList = (List) product.get("fileList");
+		for(int i=0; i<fileList.size();i++) {
+				product.put("useManual", fileList.get(0));
+				product.put("asManual", fileList.get(1));
+				product.put("productImage", fileList.get(2));
+				System.out.println("fileList::" + fileList.get(i));
 		}
 		
+		
+		String[] componentName = multipartRequest.getParameterValues("componentName");
+		String[] componentPart = multipartRequest.getParameterValues("componentPart");
+		for (int i = 0; i < componentName.length; i++) {
+			System.out.println(componentName[i]);
+			}
+		int productNo=ProductService.applyProduct(componentName, componentPart, product);
+		
+		product.put("productNo", productNo);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/product/productApply");
+		mav.addObject("product", product);
+		
+		PrintWriter pw = response.getWriter();
+		pw.print("<script>"+"alert('요청되었습니다!!');"+"location.href='"+multipartRequest.getContextPath()
+					+ "/Product/listProduct.do';"
+					+ "</script>");
 		return mav;
 	}
 	
@@ -285,75 +255,77 @@ public class ProductControllerImpl implements ProductController{
 			
 			String name = (String)enu.nextElement();
 			String value = multipartRequest.getParameter(name);
+			System.out.println(name + ", " + value);
 			map.put(name, value);
 		}
 		
 		List fileList = fileProcess(multipartRequest, uno);
-		
+		map.put("fileList", fileList);
 		return map;
 	}
 	private List fileProcess(MultipartHttpServletRequest multipartRequest, int uno) throws Exception{
 		String productName = multipartRequest.getParameter("productName");
 		List fileList = new ArrayList();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
-		
+		int i=0;
 		while(fileNames.hasNext()) {
-			
 			String fileName = fileNames.next();
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			String originalFileName = mFile.getOriginalFilename();
 			fileList.add(originalFileName);
 			
-			
-			
 			String manufacPath = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\" + fileName;
+			String manufacPath_useManual = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\"+ "useManual" + "\\";
+			String manufacPath_asManual = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\" + "asManual" + "\\";
 			String manufacPath_original = CURR_FILE_REPO_PATH+"\\"+"manufacturer" + "\\" + productName + "\\" + originalFileName;
-			String userPath = CURR_FILE_REPO_PATH+"\\"+"user" + "\\" + fileName;
-			String userPath_original =  CURR_FILE_REPO_PATH+"\\"+"user" + "\\" + originalFileName;
-			String asPath = CURR_FILE_REPO_PATH+"\\"+"as" + "\\" + fileName;
-			String asPath_original = CURR_FILE_REPO_PATH+"\\"+"as" + "\\" + originalFileName;
 			
 			if(uno == 3) {
-				File file = new File(manufacPath);
-				if(mFile.getSize()!=0) {
-					if(! file.exists()) {
-						if(file.getParentFile().mkdirs()) {
-							file.createNewFile();
+				//				useMaunual
+				if(i == 0) {
+				File file = new File(manufacPath_useManual + fileName);
+					if(mFile.getSize()!=0) {
+						if(! file.exists()) {
+							if(file.getParentFile().mkdirs()) {
+								file.createNewFile();
+								
+							}
 						}
+						mFile.transferTo(new File(manufacPath_useManual + originalFileName));
+						file.delete();
+						System.out.println("useManual");
 					}
-					mFile.transferTo(new File(manufacPath_original));
+					//				asManual
+				} else if(i == 1) {
+				File file = new File(manufacPath_asManual  + fileName);
+					if(mFile.getSize()!=0) {
+						if(! file.exists()) {
+							if(file.getParentFile().mkdirs()) {
+								file.createNewFile();
+							}
+						}
+						System.out.println("ASManual");
+						mFile.transferTo(new File(manufacPath_asManual + originalFileName));
+						file.delete();
+					}
+					//				productImage
+				} else {
+					File file = new File(manufacPath);
+					if(mFile.getSize()!=0) {
+						if(! file.exists()) {
+							if(file.getParentFile().mkdirs()) {
+								file.createNewFile();
+							}
+						}
+						mFile.transferTo(new File(manufacPath_original));
+						System.out.println("IMAGE");
+					}
+				
 				}
+				
 				
 			}
 			
-			if(uno == 1) {
-				File file = new File(userPath);
-				if(mFile.getSize()!=0) {
-					if(! file.exists()) {
-						if(file.getParentFile().mkdirs()) {
-							file.createNewFile();
-						}
-					}
-					mFile.transferTo(new File(userPath_original));
-				}
-				
-			}
-			
-			if(uno == 2) {
-				File file = new File(userPath);
-				if(mFile.getSize()!=0) {
-					if(! file.exists()) {
-						if(file.getParentFile().mkdirs()) {
-							file.createNewFile();
-						}
-					}
-					mFile.transferTo(new File(asPath_original));
-				}
-				
-			}
-			
-			
-			
+			i++;
 		}
 		return fileList;
 	}
