@@ -11,8 +11,8 @@
 <head>
     <meta charset="UTF-8">
     <title>아이디 찾기</title>
-    <script src="js/login.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/login.css">
+    <script src="../resources/js/login.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/login.css">
 </head>
 <body>
     <div class="limiter">
@@ -49,7 +49,7 @@
 						<span class="txt1">
 							사라진
 						</span>
-						<a class="txt2" href="#">
+						<a class="txt2" href="${contextPath }/member/pw.do">
 							비밀번호 찾기
 						</a>
 					</div>

@@ -2291,6 +2291,7 @@
 	display: flex;
 }
 
+
 /*[ Position ]
 -----------------------------------------------------------
 */
@@ -3224,6 +3225,7 @@ iframe {
   width: 100%;
   z-index: 1;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .input100 {
@@ -3366,7 +3368,7 @@ iframe {
   }
 
   .login100-form {
-    width: 50%;
+    width: 290px;
   }
 }
 

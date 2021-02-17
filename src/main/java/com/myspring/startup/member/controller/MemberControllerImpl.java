@@ -134,4 +134,20 @@ public class MemberControllerImpl implements MemberController{
 		mav.setViewName("/member/join");
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value="/pw.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView lostPw(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/pw");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/id.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView lostId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/id");
+		return mav;
+	}
 }
