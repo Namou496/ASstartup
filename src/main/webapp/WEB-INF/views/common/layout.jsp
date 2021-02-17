@@ -33,7 +33,7 @@
 <%-- 		<tiles:insertAttribute name="side" /> --%>
 <!-- 	</aside> -->
 
-	<div class="container">
+	<div class="container" style="padding-bottom: 160px;">
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>
