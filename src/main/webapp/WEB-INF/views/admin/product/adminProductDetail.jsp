@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("utf-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <c:set var="productList" value="${productList}" />
@@ -35,7 +35,34 @@ request.setCharacterEncoding("utf-8");
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<script>
+	$(function(){
+		var productNO=$("#productNO").text();
+		
+		$("#approvalNo").click(function(){
+			var rejectionReason=$("#rejectionReason").val();
+			$("#status").val(2);
+			$("#reason").val(rejectionReason);
+			$("#no").val(productNO);
+			$("#frmApproval").submit();
+		});
+		
+		$("#approvalOk").click(function(){
+			$("#status").val(1);
+			$("#reason").val("승인완료");
+			$("#no").val(productNO);
+			$("#frmApproval").submit();
+		});
+		
+	});
+	
+	
+</script>
+
 
 <style>
 #td1 {
@@ -77,73 +104,73 @@ request.setCharacterEncoding("utf-8");
 						</tr>
 					</c:when>
 					<c:when test="${productDetail!=null }">
-							<tr>
-								<td id="td1" scope="row">이미지:</td>
-								<td id="td2" scope="row">
-									<div id="product_image">
-										<a href="#"><img src="img/as.png"></a>
-									</div>
-								</td>
-							</tr>
-							
-							<tr>
-								<td id="td1" scope="row" colspan="1">제품번호</td>
-								<td id="td2" scope="row" colspan="1" name="productNO">${productDetail.productNO }</td>
-							</tr>
-							
-							<tr>
-								<td id="td1" scope="row" colspan="1">제품명:</td>
-								<td id="td2" scope="row" colspan="1" name="productName">${productDetail.name }</td>
-							</tr>
-							<tr>
-								<td id="td1" scope="row" colspan="1">상태:</td>
-								<td id="td2" scope="row" colspan="1" name="approvalStatus">${productDetail.approvalStatus }</td>
-							</tr>
-							<tr>
-								<td id="td1" scope="row">제조사:</td>
-								<td id="td2" scope="row" name="manufacName"></td>
-							</tr>
-							<tr>
-								<td id="td1" scope="row">분류:</td>
-								<td id="td2" scope="row" name="prodGroup">${productDetail.prodGroup }</td>
-							</tr>
-							<tr>
-								<td id="td1" scope="row">사용매뉴얼:</td>
-								<td id="td2" scope="row" name="useManual"></td>
-							</tr>
-							<tr>
-								<td id="td1" scope="row">AS매뉴얼:</td>
-								<td id="td2" scope="row" name="asManual"><a href="#"></a></td>
-							</tr>
+						<tr>
+							<td id="td1" scope="row">이미지:</td>
+							<td id="td2" scope="row">
+								<div id="product_image">
+									<a href="#"><img src="img/as.png"></a>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td id="td1" scope="row" colspan="1">제품번호</td> <!-- 1 -->
+							<td id="productNO" scope="row" colspan="1">${productDetail.productNO }</td>
+						</tr>
+
+						<tr>
+							<td id="td1" scope="row" colspan="1">제품명:</td>
+							<td id="td2" scope="row" colspan="1" name="productName">${productDetail.name }</td>
+						</tr>
+						<tr>
+							<td id="td1" scope="row" colspan="1">상태:</td>
+							<td id="td2" scope="row" colspan="1" name="approvalStatus">${productDetail.approvalStatus }</td>
+						</tr>
+						<tr>
+							<td id="td1" scope="row">제조사:</td>
+							<td id="td2" scope="row" name="manufacName"></td>
+						</tr>
+						<tr>
+							<td id="td1" scope="row">분류:</td>
+							<td id="td2" scope="row" name="prodGroup">${productDetail.prodGroup }</td>
+						</tr>
+						<tr>
+							<td id="td1" scope="row">사용매뉴얼:</td>
+							<td id="td2" scope="row" name="useManual"></td>
+						</tr>
+						<tr>
+							<td id="td1" scope="row">AS매뉴얼:</td>
+							<td id="td2" scope="row" name="asManual"><a href="#"></a></td>
+						</tr>
 
 					</c:when>
 				</c:choose>
 			</tbody>
 		</table>
 		<p></p>
-		
-		
+
+
 		<div class="input-group"
 			style="width: 80%; text-align: center; margin: 0 auto;">
 			<span class="input-group-text">승인불가 사유</span>
-			<textarea class="form-control" aria-label="With textarea" name="rejectionReason" value=""></textarea>
+			<textarea class="form-control" aria-label="With textarea"
+				id="rejectionReason" ></textarea> <!-- 1 -->
+			
+
 		</div>
 		<p></p>
 		<div class="approvalBtn">
-		<form>
-			<input name="approvalStatus" type="hidden" value="1">
-			<input name="approvalStatus" type="hidden" value="2">
-			
-<%-- 			<button class="btn btn-outline-primary" name="approvalStatus" ><a href="${contextPath}/admin/product/adminProductApproval.do?approvalStatus=1&productNO=${productDetail.productNO}&rejectionReason=${}">승인</a></button> --%>
-<%-- 			<button class="btn btn-outline-primary" name="approvalStauts" ><a href="${contextPath}/admin/product/adminProductApproval.do?approvalStatus=2">승인불가</a></button> --%>
-			
-		</form>
-			
+			<button class="btn btn-outline-primary" id="approvalOk">승인</button>
+			<button class="btn btn-outline-primary" id="approvalNo">승인불가</button>
 		</div>
-		
+
 		<p></p>
 	</div>
-
+	<form id="frmApproval" action="${contextPath }/admin/product/adminProductApproval.do">
+		<input type="hidden" id="status" name="approvalStatus">
+		<input type="hidden" id="no" name="productNO">
+		<input type="hidden" id="reason" name="rejectionReason">
+	</form>
 </body>
 
 </html>
