@@ -31,6 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="componentName" column="componentName"/>
 		<result property="componentPrice" column="componentPrice"/>
 		<result property="componentPart" column="componentPart"/>
+		
+		<result property="rejectionReason" column="rejectionReason"/>
 	</resultMap>
 <!-- 사용자 권한 -->
 		<select id="selectUserRight" parameterType="String" resultType="int">
@@ -188,12 +190,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<![CDATA[
 			         select p.productno 		productNo, 
 			         		p.name 				productName, 
-			         		m.name 				manufacName, 
-			                p.prodgroup 		productGroup,  
+			         		m.name 				manufacName,
+			                p.prodgroup 		productGroup,
+                            appr.approvalstatus approvalStatus,
+                            appr.rejectionReason rejectionReason,
 			                p.useManual 		useManual, 
 			                p.asManual  		asManual, 
-			                p.productImage  	productImage, 
-			                appr.approvalstatus approvalStatus
+			                p.productImage  	productImage
 			         from product p, productapproval appr, manufacturer m
 	        	]]>
 	         where p.productno = appr.productno 

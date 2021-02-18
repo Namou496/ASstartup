@@ -15,21 +15,12 @@
 <head>
 <meta charset="UTF-8">
 <title>제품상세</title>
-  <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="detailpage.css">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
 <style>
+	a{text-decoration: none; color:black;}
     #td1{width: 50%; text-align: right;padding-right: 30px;}
     #td2{width: 50%;text-align: left; padding-left: 30px;}
     #product_image a img{width: 100px;height: 50px;}
+    #rejectText{color: red;}
 </style>
 </head>
 <body>
@@ -53,7 +44,21 @@
                 </tr>
                 <tr>
                     <td id="td1" scope="row" colspan="1">상태:</td>
-                    <td id="td2" scope="row" colspan="1" name="approvalStatus">${product.approvalStatus }</td>
+                    <c:choose>
+                    	<c:when test="${product.approvalStatus==1}">
+                    		<td id="td2" scope="row" colspan="1" name="approvalStatus">승인</td>
+                    	</c:when>
+                    	<c:when test="${product.approvalStatus==2}">
+                    		<td id="td2" scope="row" colspan="1" name="approvalStatus">승인불가</td>
+                    		<tr>
+                    			<td id="td1" scope="row" colspan="1"></td>
+                    			<td id="td2" scope="row" colspan="1" name="approvalStatus"><span id="rejectText">&nbsp;&nbsp;└${product.rejectionReason}</span></td>
+                    		</tr>
+                    	</c:when>
+                    	<c:when test="${product.approvalStatus==3}">
+                    		<td id="td2" scope="row" colspan="1" name="approvalStatus">승인대기</td>
+                    	</c:when>
+                    </c:choose>
                 </tr>
                 <tr>
                     <td id="td1" scope="row">제조사:</td>

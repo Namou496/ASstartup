@@ -26,6 +26,15 @@ public class ProductVO {
 		private int 		componentPrice;
 		private int			componentPart;
 		
+		private String rejectionReason;
+
+		public String getRejectionReason() {
+			return rejectionReason;
+		}
+
+		public void setRejectionReason(String rejectionReason) {
+			this.rejectionReason = rejectionReason;
+		}
 
 		public int getProductNo() {
 			return productNo;
