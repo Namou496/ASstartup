@@ -1,9 +1,10 @@
 package com.myspring.startup.ASAfter.controller;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import com.myspring.startup.ASAfter.vo.ASAfterVO;
 import com.myspring.startup.ASAfter.vo.ASrespondVO;
 import com.myspring.startup.member.vo.MemberVO;
 
+
 @Controller("ASAfterController")
 
 public class ASAfterControllerImpl implements ASAfterController {
@@ -36,14 +38,7 @@ public class ASAfterControllerImpl implements ASAfterController {
 	@RequestMapping(value="/ASAfter/selectASAfterList.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView selectASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<ASAfterVO> list = ASAfterService.selectASAfterList();
-		// 로그인 가정
-		MemberVO memberVO = new MemberVO();
-		
-		memberVO.setCuId("hong");
-		memberVO.setuNo(2);
-		HttpSession session = request.getSession();
-		session.setAttribute("member", memberVO);
-		//
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ASAfterList", list);
 		mav.setViewName("/ASAfter/listASAfter");
@@ -54,7 +49,12 @@ public class ASAfterControllerImpl implements ASAfterController {
 	@RequestMapping(value="/ASAfter/selectUserASAfterList.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@Override
 	public ModelAndView selectUserASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<ASAfterVO> userlist = ASAfterService.selectUserASAfterList("hong");
+		HttpSession session = request.getSession();
+		
+		MemberVO mfr = (MemberVO)session.getAttribute("member");
+				
+		String ucuid = mfr.getCuId();
+		List<ASAfterVO> userlist = ASAfterService.selectUserASAfterList(ucuid);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ASAfterList", userlist);
@@ -66,7 +66,13 @@ public class ASAfterControllerImpl implements ASAfterController {
 	@RequestMapping(value="/ASAfter/selectMfrASAfterList.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@Override
 	public ModelAndView selectMfrASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<ASAfterVO> mfrlist = ASAfterService.selectMfrASAfterList("ga");
+		HttpSession session = request.getSession();
+		
+		MemberVO mfr = (MemberVO)session.getAttribute("member");
+				
+		String mcuid = mfr.getCuId();
+		
+		List<ASAfterVO> mfrlist = ASAfterService.selectMfrASAfterList(mcuid);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ASAfterList", mfrlist);
@@ -91,23 +97,29 @@ public class ASAfterControllerImpl implements ASAfterController {
 	@RequestMapping(value="/ASAfter/insertASrespond.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@Override
 	public ModelAndView insertASrespond(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		DateFormat df = new SimpleDateFormat();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		String date = request.getParameter("respDate");
+		
+		java.sql.Date resp = new java.sql.Date(df.parse(date).getTime());
+		
 		int asno = Integer.parseInt(request.getParameter("asno"));
 		String cuid = request.getParameter("cuId");
 		
 		ASrespondVO insertresp = new ASrespondVO();
 		
-//		insertresp.setRespDate(respdate);
-//		insertresp.setAsNo(asno);
-//		insertresp.setCuId(cuid);
+		insertresp.setRespDate(resp);
+		insertresp.setAsNo(asno);
+		insertresp.setCuId(cuid);
 		
-//		ASAfterService.insertASrespond(insertresp);
+		Map<String, Object> updatesta = new HashMap<String, Object>();
+		updatesta.put("insertresp", insertresp);
+		updatesta.put("asno", asno);
 		
-		ModelAndView mav = new ModelAndView();
+		ASAfterService.insertASrespond(updatesta);
+		
+		ModelAndView mav = new ModelAndView("redirect:/ASAfter/selectASAfterList.do");
 		
 		return mav;
 	}
-	
 }

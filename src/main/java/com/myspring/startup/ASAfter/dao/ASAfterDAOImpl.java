@@ -43,7 +43,14 @@ public class ASAfterDAOImpl implements ASAfterDAO{
 		return ASAfterListDetail;
 	}
 	
+	@Override
 	public void insertASrespond(ASrespondVO asrespondvo) throws DataAccessException {
 		sqlSession.insert("mapper.ASAfter.insertASrespond", asrespondvo);
+	}
+	
+	@Override
+	public void updateSta(Integer asno) throws DataAccessException {
+		sqlSession.update("mapper.ASAfter.updateSta", asno);
+		
 	}
 }

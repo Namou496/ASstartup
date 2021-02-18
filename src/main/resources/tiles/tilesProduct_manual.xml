@@ -11,12 +11,20 @@
 			<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 		</definition>
 		
-		<definition name="/Product/manualBoard" extends="baseLayout">
+		<definition name="/manual/manualBoard" extends="baseLayout">
 			<put-attribute name="title" value="매뉴얼 게시판"/>
-			<put-attribute name="body" value="/WEB-INF/Product/manual_board.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/views/Product/manual_board.jsp"/>
 		</definition>
-		<definition name="/Product/manualDetail" extends="baseLayout">
+		<definition name="/manual/manualDetail" extends="baseLayout">
 			<put-attribute name="title" value="매뉴얼 상세"/>
-			<put-attribute name="body" value="/WEB-INF/Product/manual_detail.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/views/Product/manual_detail.jsp"/>
+		</definition>
+		<definition name="/manual/manualSearch" extends="baseLayout">
+			<put-attribute name="title" value="매뉴얼 게시판"/>
+			<put-attribute name="body" value="/WEB-INF/views/Product/manual_board.jsp"/>
+		</definition>
+		<definition name="/member/manufacJoin" extends="baseLayout">
+			<put-attribute name="title" value="제조사 회원가입"/>
+			<put-attribute name="body" value="/WEB-INF/views/member/manufacJoin.jsp"/>
 		</definition>
 	</tiles-definitions>

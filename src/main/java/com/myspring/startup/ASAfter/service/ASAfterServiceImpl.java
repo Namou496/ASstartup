@@ -2,6 +2,7 @@ package com.myspring.startup.ASAfter.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,8 @@ public class ASAfterServiceImpl implements ASAfterService{
 	}
 	
 	@Override
-	public void insertASrespond(ASrespondVO asrespondVO) throws Exception {
-		ASAfterdao.insertASrespond(asrespondVO);
+	public void insertASrespond(Map<String, Object> updatesta) throws Exception {
+		ASAfterdao.insertASrespond((ASrespondVO)updatesta.get("insertresp"));
+		ASAfterdao.updateSta((Integer)updatesta.get("asno"));
 	}
 }

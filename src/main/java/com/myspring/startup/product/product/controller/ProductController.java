@@ -7,12 +7,24 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface ProductController {
-	ModelAndView listProduct(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	ModelAndView ProductDetail(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	ModelAndView searchProduct(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView listProduct(int section, int pageNum, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+	ModelAndView ProductDetail(int section, int pageNum, int productNo, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+	ModelAndView searchProduct(int section, int pageNum, String productGroup, String manufacName, String productName,
+			HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView applyProductView(HttpServletRequest request, HttpServletResponse response, int section, int pageNum,
+			String manufacName) throws Exception;
 	ModelAndView applyProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception;
-	ModelAndView applyProduct(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	void selectAjaxManufacName(HttpServletRequest req, HttpServletResponse res, String param) throws Exception;
+
+
+
+
+
+
+
+
 
 }

@@ -2,6 +2,7 @@ package com.myspring.startup.ASAfter.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
@@ -18,5 +19,5 @@ public interface ASAfterService {
 	
 	public List<ASAfterDetailVO> ASAfterListDetail(int asno) throws Exception;
 	
-	public void insertASrespond(ASrespondVO asrespondVO) throws Exception;
+	public void insertASrespond(Map<String, Object> updatesta) throws Exception;
 }

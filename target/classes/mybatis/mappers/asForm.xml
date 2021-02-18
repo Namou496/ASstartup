@@ -19,15 +19,15 @@
 	</resultMap>
 
 <!-- 신청서 작성하여 DB에 INSERT 동작 -->
-<!-- 	<insert id="insertNewAsForm" resultType="asformVO" parameterType="java.util.Map"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			insert into ASFORM(asNo, phone, addr, symptoms, meeting, meetDate, fileimg, sta, cuid, productno)  -->
-<!-- 			values(#{asNo}, #{phone},  -->
-<!-- 			#{addr}, #{symptoms},  -->
-<!-- 			#{meeting}, #{meetDate},  -->
-<!-- 			#{fileimg}, #{sta},  -->
-<!-- 			#{cuid}, #{productno}) -->
-<!-- 		]]> -->
-<!-- 	</insert> -->
+<insert id="insertNewAsForm" parameterType="java.util.Map">
+		<![CDATA[
+ 			insert into ASFORM(asNo, phone, addr, symptoms, meeting, meetDate, fileimg, sta, cuId, productNo)
+ 			values(#{asNo}, #{phone},
+ 			#{addr}, #{symptoms},
+ 			#{meeting}, #{meetDate},
+			#{fileimg, jdbcType=VARCHAR}, #{sta},
+			#{cuId}, #{productNo})
+		]]>
+</insert>
 
 </mapper>

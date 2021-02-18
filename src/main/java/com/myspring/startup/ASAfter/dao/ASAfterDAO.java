@@ -19,4 +19,6 @@ public interface ASAfterDAO {
 	public List<ASAfterDetailVO> ASAfterListDetail(int asno) throws DataAccessException;
 	
 	public void insertASrespond(ASrespondVO asrespondVO) throws DataAccessException;
+	
+	public void updateSta(Integer asno) throws DataAccessException;
 }

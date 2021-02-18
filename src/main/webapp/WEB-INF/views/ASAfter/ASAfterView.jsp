@@ -7,6 +7,7 @@
 <html lang="ko">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="uNo" value="${sessionScope.member.uNo}" />
 
 <head>
 <meta charset="UTF-8">
@@ -118,7 +119,7 @@ h1 {
 
 <body>
 	<div class="container">
-		<form name = "insertASrespond" action="${contextPath}/ASAfter/insertASrespond.do" method="post">
+		<form action="${contextPath}/ASAfter/insertASrespond.do" method="post">
 			<h1>상세 정보</h1>
 			<div class="content">
 
@@ -188,12 +189,13 @@ h1 {
 			</div>
 
 			<div class="submit">
-				<input type="submit" value="승인">
-				<input type="hidden" name = "asno" value="${asno}">
-				<input type="hidden" name = "cuId" value="${sessionScope.member.cuId}">
+				<c:if test="${uNo == 2}">
+					<input type="submit" value="승인">
+				</c:if>
+				<input type="hidden" name="asno" value="${asno}"> 
+				<input type="hidden" name="cuId" value="${sessionScope.member.cuId}">
 			</div>
 		</form>
 	</div>
-	
 </body>
 </html>
