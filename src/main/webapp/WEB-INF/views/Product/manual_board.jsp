@@ -133,20 +133,20 @@
 		            <c:forEach var="page" begin="1" end="10" step="1">
 		            	<c:if test="${section > 1 && page==1}">
 			                <li class="page-item disabled">
-			                    <a class="page-link" href="${contextPath }/Product/listProduct.do?section=${section-1}&pageNum=${(section-1)}*10+1" tabindex="-1" aria-disabled="true">Previous</a>
+			                    <a class="page-link" href="${contextPath }/Manual/listManual.do?section=${section-1}&pageNum=${(section-1)}*10+1" tabindex="-1" aria-disabled="true">Previous</a>
 			                </li>
 			            </c:if>
-			                <li class="page-item"><a class="page-link" href="${contextPath}/Product/listProduct.do?section=${section}&pageNum=${page}">${(section-1)*10 +page }</a></li>
+			                <li class="page-item"><a class="page-link" href="${contextPath}/Manual/listManual.do?section=${section}&pageNum=${page}">${(section-1)*10 +page }</a></li>
 			            <c:if test="${page == 10}">
 			                <li class="page-item">
-			                    <a class="page-link" href="${contextPath}/Product/listProduct.do?section=${section}&pageNum=${section*10+1}">Next</a>
+			                    <a class="page-link" href="${contextPath}/Manual/listManual.do?section=${section}&pageNum=${section*10+1}">Next</a>
 			                </li>
 			            </c:if>
 		            </c:forEach>
                 </c:when>
                 <c:when test="${totProduct == 100}">
                 	<c:forEach var="page" begin="1" end="10" step="1">
-                		<li class="page-item"><a class="page-link" href="${contextPath}/Product/listProduct.do?section=${section}&pageNum=${page}">${(totArticles/10)*10+page}</a></li>
+                		<li class="page-item"><a class="page-link" href="${contextPath}/Manual/listManual.do?section=${section}&pageNum=${page}">${(totArticles/10)*10+page}</a></li>
                 	</c:forEach>
                 </c:when>
                 
@@ -154,10 +154,10 @@
                 	<c:forEach var="page" begin="1" end="${totProduct/10+1}" step="1">
                 		<c:choose>
 	                		<c:when test="${page==pageNum }">
-	                			<li id="selectPage" class="page-item"><a class="page-link" href="${contextPath}/Product/listProduct.do?section=${section}&pageNum=${page}">${page }</a></li>
+	                			<li id="selectPage" class="page-item"><a class="page-link" href="${contextPath}/Manual/listManual.do?section=${section}&pageNum=${page}">${page }</a></li>
 	                		</c:when>
                 			<c:otherwise>
-                				<li class="page-item"><a class="page-link" href="${contextPath}/Product/listProduct.do?section=${section}&pageNum=${page}">${page }</a></li>
+                				<li class="page-item"><a class="page-link" href="${contextPath}/Manual/listManual.do?section=${section}&pageNum=${page}">${page }</a></li>
                 			</c:otherwise>
                 		</c:choose>
                 	</c:forEach>

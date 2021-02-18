@@ -4,6 +4,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
     <c:set var="productNo"  value="${product.productNo}" />
+        <c:set var="productGroup"  value="${pageMap.GroupList}" />
     <%
     	request.setCharacterEncoding("utf-8");
     %>
@@ -24,6 +25,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	
+    function addinput(result){
+        if(result=='기타'){
+           var html = '<input type="text" name="productGroup" id="input_added">';
+           $('#productGroup #td2').append(html);
+           $('#productGroup #td2 select').removeAttr('name');
+        }else{
+           $('#input_added').remove();
+           $('#productGroup #td2 select').attr('name', 'productGroup');
+        };
+     }
+
 	function addCompo(){
         var a = $('.c1').val();
         var b = $('.c2').val();
@@ -52,7 +65,7 @@
         $('.c3').val('');
         }
 	};
-    
+
     function deleteCompo(){
       $("#component tr:last").remove();
     };
@@ -91,15 +104,15 @@
 						<span name="manufacName">${pageMap.manufacName}</span>
                     </td>
                 </tr>
-                <tr> 
+                <tr id="productGroup"> 
                     <td id="td1" scope="row">분류:</td>
                     <td id="td2" scope="row">
-                        <select name="productGroup">
+                        <select name="productGroup"  onchange="addinput(this.value);">
                             <option>분류</option>
-                            <option>TV</option>
-                            <option>DESKTOP</option>
-                            <option>세탁기</option>
-                            <option>냉장고</option>
+							<c:forEach var="productGroup" items="${productGroup }">
+							<option value="${productGroup }">${productGroup }</option>
+							</c:forEach>
+							<option value="기타">기타</option>
                         </select>
                     </td>
                 </tr>

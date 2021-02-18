@@ -100,7 +100,7 @@
             <tbody>
             <!-- 제품리스트 -->
             <c:choose>
-            <c:when test="${productMap == null }">
+            <c:when test="${totProduct==0}">
             <tr>
                     <td scope="row">
 	                    <p align="center">

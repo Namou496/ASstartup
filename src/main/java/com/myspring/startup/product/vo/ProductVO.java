@@ -26,7 +26,6 @@ public class ProductVO {
 		private int 		componentPrice;
 		private int			componentPart;
 		
-		private int			totProduct;
 
 		public int getProductNo() {
 			return productNo;
@@ -148,16 +147,4 @@ public class ProductVO {
 			this.componentPart = componentPart;
 		}
 
-		public int getTotProduct() {
-			return totProduct;
-		}
-
-		public void setTotProduct(int totProduct) {
-			this.totProduct = totProduct;
-		}
-		
-		
-	
-		
-		
 }
