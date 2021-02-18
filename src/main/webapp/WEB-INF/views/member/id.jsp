@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <title>아이디 찾기</title>
     <script src="../resources/js/login.js"></script>
-    <link type="text/css" rel="stylesheet" href="../resources/css/login.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/lost.css">
 </head>
 <body>
     <div class="limiter">
