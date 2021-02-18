@@ -95,7 +95,7 @@
 		                                        </li>
 		                                        
 		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectASAfterList.do">A/S신청 목록</a>
+		                                            <a class="nav-link actionBtn" href="/ASAfter/selectUserASAfterList.do">A/S신청 목록</a>
 		                                        </li>
 		
 		                                        <li class="nav-item">

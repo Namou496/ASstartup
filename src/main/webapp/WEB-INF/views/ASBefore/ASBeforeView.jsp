@@ -162,18 +162,17 @@
         #costBox>div{
             width: 40%;
         }
-        #submit{
+        #submit , #ReviewSubmit{
             width: 11.5%;
             margin: 0 auto;
         }
-        #submit>input{
+        #submit>input, #ReviewSubmit>input{
             background-color: #0d6efd;
             color: white;
             border: 1px solid #0d6efd;
             border-radius: 5px;
             width: 100%;
         }
-
 
     </style>
     
@@ -248,9 +247,8 @@
     				
     			},
     			error : function(request, status, error) {
-    				alert("code:" + request.status + "\n" + "message:"
-    						+ request.responseText + "\n" + "error:"
-    						+ error);
+    				alert("로그인 오류입니다. 다시확인후 시도해주세요");
+    				location.href="${contextPath}/main/main.do";
     			}
 				
     		});
@@ -666,7 +664,9 @@
 		                </div>
 		                
 		            </div>
-
+					<div id="ReviewSubmit">
+						<button id="ReviewSubmitBtn" type="button" class="btn btn-primary">리뷰작성</button>
+					</div>
             </c:if>
         </div>
     </div>

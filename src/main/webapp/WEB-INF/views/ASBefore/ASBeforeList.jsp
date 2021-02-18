@@ -131,9 +131,8 @@
 
 			},
 			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:"
-						+ error);
+				alert("로그인 오류입니다. 다시확인후 시도해주세요");
+				location.href="${contextPath}/main/main.do";
 			}
 
 		});
@@ -169,8 +168,8 @@
 
 			},
 			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
+				alert("로그인 오류입니다. 다시확인후 시도해주세요");
+				location.href="${contextPath}/main/main.do";
 			}
 
 		});
