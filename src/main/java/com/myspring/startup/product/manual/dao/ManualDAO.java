@@ -12,7 +12,6 @@ public interface ManualDAO {
 
 	int selectUserRight(MemberVO memberVO) throws Exception;
 	List<ProductVO> selectProductList(Map pageMap) throws Exception;
-	int selectTotProduct() throws Exception;
 	String manufacName(String cuId) throws Exception;
 	ProductVO selectManualDetail(Map pageMap) throws Exception;
 	List<ProductVO> searchManual(Map searchMap) throws Exception;

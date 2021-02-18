@@ -48,7 +48,7 @@ public class ManualServiceImpl implements ManualService{
 				Map productMap = new HashMap();
 
 				//				페이징/ 전체 글 갯수
-				int totProduct = ManuDAO.selectTotProduct();
+				int totProduct = productList.size();
 				
 				productMap.put("uno", uno);
 				productMap.put("productList", productList);
@@ -99,7 +99,7 @@ public class ManualServiceImpl implements ManualService{
 
 						//				셀렉트박스/제조사이름--end
 						
-						int totProduct = ManuDAO.selectTotProduct();
+						int totProduct = productList.size();
 						
 						Map productMap = new HashMap();
 						productMap.put("uno", uno);

@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService{
 				Map productMap = new HashMap();
 
 				//				페이징/ 전체 글 갯수
-				int totProduct = proDAO.selectTotProduct();
+				int totProduct = productList.size();
 				
 				productMap.put("uno", uno);
 				productMap.put("productList", productList);
@@ -99,9 +99,10 @@ public class ProductServiceImpl implements ProductService{
 				if(memberId == null) {
 					uno = 1;
 				}
-				searchMap.put("memberId", memberId);
+				searchMap.put("cuId", memberId);
 				searchMap.put("uno", uno);
 				List<ProductVO> productList = proDAO.searchProduct(searchMap);
+				
 				
 				//				셀렉트박스/제조사이름
 				Set manufac = new HashSet();
@@ -119,7 +120,8 @@ public class ProductServiceImpl implements ProductService{
 				//				셀렉트박스/제조사이름--end
 				
 				
-				int totProduct = proDAO.selectTotProduct();
+				int totProduct = productList.size();
+				System.out.println("totProduct" + totProduct);
 				
 				Map productMap = new HashMap();
 				productMap.put("uno", uno);

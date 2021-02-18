@@ -49,8 +49,9 @@ public class ProductControllerImpl implements ProductController{
 									) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		
-//		String memberId = "ga";
+		ModelAndView mav = new ModelAndView();
+		PrintWriter pw = response.getWriter();
+		try {		
 		HttpSession session = request.getSession();
 		MemberVO memberId = (MemberVO) session.getAttribute("member");
 		String _memberId = memberId.getCuId();
@@ -69,13 +70,18 @@ public class ProductControllerImpl implements ProductController{
 		productMap.put("section", section);
 		productMap.put("pageNum", pageNum);
 		
-		ModelAndView mav = new ModelAndView();
+
 		mav.addObject("pageMap", pageMap);
 		mav.addObject("productMap", productMap);
 		mav.setViewName("/product/productApplyBoard");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
-		
 	}
+	
 //	2) 제품상세
 	@Override
 	@RequestMapping(value="/Product/ProductDetail.do", method= {RequestMethod.GET,RequestMethod.POST})
@@ -84,8 +90,11 @@ public class ProductControllerImpl implements ProductController{
 									  @RequestParam("productNo") int productNo,
 									  HttpServletRequest request, 
 						 			  HttpServletResponse response) throws Exception{
-		System.out.println("hi");
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		ModelAndView mav = new ModelAndView();
+		PrintWriter pw = response.getWriter();
+		try {
 		String _section = request.getParameter("section");
 		String _pageNum = request.getParameter("pageNum");
 		//		String memberId = (String) session.getAttribute("memberId");
@@ -101,12 +110,16 @@ public class ProductControllerImpl implements ProductController{
 		
 		ProductVO product = ProductService.ProductDetail(pageMap, _memberId); //제품상세 정보
 		List componentList = ProductService.compoDetail(product.getProductNo()); //부품리스트
-		
-		ModelAndView mav = new ModelAndView();
+	
 		mav.addObject("product", product);
 		mav.addObject("pageMap", pageMap);
 		mav.addObject("componentList", componentList);
 		mav.setViewName("/product/productApplyDetail");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
 	}
 //	3) 제품검색
@@ -115,7 +128,11 @@ public class ProductControllerImpl implements ProductController{
 	@RequestMapping(value="/Product/selectManufacturer.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public void selectAjaxManufacName(HttpServletRequest req, HttpServletResponse res, String param) 
 	throws Exception{
-			   res.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		try {
+
 			   
 			   // 도 정보 받음
 			   String manufacName = param;
@@ -129,10 +146,12 @@ public class ProductControllerImpl implements ProductController{
 			   }
 			 
 			   // jsonArray 넘김
-			   PrintWriter pw = res.getWriter();
 			   pw.print(jsonArray.toString());
 			   pw.flush();
 			   pw.close();
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 등록되지 않은 상품 입니다.');" + "</script>");
+		}
 
 	}
 	// 제품 검색
@@ -145,9 +164,11 @@ public class ProductControllerImpl implements ProductController{
 			  							@RequestParam(value="productName", required=false, defaultValue="") String productName,
 										HttpServletRequest request, 
 										HttpServletResponse response) throws Exception{
-		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		ModelAndView mav = new ModelAndView();
+		PrintWriter pw = response.getWriter();
+		try {
 		//		테스트
 		HttpSession session = request.getSession();
 		MemberVO memberId = (MemberVO) session.getAttribute("member");
@@ -174,9 +195,13 @@ public class ProductControllerImpl implements ProductController{
 		productMap.put("section", section);
 		productMap.put("pageNum", pageNum);
 		
-		ModelAndView mav = new ModelAndView();
 		mav.addObject("productMap", productMap);
 		mav.setViewName("/product/searchProduct");
+		} catch (Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
 		
 	}
@@ -193,13 +218,24 @@ public class ProductControllerImpl implements ProductController{
 									 @RequestParam(value="manufacName", required=false, defaultValue="") String manufacName
 									 ) throws Exception{
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		ModelAndView mav = new ModelAndView();
+		PrintWriter pw = response.getWriter();
+		try {
+		List GroupList = ProductService.productGroup(manufacName);
 		Map pageMap = new HashMap();
 		pageMap.put("section", section);
 		pageMap.put("pageNum", pageNum);
 		pageMap.put("manufacName", manufacName);
-		ModelAndView mav = new ModelAndView();
+		pageMap.put("GroupList", GroupList);
+		
 		mav.addObject("pageMap", pageMap);
 		mav.setViewName("/product/productApplyView");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다. 다시 로그인 하세요.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
 	}
 	// 제품등록
@@ -207,8 +243,11 @@ public class ProductControllerImpl implements ProductController{
 	@RequestMapping(value="/Product/applyProduct.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView applyProduct(MultipartHttpServletRequest multipartRequest, 
 									 HttpServletResponse response) throws Exception{
-		multipartRequest.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		multipartRequest.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		ModelAndView mav = new ModelAndView();
+		PrintWriter pw = response.getWriter();
+		try {
 		Map product = upload(multipartRequest, response);
 		HttpSession session = multipartRequest.getSession();
 		MemberVO memberId = (MemberVO) session.getAttribute("member");
@@ -236,13 +275,16 @@ public class ProductControllerImpl implements ProductController{
 		int productNo=ProductService.applyProduct(componentName, componentPart, product);
 		
 		product.put("productNo", productNo);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("product", product);
 		
-		PrintWriter pw = response.getWriter();
-		pw.print("<script>"+"alert('요청되었습니다!!');"+"location.href='"+multipartRequest.getContextPath()
+		mav.addObject("product", product);
+		pw.print("<script>"+"alert('요청완료!!');"+"location.href='"+multipartRequest.getContextPath()
 					+ "/Product/listProduct.do';"
 					+ "</script>");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다.');"+"location.href='"+multipartRequest.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
 	}
 	
