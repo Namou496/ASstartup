@@ -28,7 +28,7 @@
 					<div class="wrap-input100 validate-input">
 						<input class="input100" type="text" name="cuId" placeholder="아이디">
 						<span class="focus-input100"></span> <span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
+							<i class="fa fa-user-circle" aria-hidden="true"></i>
 						</span>
 					</div>
 
@@ -45,8 +45,7 @@
 					</div>
 
 					<div class="text-center p-t-12">
-						<span class="txt1"> 사라진 </span> <a class="txt2" href="#"> 아이디
-							/ 비밀번호? </a>
+						<span class="txt1"> 사라진 </span> <a class="txt2" href="${contextPath }/member/pw.do"> 비밀번호 찾기 </a>
 					</div>
 					<!-- 회원가입 폼으로 -->
 					<div class="text-center p-t-136">

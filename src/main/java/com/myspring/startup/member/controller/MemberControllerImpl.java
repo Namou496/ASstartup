@@ -54,14 +54,10 @@ public class MemberControllerImpl implements MemberController{
 			}else {
 				mav.addObject("message", "로그인에 실패하였습니다. 아이디 및 비밀번호를 정확히 입력해 주세요.");
 				mav.setViewName("redirect:/member/login.do");
-//				message = "<script>";
-//				message += "alert('AS신청서 접수가 완료 되었습니다.');";
-//				message += " location.href='"+"/member/login.do';";
-//				message += " </script>";
-//				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}
 		}catch(Exception e){
 			mav.setViewName("/member/login");
+			e.printStackTrace();
 		}
 		return mav;			
 	}
@@ -115,7 +111,7 @@ public class MemberControllerImpl implements MemberController{
 			memberService.addMember(memberJoinMap);
 			message = "<script>";
 			message += "alert('회원가입이 완료 되었습니다.');";
-			message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
+			message += " location.href='"+multipartRequest.getContextPath()+"/main/main.do';";
 			message += " </script>";
 			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 		}catch(Exception e) {
@@ -136,6 +132,22 @@ public class MemberControllerImpl implements MemberController{
 	public ModelAndView joinPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/join");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/pw.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView lostPw(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/pw");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/id.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView lostId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/id");
 		return mav;
 	}
 }
