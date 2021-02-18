@@ -14,4 +14,6 @@ public interface ASAfterController {
 	public ModelAndView selectMfrASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView ASAfterListDetail(HttpServletRequest request, HttpServletResponse response, int asno) throws Exception;
+	
+	public ModelAndView insertASrespond(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

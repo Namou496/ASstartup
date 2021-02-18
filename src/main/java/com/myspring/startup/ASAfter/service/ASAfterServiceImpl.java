@@ -1,6 +1,8 @@
 package com.myspring.startup.ASAfter.service;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myspring.startup.ASAfter.dao.ASAfterDAO;
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
+import com.myspring.startup.ASAfter.vo.ASrespondVO;
+import com.myspring.startup.ASBefore.vo.ASBeforeVO;
 
 @Service("ASAfterService")
 @Transactional(propagation= Propagation.REQUIRED)
@@ -41,5 +45,11 @@ public class ASAfterServiceImpl implements ASAfterService{
 	public List<ASAfterDetailVO> ASAfterListDetail(int asno) throws Exception {
 		List<ASAfterDetailVO> dtlist = ASAfterdao.ASAfterListDetail(asno);
 		return dtlist;
+	}
+	
+	@Override
+	public void insertASrespond(Map<String, Object> updatesta) throws Exception {
+		ASAfterdao.insertASrespond((ASrespondVO)updatesta.get("insertresp"));
+		ASAfterdao.updateSta((Integer)updatesta.get("asno"));
 	}
 }

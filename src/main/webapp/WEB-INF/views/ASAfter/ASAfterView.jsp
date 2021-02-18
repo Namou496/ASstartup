@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="uNo" value="${sessionScope.member.uNo}" />
+
 <head>
 <meta charset="UTF-8">
 <title>A/S 현황 상세정보</title>
@@ -116,73 +119,83 @@ h1 {
 
 <body>
 	<div class="container">
-		<h1>상세 정보</h1>
-		<div class="content">
-			<div class="leftcontent">
-				<h5>신청자이름</h5>
-				<c:forEach items="${ASAfterView}" var="view">
-					<input type="text" value="${view.uname}" style="text-align: center">
-				</c:forEach>
-				<h5>전화번호</h5>
-				<c:forEach items="${ASAfterView}" var="view">
-					<input type="text" value="${view.tel}" style="text-align: center">
-				</c:forEach>
-				<h5>주소</h5>
-				<c:forEach items="${ASAfterView}" var="view">
-					<input type="text" value="${view.addr}" id="addr">
-				</c:forEach>
+		<form action="${contextPath}/ASAfter/insertASrespond.do" method="post">
+			<h1>상세 정보</h1>
+			<div class="content">
 
-				<div class="menu1">
-					<span>제품종류</span><br> <select name="prod">
-						<c:forEach items="${ASAfterView}" var="view">
-							<option value="${view.prodGroup}">${view.prodGroup}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="menu1">
-					<span>제조사</span><br> <select name="manufacturer">
-						<c:forEach items="${ASAfterView}" var="view">
-							<option value="${view.mname}">${view.mname}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="menu1">
-					<span>제품명</span><br>
+				<div class="leftcontent">
+
+					<h5>신청자이름</h5>
 					<c:forEach items="${ASAfterView}" var="view">
-						<input type="text" value="${view.pname}"
+						<input type="text" value="${view.uname}"
 							style="text-align: center">
 					</c:forEach>
+					<h5>전화번호</h5>
+					<c:forEach items="${ASAfterView}" var="view">
+						<input type="text" value="${view.tel}" style="text-align: center">
+					</c:forEach>
+					<h5>주소</h5>
+					<c:forEach items="${ASAfterView}" var="view">
+						<input type="text" value="${view.addr}" id="addr">
+					</c:forEach>
+
+					<div class="menu1">
+						<span>제품종류</span><br> <select name="prod">
+							<c:forEach items="${ASAfterView}" var="view">
+								<option value="${view.prodGroup}">${view.prodGroup}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="menu1">
+						<span>제조사</span><br> <select name="manufacturer">
+							<c:forEach items="${ASAfterView}" var="view">
+								<option value="${view.mname}">${view.mname}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="menu1">
+						<span>제품명</span><br>
+						<c:forEach items="${ASAfterView}" var="view">
+							<input type="text" value="${view.pname}"
+								style="text-align: center">
+						</c:forEach>
+					</div>
+					<div class="menu2">
+						<a>방문방식</a><br> <label><input type="radio"
+							name="visit" value="as">A/S지점 방문</label> <label><input
+							type="radio" name="visit" value="prod">수리기사 방문</label><br>
+					</div>
 				</div>
-				<div class="menu2">
-					<a>방문방식</a><br> <label><input type="radio"
-						name="visit" value="as">A/S지점 방문</label> <label><input
-						type="radio" name="visit" value="prod">수리기사 방문</label><br>
-				</div>
+				<div class="rightcontent"></div>
 			</div>
-			<div class="rightcontent"></div>
-		</div>
-		<div class="leftmenu">
-			<c:forEach items="${ASAfterView}" var="view">
-				<span>방문희망일자</span>
-				<br>
-				<input type="date" value="${view.meetDate}">
-			</c:forEach>
-		</div>
-		<div class="rightmenu">
-			<span>방문예정일자</span><br> <input type="date">
-		</div>
-		<div class="sysptom">
-			<c:forEach items="${ASAfterView}" var="view">
-				<span>증상</span>
-				<br>
-				<p>
-					<textarea>${view.symptoms}</textarea>
-				</p>
-			</c:forEach>
-		</div>
-		<div class="submit">
-			<input type="button" value="승인">
-		</div>
+			<div class="leftmenu">
+				<c:forEach items="${ASAfterView}" var="view">
+					<span>방문희망일자</span>
+					<br>
+					<input type="date" value="${view.meetDate}">
+				</c:forEach>
+			</div>
+			<div class="rightmenu">
+				<span>방문예정일자</span><br> <input type="date" name="respDate">
+			</div>
+			<div class="sysptom">
+				<c:forEach items="${ASAfterView}" var="view">
+					<span>증상</span>
+					<br>
+					<p>
+						<textarea>${view.symptoms}</textarea>
+					</p>
+				</c:forEach>
+			</div>
+
+			<div class="submit">
+				<c:if test="${uNo == 2}">
+					<input type="submit" value="승인">
+				</c:if>
+				<input type="hidden" name="asno" value="${asno}"> 
+				<input type="hidden" name="cuId" value="${sessionScope.member.cuId}">
+			</div>
+		</form>
 	</div>
 </body>
 </html>
