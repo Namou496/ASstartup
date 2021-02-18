@@ -39,9 +39,14 @@ public class AdminProductControllerImpl implements AdminProductController {
 	@RequestMapping(value="/admin/product/adminProductList.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminProductList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		
+		
 		List<AdminProductVO> ProductList=adminProductService.AdminProductList();
 		ModelAndView mav = new ModelAndView("/product/adminProductList");
 		mav.addObject("productList",ProductList);
+		
 		return mav;
 		
 	}

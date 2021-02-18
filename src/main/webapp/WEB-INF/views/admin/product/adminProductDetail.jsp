@@ -49,6 +49,7 @@
 			$("#reason").val(rejectionReason);
 			$("#no").val(productNO);
 			$("#frmApproval").submit();
+			alert('승인거절이 완료되었습니다.')
 		});
 		
 		$("#approvalOk").click(function(){
@@ -56,6 +57,7 @@
 			$("#reason").val("승인완료");
 			$("#no").val(productNO);
 			$("#frmApproval").submit();
+			alert('승인이 완료되었습니다.')
 		});
 		
 	});
