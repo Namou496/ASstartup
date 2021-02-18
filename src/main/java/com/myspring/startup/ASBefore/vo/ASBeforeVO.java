@@ -17,11 +17,18 @@ public class ASBeforeVO {
 	private String symptoms;
 	private Date meetDate;
 	private Date respDate;
+	public String getTextBox() {
+		return textBox;
+	}
+	public void setTextBox(String textBox) {
+		this.textBox = textBox;
+	}
 	private String cuid; /*공급자 아이디*/
 	private String asComment;/*ASrespond update*/
 	private int manCost;/*ASrespond update*/
 	private int serviceCost;/*ASrespon update*/
 	private int sta;/*ASForm update*/
+	private String textBox;
 	
 	
 	public String getCustoname() {
