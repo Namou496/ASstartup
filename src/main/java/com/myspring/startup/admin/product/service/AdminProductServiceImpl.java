@@ -20,8 +20,17 @@ public class AdminProductServiceImpl implements AdminProductService{
 
 //	제품승인요청리스트
 	@Override
-	public List<AdminProductVO> AdminProductList() throws Exception {
-		return  adminProductDAO.selectProductApprovalList();
+	public Map<String,Object> AdminProductList(int secNum) throws Exception {
+		double pageNum=adminProductDAO.selectProductApprovalListCount(secNum);
+		
+		pageNum=pageNum/10;
+		
+		List<AdminProductVO> productList=adminProductDAO.selectProductApprovalList(secNum);
+		Map<String,Object> productMap=new HashMap<String,Object>();
+		productMap.put("pageNum",(int)Math.ceil(pageNum));
+		productMap.put("productList", productList);
+		
+		return productMap;
 	}
 	
 //	제품상세

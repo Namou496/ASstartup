@@ -19,9 +19,15 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 
 //	제품승인요청리스트
 	@Override
-	public List<AdminProductVO> selectProductApprovalList() throws DataAccessException {
+	public List<AdminProductVO> selectProductApprovalList(int secNum) throws DataAccessException {
 		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList");
 		return productList;
+	}
+	
+	@Override
+	public int selectProductApprovalListCount(int secNum) {
+		int pageNum=sqlSession.selectOne("mapper.adminProduct.selectProductApprovalListCount",secNum);
+		return pageNum;
 	}
 	
 //	제품상세

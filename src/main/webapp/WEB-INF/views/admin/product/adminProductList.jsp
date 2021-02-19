@@ -3,7 +3,8 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="productList" value="${productList}" />
+<c:set var="productList" value="${productMap.productList}" />
+<c:set var="pageNum" value="${productMap.pageNum}" />
 <c:set var="productDetail" value="${productDetail}" />
 <%
 request.setCharacterEncoding("utf-8");
@@ -83,7 +84,7 @@ request.setCharacterEncoding("utf-8");
 					<c:when test="${productList != null }">
 		
 					
-						<c:forEach var="adminPro" items="${productList }">
+						<c:forEach var="adminPro" items="${productList}">
 							<tr>
 								<th scope="row">${adminPro.productNO}</th>
 								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">${adminPro.name}</a></td>
@@ -107,14 +108,16 @@ request.setCharacterEncoding("utf-8");
 			<ul class="pagination justify-content-center">
 				<li class="page-item disabled"><a class="page-link" href="#"
 					tabindex="-1" aria-disabled="true">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
+					
+					<c:forEach var="pageNum" begin="1" end="${pageNum}" step="1">
+					<li class="page-item"><a class="page-link" href="#">${pageNum}</a></li>
+					</c:forEach>
+					
 				<li class="page-item"><a class="page-link" href="#">Next</a></li>
 			</ul>
 		</nav>
 
 	</div>
-
+${pageNum}
 </body>
 </html>

@@ -30,19 +30,49 @@
 
 		<![CDATA[
 			select
-			 product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus
+			 productNo,name,prodGroup,approvalNum,approvalStatus
+			 
+			 from(
+			 select  rowNum as recNum,productNo,name,prodGroup,approvalNum,approvalStatus
+			 
+			 	from(
+			 	
+			 	)
+			 )
             
-			
-			from
-			product, productApproval
-	
-			where product.productNo = productApproval.productNo
-			order by approvalnum desc
 		
 		]]>
 
 
 	</select>
+
+<!-- 데이터 -->
+<!-- 		select -->
+<!-- 			 product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus -->
+            
+<!-- 			from -->
+<!-- 			product, productApproval -->
+	
+<!-- 			where product.productNo = productApproval.productNo -->
+<!-- 			order by approvalnum desc -->
+
+
+<select id="selectProductApprovalListCount" parameterType="int" resultType="int">
+
+		<![CDATA[
+		select count(rownum) from(
+		
+			select rownum
+			from
+			product, productApproval
+	
+			where product.productNo = productApproval.productNo
+			order by approvalnum desc
+		)
+		where rownum between (#{secNum}-1)*100+1 and (#{secNum}*100)
+		]]>
+</select>
+
 
 	<!-- 승인상세 -->
 	<select id="selectProductApprovalDetail"
