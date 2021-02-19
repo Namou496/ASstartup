@@ -1,5 +1,9 @@
 package com.myspring.startup.Asstarrate.service;
 
-public interface AsstarrateService {
+import java.util.Map;
 
+public interface AsstarrateService {
+	
+	public void starrateService(Map asList)throws Exception;
+	
 }

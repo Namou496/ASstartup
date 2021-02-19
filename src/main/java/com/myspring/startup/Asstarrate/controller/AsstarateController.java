@@ -10,4 +10,7 @@ public interface AsstarateController {
 	
 	public ModelAndView fillAsstarrate(HttpServletRequest request, HttpServletResponse response) throws Exception; 
 	
+	public ModelAndView callStarrate(HttpServletRequest request, HttpServletResponse response) throws Exception; 
 }
+
+	

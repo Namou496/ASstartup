@@ -1,6 +1,6 @@
 package com.myspring.startup.Asstarrate.dao;
 
-import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ public class AsstarrateDAOImpl implements AsstarrateDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public List 메소드명(int 메개변수) {
-		return null;
+	public void starrateService(Map asList)throws Exception {
+		int AsstarrateService = sqlSession.update("mapper.Asstarrate.insertAsstarrate",asList);
 	}
 	
 }

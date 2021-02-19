@@ -40,8 +40,18 @@ public class AsstarateControllerImpl implements AsstarateController {
 		asList.put("star", star);
 		asList.put("textBox", text);
 		
+		AsstarrateService.starrateService(asList);		
+		return mav;
+			
+	}
+	@RequestMapping(value="/Asstarrate/callStarrate.do" ,method= {RequestMethod.GET,RequestMethod.POST})
+	@Override
+	public ModelAndView callStarrate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		int asno = Integer.parseInt(request.getParameter("asno"));
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/Asstarrate/callStarrate");
+		mav.addObject("asno", asno);
 		return mav;
 		
 		
