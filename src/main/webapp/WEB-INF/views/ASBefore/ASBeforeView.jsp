@@ -22,12 +22,10 @@
 
     <!--jquery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-	
-	
-
 
 	<!-- myCss -->
 	<link href="${contextPath}/resources/css/ASBeforeView.css" rel="stylesheet" type="text/css" media="screen">
+	
     <!--myFunction-->
     <script type="text/javascript">
 	    var sta = ${ASbefore.sta};

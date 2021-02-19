@@ -16,209 +16,199 @@
     </c:choose>
 <meta charset="UTF-8">
 
+	<style>
+
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .whole {
+            padding: 0px;
+            background: lightgray;
+            height: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .navbar{
+        	height: 20%;
+        }
+        .navbar-brand img{
+            width: 100px;
+            height: 100px;
+        }
+        #navbarNavAltMarkup{
+            text-align: center;
+        }
+        .navbar-nav{
+            margin: 0 auto;
+        }
+        #img{
+            object-fit: cover;
+            width: 100%;
+            height: 80%;
+        }
+        #helpWhat{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            color: white;
+            font-size: 1.9em;
+        }
+        
+        #find{
+            position: relative;
+            display: flex;
+            justify-content: ;
+            flex-direction: column;
+            width: 35%;
+            bottom: 210px;
+            margin: 0 auto;
+        }
+        #find_prod{
+            position: relative;
+            display: flex;
+            text-align: center
+            width: 40%;
+        }
+        a:hover{
+            color: purple;
+        }
+        #logo{
+            padding-left: 25px;
+        }
+        @media screen and (max-width:992px){
+            #navbarNavAltMarkup{
+                display: block;
+            }
+            #logo{
+                padding-left: 0px;
+                margin: 0 auto;
+            }
+            #find{
+                display: none;
+            }
+            
+        }
+        
+         @media screen and (min-width: 992px){
+            .navbar-nav li{
+                padding-right: 100px;
+            }
+        }
+        
+
+    </style>
+
 	<script type="text/javascript">
+		/*김태수*/
 		var uNo=${uNo};
 		var contextPath='${contextPath}';
+		/*안두용*/
+		function resizeNav(){
+            var wth = $(this).width();
+            if(wth <= 992){
+                $('.nav-link').removeAttr('style');
+          	}
+      	}
+		
 		$(function(){
+			/*김태수*/
 			$('.actionBtn').click(function(e){
 				e.preventDefault();
 				if(!uNo>0){
 					alert('로그인후 이용가능합니다.');
 				}else{
-					var url = contextPath+$(this).attr('href');
+					var url = $(this).attr('href');
 					location.href=url;
 				}
 			});
-			
-			$('.loginBtn').click(function(){
-				var url=contextPath+'/member/login.do';
-				location.href=url;
-			});
-			
-			$('.logoutBtn').click(function(){
-				var url=contextPath+'/member/logout.do';
-				location.href=url;
-			});
-			
+			/*안두용*/
+			var a = $('.a').attr('style');
+            var b = $('.b').attr('style');
+            var c = $('.c').attr('style');
+            var d = $('.d').attr('style');
+            var e = $('.e').attr('style');
+            var f = $('.f').attr('style');
+          
+            $(window).resize(function(){
+                var wth = $(this).width();
+                
+                if(wth <= 992){
+                    $('#logo').attr('style', 'margin:0 auto;');
+                    $('.nav-link').removeAttr('style');
+                    $('#find').attr('style','display:none;');
+                } else if(wth >= 992){
+                    $('#find').attr('style','display:flex');
+                    $('.a').attr('style', a);
+                    $('.b').attr('style', b);
+                    $('.c').attr('style', c);
+                    $('.d').attr('style', d);
+                    $('.e').attr('style', e);
+                    $('.f').attr('style', f);
+                }
+            });
 		});
 	</script>
 
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid whole">
 
-        <div class="row">
-
-            <div class="col" id="header">
-                <div class="container">
-
-                    <!-- <p>헤더</p>-->
-					<a href="${contextPath}/main/main.do">
-                    	<img src="${contextPath}/resources/img/logo_transparent%20(4).png" alt="">
-                    </a>
-					
-                    <div class="menubar">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        	<c:choose>
-	                        	<c:when test="${uNo<=1}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASForm/ASForm.do">A/S신청</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectASAfterList.do">A/S신청 목록</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 리스트</a>
-		                                        </li>
-		                                    </ul>
-		                                    <c:choose>
-			                                    <c:when test="${uNo==0}">
-			                                    	<button class="loginBtn btn-outline-success" type="button">로그인</button>
-			                                    </c:when>
-			                                    <c:when test="${uNo != 0}">
-			                                    	<button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-			                                    </c:when>
-		                                    </c:choose>
-		                                </div>
-		                            </div>
-	                            </c:when>
-	                            <c:when test="${uNo==2}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectASAfterList.do">A/S신청 목록</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 리스트</a>
-		                                        </li>
-		                                    </ul>
-		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-		                                </div>
-		                            </div>
-	                            </c:when>
-	                            <c:when test="${uNo==3}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Product/listProduct.do">제품등록 게시판</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 게시판</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectMfrASAfterList.do">A/S신청 목록</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
-		                                        </li>
-		                                    </ul>
-		                                    
-		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-		                                </div>
-		                            </div>
-	                            </c:when>
-	                            
-	                            <c:when test="${uNo==4}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/product/adminProductList.do">제품등록승인</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/manufac/adminManufacList.do">제조사등록승인</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/member/adminMemberList.do">사용자관리</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/satisfaction/adminSatisfactionList.do">소비자만족도확인</a>
-		                                        </li>
-		                                    </ul>
-		                                    
-		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-		                                </div>
-		                            </div>
-	                            </c:when>
-                            </c:choose>
-                        </nav>
-
+        <!--      navbar   -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid navbar">
+                <a class="navbar-brand" href="${contextPath}/main/main.do" id="logo"><img src="${contextPath}/resources/img/21.png" alt="" style="width: 110px; height: 100px; padding-left: 0px;"></a>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    	<c:choose>
+                    		<c:when test="${uNo<=1}">
+                        		<li><a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASForm/ASForm.do" style="">신청서</a></li>
+                        		<li><a class="nav-link b actionBtn" href="${contextPath}/ASAfter/selectUserASAfterList.do" style="">A/S신청 목록</a></li>
+                        		<li><a class="nav-link c actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="">A/S이력 목록</a></li>
+                        		<a class="nav-link d actionBtn" href="${contextPath}/Manual/listManual.do" tabindex="-1" aria-disabled="true" style="">매뉴얼 리스트</a>
+                        	</c:when>
+                        	<c:when test="${uNo==2}">
+                        		<li><a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASAfter/selectASAfterList.do" style="">A/S신청 목록</a></li>
+                        		<li><a class="nav-link b actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="">A/S이력 목록</a></li>
+                        		<li><a class="nav-link c actionBtn" href="${contextPath}/Manual/listManual.do" style="">매뉴얼 리스트</a></li>
+                        	</c:when>
+                        	<c:when test="${uNo==3}">
+                        		<li><a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/Product/listProduct.do" style="">제품등록 게시판</a></li>
+                        		<li><a class="nav-link b actionBtn" href="${contextPath}/Manual/listManual.do" style="">매뉴얼 게시판</a></li>
+                        		<li><a class="nav-link c actionBtn" href="${contextPath}/ASAfter/selectMfrASAfterList.do" style="">A/S신청 목록</a></li>
+                        		<a class="nav-link d actionBtn" href="${contextPath}/ASBefore/listASBefore.do" tabindex="-1" aria-disabled="true" style="">A/S이력 목록</a>
+                        	</c:when>
+                        	<c:when test="${uNo==4}">
+                        		<li><a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/admin/product/adminProductList.do" style="">제품등록승인</a></li>
+                        		<li><a class="nav-link b actionBtn" href="${contextPath}/admin/manufac/adminManufacList.do" style="">제조사등록승인</a></li>
+                        		<li><a class="nav-link c actionBtn" href="${contextPath}/admin/member/adminMemberList.do" style="">사용자관리</a></li>
+                        		<a class="nav-link d actionBtn" href="${contextPath}/admin/satisfaction/adminSatisfactionList.do" tabindex="-1" aria-disabled="true" style="">소비자만족도확인</a>
+                        	</c:when>
+                        </c:choose>
                     </div>
+                    <c:choose>
+                   		<c:when test="${uNo==0}">
+                        	<a class="nav-link e" href="${contextPath}/member/login.do" tabindex="-1">로그인</a>
+                        	<a class="nav-link f" href="#" tabindex="-1" style="display: relative; left: 100px; float:right">회원가입</a>
+                       	</c:when>
+                       	
+                       	<c:when test="${uNo!=0}">
+                       		<a class="nav-link e actionBtn" href="${contextPath}/member/logout.do" tabindex="-1">로그아웃</a>
+                       	</c:when>
+                   	</c:choose>
                 </div>
 
-             
             </div>
+        </nav>
+        
+        <img src="${contextPath}/resources/img/19.png" alt="" id="img">
 
+        <div class="container" id="find">
+        <p id="helpWhat">어떤 제품을 수리하실건가요?</p>
+            <div class="input-group mb-3" id="find_prod">
+                  <input type="text" class="form-control" placeholder="제품이름을 검색하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" >
+                  <span class="input-group-text" id="basic-addon2">검색</span>
+            </div>
         </div>
     </div>
 </body>

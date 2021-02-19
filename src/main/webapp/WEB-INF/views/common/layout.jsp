@@ -22,16 +22,12 @@
 <body>
 
 <!-- ㅁㄴㅇㄹ -->
-	<div class="container-fluid">
+	<div class="container-fluid whole" style="padding: 0;">
 		<header>
 			<tiles:insertAttribute name="header" />
 		</header>
 		<div class="clear"></div>
 	</div>
-	
-<!-- 	<aside> -->
-<%-- 		<tiles:insertAttribute name="side" /> --%>
-<!-- 	</aside> -->
 
 	<div class="container" style="min-height: 53%">
 		<article>
