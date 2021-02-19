@@ -22,18 +22,14 @@
 <body>
 
 <!-- ㅁㄴㅇㄹ -->
-	<div class="container-fluid">
+	<div class="container-fluid whole" style="padding: 0;">
 		<header>
 			<tiles:insertAttribute name="header" />
 		</header>
 		<div class="clear"></div>
 	</div>
-	
-<!-- 	<aside> -->
-<%-- 		<tiles:insertAttribute name="side" /> --%>
-<!-- 	</aside> -->
 
-	<div class="container" style="padding-bottom: 160px;">
+	<div class="container" style="min-height: 53%">
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>
@@ -41,11 +37,7 @@
 	</div>
 
 	<div class="container-fluid">
-		<footer style="position: fixed;
-			    bottom: 0;
-			    width: 98%;
-			    margin: 0 auto;"
-		>
+		<footer>
 			<tiles:insertAttribute name="footer" />
 		</footer>
 	</div>

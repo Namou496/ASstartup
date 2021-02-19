@@ -4,14 +4,14 @@
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-		<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+		<definition name="mainBaseLayout" template="/WEB-INF/views/common/layout.jsp">
 			<put-attribute name="title" value=""/>
-			<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+			<put-attribute name="header" value="/WEB-INF/views/common/main_header.jsp"/>
 			<put-attribute name="body" value=""/>
 			<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 		</definition>
 		
-		<definition name="/main" extends="baseLayout">
+		<definition name="/main" extends="mainBaseLayout">
 			<put-attribute name="title" value="메인페이지"/>
 			<put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>
 		</definition>
