@@ -34,6 +34,8 @@ public class MemberControllerImpl implements MemberController{
 	@Autowired
 	private MemberVO memberVO;
 	
+	String _cuId;
+	
 	@Override
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -57,7 +59,6 @@ public class MemberControllerImpl implements MemberController{
 			}
 		}catch(Exception e){
 			mav.setViewName("/member/login");
-			e.printStackTrace();
 		}
 		return mav;			
 	}
@@ -137,7 +138,7 @@ public class MemberControllerImpl implements MemberController{
 	
 	@Override
 	@RequestMapping(value="/pw.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView lostPw(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView pagepw(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/pw");
 		return mav;
@@ -145,9 +146,86 @@ public class MemberControllerImpl implements MemberController{
 	
 	@Override
 	@RequestMapping(value="/id.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView lostId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView pageid(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/id");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/lostPw.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity lostPw(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		Map<String, Object> lostPwMap = new HashMap<String, Object>();	
+
+		String email = request.getParameter("email");
+		String cuId = request.getParameter("cuId");
+		
+		lostPwMap.put("cuId", cuId);
+		lostPwMap.put("email", email);
+		
+		String message;
+		ResponseEntity resEntity = null;
+		HttpHeaders resHeaders = new HttpHeaders();
+		resHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			String pw = memberService.searchLostPw(lostPwMap);
+			System.out.println(pw);
+			message = "<script>";
+			message += "alert('비밀번호를 입력하신 이메일로 보냈습니다. ');";
+			message += " location.href='"+request.getContextPath()+"/member/login.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+		}catch(Exception e) {
+			message = "<script>";
+			message += "alert('없는 사용자 입니다. 다시한번 확인해 주세요');";
+			message += " location.href='"+request.getContextPath()+"/member/pw.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+	
+	@Override
+	@RequestMapping(value="/lostId.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity lostId(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		Map<String, Object> lostIdMap = new HashMap<String, Object>();	
+		ModelAndView mav = new ModelAndView();
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		lostIdMap.put("email", email);
+		lostIdMap.put("name", name);
+		
+		String message;
+		ResponseEntity resEntity = null;
+		HttpHeaders resHeaders = new HttpHeaders();
+		resHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			_cuId = memberService.searchLostId(lostIdMap);
+			System.out.println("c" + _cuId);
+			message = "<script>";
+			message += " location.href='"+request.getContextPath()+"/member/newId.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+		}catch(Exception e) {
+			message = "<script>";
+			message += "alert('없는 사용자 입니다. 다시한번 확인해 주세요');";
+			message += " location.href='"+request.getContextPath()+"/member/id.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEntity;
+	}
+	
+	@Override
+	@RequestMapping(value="/newId.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView newId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(_cuId);
+		mav.addObject("_cuId", _cuId);
+		mav.setViewName("/member/newId");
 		return mav;
 	}
 }

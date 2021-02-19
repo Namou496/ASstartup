@@ -16,10 +16,12 @@
 		<result property="cuId" column="cuId" />
 		<result property="productNo" column="productNo" />
 		<result property="meetDate" column="meetDate" />
+		<result property="productGroup" column="productGroup" />
+		<result property="manufacName" column="manufacName" />
 	</resultMap>
 
-<!-- 신청서 작성하여 DB에 INSERT 동작 -->
-<insert id="insertNewAsForm" parameterType="java.util.Map">
+	<!-- 신청서 작성하여 DB에 INSERT 동작 -->
+	<insert id="insertNewAsForm" parameterType="java.util.Map">
 		<![CDATA[
  			insert into ASFORM(asNo, phone, addr, symptoms, meeting, meetDate, fileimg, sta, cuId, productNo)
  			values(#{asNo}, #{phone},
@@ -28,6 +30,23 @@
 			#{fileimg, jdbcType=VARCHAR}, #{sta},
 			#{cuId}, #{productNo})
 		]]>
-</insert>
-
+	</insert>
+	<!-- 제조사 이름 가져오기 -->
+	<select id="manufacName" resultType="String">
+			<![CDATA[
+				select m.name manufacName
+				from manufacturer m, (select cuid
+									  from manufacturerapproval
+									  where approvalstatus=1) m2
+				where m2.cuid=m.cuid
+			]]>
+		</select>
+		
+	<select id="productName" parameterType="java.util.Map" resultType="String">
+			<![CDATA[
+				select p.name productName
+				from product p, manufacturer m
+				where p.prodgroup=#{productGroup} and m.name=#{manufacName} and m.cuid=p.cuid
+			]]>
+		</select>
 </mapper>

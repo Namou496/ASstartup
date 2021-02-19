@@ -25,4 +25,17 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.insertNewMember(memberJoinMap);
 		
 	}
+
+	@Override
+	public String searchLostPw(Map<String, Object> lostPwMap) throws Exception {
+		String pw = memberDAO.searchLostPw(lostPwMap);
+		return pw;
+		
+	}
+
+	@Override
+	public String searchLostId(Map<String, Object> lostIdMap) throws Exception {
+		String _cuId = memberDAO.searchLostId(lostIdMap);
+		return _cuId;
+	}
 }
