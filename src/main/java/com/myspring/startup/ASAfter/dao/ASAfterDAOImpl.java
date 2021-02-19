@@ -1,6 +1,5 @@
 package com.myspring.startup.ASAfter.dao;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,5 +51,11 @@ public class ASAfterDAOImpl implements ASAfterDAO{
 	public void updateSta(Integer asno) throws DataAccessException {
 		sqlSession.update("mapper.ASAfter.updateSta", asno);
 		
+	}
+	
+	@Override
+	public List<ASAfterVO> searchASAfterList(Map<String, Object> search) throws DataAccessException {
+		List<ASAfterVO> searchList = sqlSession.selectList("mapper.ASAfter.searchASAfterList", search);
+		return searchList;
 	}
 }

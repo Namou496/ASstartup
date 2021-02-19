@@ -1,6 +1,7 @@
 package com.myspring.startup.ASAfter.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -21,4 +22,6 @@ public interface ASAfterDAO {
 	public void insertASrespond(ASrespondVO asrespondVO) throws DataAccessException;
 	
 	public void updateSta(Integer asno) throws DataAccessException;
+
+	public List<ASAfterVO> searchASAfterList(Map<String, Object> search) throws DataAccessException;
 }
