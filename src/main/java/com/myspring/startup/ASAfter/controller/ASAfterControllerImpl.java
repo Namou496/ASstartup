@@ -122,4 +122,26 @@ public class ASAfterControllerImpl implements ASAfterController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/ASAfter/searchASAfterList.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@Override
+	public ModelAndView searchASAfterList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int condition = Integer.parseInt(request.getParameter("condition"));
+		String keyword = request.getParameter("keyword");
+		
+		Map<String, Object> search = new HashMap<String, Object>();
+		
+		
+		search.put("keyword", keyword);
+		search.put("condition", condition);
+		
+		List<ASAfterVO> ASAfterList = ASAfterService.searchASAfterList(search);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("/ASAfter/listASAfter");
+		mav.addObject("ASAfterList", ASAfterList);
+		
+		return mav;
+	}
 }

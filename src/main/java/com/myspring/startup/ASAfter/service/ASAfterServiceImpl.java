@@ -16,16 +16,16 @@ import com.myspring.startup.ASAfter.vo.ASrespondVO;
 import com.myspring.startup.ASBefore.vo.ASBeforeVO;
 
 @Service("ASAfterService")
-@Transactional(propagation= Propagation.REQUIRED)
+@Transactional(propagation = Propagation.REQUIRED)
 
-public class ASAfterServiceImpl implements ASAfterService{
-	
+public class ASAfterServiceImpl implements ASAfterService {
+
 	@Autowired
 	private ASAfterDAO ASAfterdao;
 
 	@Override
 	public List<ASAfterVO> selectASAfterList() throws Exception {
-		List<ASAfterVO> alllist = ASAfterdao.selectASAfterList();  
+		List<ASAfterVO> alllist = ASAfterdao.selectASAfterList();
 		return alllist;
 	}
 
@@ -40,16 +40,22 @@ public class ASAfterServiceImpl implements ASAfterService{
 		List<ASAfterVO> mfrlist = ASAfterdao.selectMfrASAfterList(mcuid);
 		return mfrlist;
 	}
-	
+
 	@Override
 	public List<ASAfterDetailVO> ASAfterListDetail(int asno) throws Exception {
 		List<ASAfterDetailVO> dtlist = ASAfterdao.ASAfterListDetail(asno);
 		return dtlist;
 	}
-	
+
 	@Override
 	public void insertASrespond(Map<String, Object> updatesta) throws Exception {
-		ASAfterdao.insertASrespond((ASrespondVO)updatesta.get("insertresp"));
-		ASAfterdao.updateSta((Integer)updatesta.get("asno"));
+		ASAfterdao.insertASrespond((ASrespondVO) updatesta.get("insertresp"));
+		ASAfterdao.updateSta((Integer) updatesta.get("asno"));
+	}
+
+	@Override
+	public List<ASAfterVO> searchASAfterList(Map<String, Object> search) throws Exception {
+		List<ASAfterVO> searchlist = ASAfterdao.searchASAfterList(search);
+		return searchlist;
 	}
 }

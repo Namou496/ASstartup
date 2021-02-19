@@ -46,7 +46,7 @@ h1 {
 
 .content {
 	width: 100%;
-	height: 50%;
+	height: 35%;
 	border: 1px solid #000;
 	display: inline-block;
 }
@@ -161,9 +161,17 @@ h1 {
 						</c:forEach>
 					</div>
 					<div class="menu2">
-						<a>방문방식</a><br> <label><input type="radio"
-							name="visit" value="as">A/S지점 방문</label> <label><input
-							type="radio" name="visit" value="prod">수리기사 방문</label><br>
+						<a>방문방식</a><br>
+						<c:forEach items="${ASAfterView}" var="view">
+							<c:if test="${view.meeting == 1}">
+								<label><input type="radio" name="visit" value="1" checked="checked">수리기사 방문</label>
+								<label><input type="radio" name="visit" value="2">A/S지점 방문</label><br>
+							</c:if>
+							<c:if test="${view.meeting == 2}">
+								<label><input type="radio" name="visit" value="1">수리기사 방문</label>
+								<label><input type="radio" name="visit" value="2" checked="checked">A/S지점 방문</label><br>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="rightcontent"></div>
@@ -176,7 +184,8 @@ h1 {
 				</c:forEach>
 			</div>
 			<div class="rightmenu">
-				<span>방문예정일자</span><br> <input type="date" name="respDate">
+					<span>방문예정일자</span><br> 
+					<input type="date" name="respDate"><br>
 			</div>
 			<div class="sysptom">
 				<c:forEach items="${ASAfterView}" var="view">
