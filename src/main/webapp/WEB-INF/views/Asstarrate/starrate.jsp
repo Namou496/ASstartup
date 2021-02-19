@@ -233,7 +233,7 @@
                     post.style.display = "none";
                 }
                 return false;
-            }
+            }  
 
         </script>
 </body>
