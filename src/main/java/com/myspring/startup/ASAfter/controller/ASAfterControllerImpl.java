@@ -130,8 +130,6 @@ public class ASAfterControllerImpl implements ASAfterController {
 		String keyword = request.getParameter("keyword");
 		
 		Map<String, Object> search = new HashMap<String, Object>();
-		
-		
 		search.put("keyword", keyword);
 		search.put("condition", condition);
 		
