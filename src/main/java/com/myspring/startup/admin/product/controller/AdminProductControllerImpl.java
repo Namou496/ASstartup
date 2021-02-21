@@ -45,6 +45,7 @@ public class AdminProductControllerImpl implements AdminProductController {
 		if( section!=null) {
 			secNum=Integer.parseInt(section);
 		}
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		

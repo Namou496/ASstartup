@@ -7,7 +7,6 @@
 
 <mapper namespace="mapper.adminProduct">
 
-	<!-- 승인요청리스트에 페이징기능 추가해야됨 -->
 
 
 	<!-- 제품승인 vo -->
@@ -26,39 +25,50 @@
 
 	<!-- 승인요청리스트 -->
 	<select id="selectProductApprovalList"
-		resultMap="productApprovalResult">
+		resultMap="productApprovalResult" parameterType="int">
 
 		<![CDATA[
-			select
-			 productNo,name,prodGroup,approvalNum,approvalStatus
-			 
-			 from(
-			 select  rowNum as recNum,productNo,name,prodGroup,approvalNum,approvalStatus
-			 
-			 	from(
-			 	
-			 	)
-			 )
-            
-		
-		]]>
+		 select 
+ 		productNo,name,prodGroup,approvalNum,approvalStatus
+
+		from( 
+		 	select rowNum productNo,name,prodGroup,approvalNum,approvalStatus 
+
+		 	from(
+		 
+		 		select
+	 			product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus
+
+				from
+	 			product, productApproval 
+
+				where product.productNo = productApproval.productNo
+	 			order by approvalnum desc 
+				 )
+		 	)
+		 where rownum between (#{secNum}-1)*10+1 and (#{secNum}*10) 
+
+
+		 ]]>
+
 
 
 	</select>
 
-<!-- 데이터 -->
-<!-- 		select -->
-<!-- 			 product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus -->
-            
-<!-- 			from -->
-<!-- 			product, productApproval -->
-	
-<!-- 			where product.productNo = productApproval.productNo -->
-<!-- 			order by approvalnum desc -->
+	<!-- 데이터 -->
+	<!-- select -->
+	<!-- product.productNo,product.name,product.prodGroup, productApproval.approvalNum,productApproval.approvalStatus -->
 
+	<!-- from -->
+	<!-- product, productApproval -->
 
-<select id="selectProductApprovalListCount" parameterType="int" resultType="int">
+	<!-- where product.productNo = productApproval.productNo -->
+	<!-- order by approvalnum desc -->
 
+	<!-- 하단 페이징 버튼 sql -->
+	<select id="selectProductApprovalListCount" parameterType="int"
+		resultType="int">
+		
 		<![CDATA[
 		select count(rownum) from(
 		
@@ -71,7 +81,7 @@
 		)
 		where rownum between (#{secNum}-1)*100+1 and (#{secNum}*100)
 		]]>
-</select>
+	</select>
 
 
 	<!-- 승인상세 -->
@@ -102,7 +112,8 @@
 
 
 	<!-- 승인여부 업데이트 -->
-	<update id="updateProductApprovalStatus" parameterType="AdminProductVO">
+	<update id="updateProductApprovalStatus"
+		parameterType="AdminProductVO">
 
 		<![CDATA[
 		
@@ -112,7 +123,7 @@
 		productNo=#{productNO}
 		
 		]]>
-		
+
 	</update>
 
 </mapper>

@@ -110,7 +110,7 @@ request.setCharacterEncoding("utf-8");
 					tabindex="-1" aria-disabled="true">Previous</a></li>
 					
 					<c:forEach var="pageNum" begin="1" end="${pageNum}" step="1">
-					<li class="page-item"><a class="page-link" href="#">${pageNum}</a></li>
+					<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${pageNum}">${pageNum}</a></li>
 					</c:forEach>
 					
 				<li class="page-item"><a class="page-link" href="#">Next</a></li>

@@ -20,7 +20,7 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 //	제품승인요청리스트
 	@Override
 	public List<AdminProductVO> selectProductApprovalList(int secNum) throws DataAccessException {
-		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList");
+		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList",secNum);
 		return productList;
 	}
 	
