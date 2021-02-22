@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface AsstarrateDAO {
 	
-	public void starrateService(Map asList)throws Exception;
+	public void starrateService(Map<String,Object>asForm)throws Exception;
 	
 }

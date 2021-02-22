@@ -11,8 +11,8 @@ public class AsstarrateDAOImpl implements AsstarrateDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public void starrateService(Map asList)throws Exception {
-		int AsstarrateService = sqlSession.update("mapper.Asstarrate.insertAsstarrate",asList);
+	public void starrateService(Map<String,Object>asForm)throws Exception {
+		sqlSession.update("mapper.Asstarrate.insertAsstarrate",asForm);
 	}
 	
 }
