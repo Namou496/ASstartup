@@ -9,4 +9,5 @@ public interface MemberService {
 	public int addMember(Map<String, Object> memberJoinMap) throws Exception;
 	public String searchLostPw(Map<String, Object> lostPwMap) throws Exception;
 	public String searchLostId(Map<String, Object> lostIdMap) throws Exception;
+	public void addManufac(Map<String, Object> memberJoinMap) throws Exception;
 }

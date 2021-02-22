@@ -26,11 +26,6 @@ public class ProductDAOImpl implements ProductDAO{
 				productList = (ArrayList)sqlSession.selectList("mapper.Product.selectProductList", pageMap);
 				return productList;
 		}
-			@Override
-			public int selectTotProduct() throws Exception{
-				int totProduct = sqlSession.selectOne("mapper.Product.selectTotProduct");
-				return totProduct;
-			}
 			
 		//	2)제품상세
 			@Override

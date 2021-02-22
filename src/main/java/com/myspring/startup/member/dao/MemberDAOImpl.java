@@ -37,4 +37,21 @@ public class MemberDAOImpl implements MemberDAO{
 		return _cuId;
 	}
 
+	@Override
+	public int RecentManufacNo() {
+		int RecentManufacNo = sqlSession.selectOne("mapper.member.RecentManufacNo");
+		return RecentManufacNo;
+	}
+	
+	@Override
+	public int RecentManufacApply() {
+		int RecentManufacApply = sqlSession.selectOne("mapper.member.RecentManufacApply");
+		return RecentManufacApply;
+	}
+	
+	@Override
+	public void applyManufac(Map<String, Object> memberJoinMap) throws DataAccessException{
+		sqlSession.insert("mapper.member.insertManufacturer", memberJoinMap);
+		sqlSession.insert("mapper.member.insertManufacApply", memberJoinMap);
+	}
 }

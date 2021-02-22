@@ -35,11 +35,7 @@ public class ManualDAOImpl implements ManualDAO{
 		productList = (ArrayList)sqlSession.selectList("mapper.Manual.selectManualList", pageMap);
 		return productList;
 	}
-	@Override
-	public int selectTotProduct() throws Exception{
-		int totProduct = sqlSession.selectOne("mapper.Manual.selectTotProduct");
-		return totProduct;
-	}
+
 	
 	//	2)제품상세
 	@Override

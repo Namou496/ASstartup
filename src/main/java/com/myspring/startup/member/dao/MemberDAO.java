@@ -11,5 +11,8 @@ public interface MemberDAO {
 	public int insertNewMember(Map<String, Object> memberJoinMap) throws DataAccessException;
 	public String searchLostPw(Map<String, Object> lostPwMap) throws DataAccessException;
 	public String searchLostId(Map<String, Object> lostIdMap) throws DataAccessException;
+	public int RecentManufacNo() throws DataAccessException;
+	public int RecentManufacApply() throws DataAccessException;
+	public void applyManufac(Map<String, Object> memberJoinMap) throws DataAccessException;
 	
 }

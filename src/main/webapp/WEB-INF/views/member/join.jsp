@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <!-- css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="../resources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <!-- JavaScript -->
     <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>-->
@@ -34,6 +34,7 @@
             <form class="form-horizontal" method="post" action="${contextPath}/ASForm/addForm.do"><br /><br /><br />
                 <div class="form-group">
                     <h4><label for="provision" class="col-lg-2 control-label">회원가입약관</label></h4>
+                    <input type="hidden" name="uno" id="uno" value="1"/>
                     <div class="col-lg-10" id="provision">
                         <textarea class="form-control" rows="8" style="resize:none">제 1조 (목적)
     본 약관은 스타트업 AS(이하 "수리점"이라 합니다)에서 운영하는 인터넷 홈페이지ㄹ에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 합니다)의 이용에 관한 사항을 규정함을 목적으로 합니다.
@@ -313,8 +314,8 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="divNickname">
-								<label for="addr" class="col-lg-2 control-label">주소*</label>
+                        <div class="form-group col-lg-10" id="divNickname">
+								<label for="addr" class="col-lg-2 control-label">주소</label>
 								<div class="col-lg-12">
 									<input type="text" class="col-lg-4" id="postCode"
 										style="padding: 5px; border-radius: 5px;" name="postCode"

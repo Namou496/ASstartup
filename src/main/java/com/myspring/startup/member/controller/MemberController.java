@@ -13,7 +13,6 @@ import com.myspring.startup.member.vo.MemberVO;
 
 public interface MemberController {
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ResponseEntity addMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 	public ModelAndView joinPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
                               RedirectAttributes rAttr,
@@ -24,4 +23,5 @@ public interface MemberController {
 	public ResponseEntity lostPw(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity lostId(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView newId(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
