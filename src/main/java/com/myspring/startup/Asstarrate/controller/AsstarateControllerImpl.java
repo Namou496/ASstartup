@@ -40,7 +40,7 @@ public class AsstarateControllerImpl implements AsstarateController {
 		asForm.put("textBox", textBox);
 		
 		AsstarrateService.starrateService(asForm);
-		mav.setViewName("/main/main.do");
+		mav.setViewName("/main");
 		return mav;
 		
 			

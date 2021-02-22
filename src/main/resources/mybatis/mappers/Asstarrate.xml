@@ -9,7 +9,7 @@
 		<update id="insertAsstarrate" parameterType="java.util.Map">
 		<![CDATA[
 			update ASrespond set 
-				asComment= #{textBox}, 
+				textBox= #{textBox}, 
 				star = #{resultcontainer} 
 			where asno = #{asNo}	
 		]]>

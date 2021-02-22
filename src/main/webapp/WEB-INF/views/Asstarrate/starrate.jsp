@@ -227,7 +227,7 @@
 		            	<input type="hidden" id="num" name="resultcontainer" value="1"> 
 			            <input type="hidden" name="asNo" value="${asno}">
 			            <div class="star-textarea">
-			                <textarea cols="30" name="starresult" placeholder="서비스 후기를 남겨주세요.."></textarea>
+			                <textarea cols="30" name="textBox" placeholder="서비스 후기를 남겨주세요.."></textarea>
 			            </div>
 			            
 			            <div class="star-btn">
