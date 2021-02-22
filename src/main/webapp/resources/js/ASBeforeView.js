@@ -223,7 +223,7 @@ $(function() {
 		if(manPrice==null||manPrice.length<=0){
 			costSw=false;
 		}
-		
+		 
 		if(!sw){
 			alert("수량이 없는 부품이 있습니다.");
 		}
