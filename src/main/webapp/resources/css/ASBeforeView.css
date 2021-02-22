@@ -1,0 +1,143 @@
+body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #customerIfTable>table{
+        	width: 100%;
+        }
+        
+
+        #contants{
+            width: 100%;
+        }
+
+        .headFont {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .contantFont {
+            display: inline;
+            font-size: 20px;
+        }
+
+        #customerInfoTable {
+            width: 100%;
+        }
+
+        .contantsBox>td {
+            width: 70%;
+            border-bottom: 1px solid;
+            text-align: center;
+        }
+
+        .contantsBox>th {
+            text-align: left;
+            padding-right: 18px;
+            width: 30%;
+        }
+
+        .contantsBox>th,
+        .contantsBox>td {
+            padding-top: 40px;
+        }
+
+        .InfoText {
+            margin-top: 70px;
+        }
+
+        .commentsArea {
+            resize: none;
+            width: 100%;
+        }
+
+        #serviseCalendar{
+            margin-top: 40px;
+            width: 40%;
+        }
+        
+        #serviseCalendar span, #serviseCalendar input{
+            font-size: 15px;
+        }
+
+        #serviseCalendar>div:nth-child(2) {
+            margin-top: 15px;
+        }
+
+        #engineerIfTable>table>tbody>tr>th {
+            padding-right: 25px;
+        }
+
+        #inputPart {
+            margin-top: 25px;
+        }
+
+        #inputPart>div:nth-last-child(1) {
+            margin-top: 5px;
+        }
+
+        .partList li {
+            text-align: center;
+            list-style: none;
+        }
+
+        .partList,
+        .partList ul {
+            padding: 0;
+        }
+
+        .partList>li>ul>li {
+            width: 33.3%;
+            float: left;
+        }
+
+        .clearLi {
+            clear: both;
+        }
+
+        .partListHead>li>ul>li {
+            box-sizing: border-box;
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .partListHead>li>ul>li:nth-child(1) {
+            border-top-left-radius: 10px;
+        }
+
+        .partListHead>li>ul>li:nth-last-child(1) {
+            border-top-right-radius: 10px;
+        }
+
+        .partListContants>li>ul>li:nth-child(3)>p {
+            display: inline;
+        }
+		
+		#appendPart{
+			margin-top: 100px;
+		}
+        #appendPart>#appendPartButton {
+            background-color: #0d6efd;
+            color: white;
+            border: 1px solid #0d6efd;
+            border-radius: 5px;
+            width: 100%;
+        }
+        #costBox{
+            margin-top: 40px;
+        }
+        #costBox>div{
+            width: 40%;
+        }
+        #submit , #ReviewSubmit{
+            width: 11.5%;
+            margin: 0 auto;
+        }
+        #submit>input, #ReviewSubmit>input{
+            background-color: #0d6efd;
+            color: white;
+            border: 1px solid #0d6efd;
+            border-radius: 5px;
+            width: 100%;
+        }
