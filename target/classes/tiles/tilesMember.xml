@@ -4,23 +4,15 @@
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 	
 		<tiles-definitions>
-		<definition name="/member/login" template="/WEB-INF/views/member/login.jsp">
+		<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
 			<put-attribute name="title" value=""/>
+			<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 			<put-attribute name="body" value=""/>
+			<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 		</definition>
 		
-		<definition name="/member/join" template="/WEB-INF/views/member/join.jsp">
-			<put-attribute name="title" value=""/>
-			<put-attribute name="body" value=""/>
-		</definition>
-		
-		<definition name="/member/pw" template="/WEB-INF/views/member/pw.jsp">
-			<put-attribute name="title" value=""/>
-			<put-attribute name="body" value=""/>
-		</definition>
-		
-		<definition name="/member/id" template="/WEB-INF/views/member/id.jsp">
-			<put-attribute name="title" value=""/>
-			<put-attribute name="body" value=""/>
+		<definition name="/member/join" extends="baseLayout">
+			<put-attribute name="title" value="회원가입"/>
+			<put-attribute name="body" value="/WEB-INF/views/member/join.jsp"/>
 		</definition>
 	</tiles-definitions>

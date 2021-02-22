@@ -2,9 +2,11 @@ package com.myspring.startup.ASForm.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.startup.ASForm.service.ASFormService;
 import com.myspring.startup.ASForm.vo.ASFormVO;
 import com.myspring.startup.member.vo.MemberVO;
+
+import net.sf.json.JSONArray;
 
 @Controller("asformController")
 @RequestMapping("/ASForm/*")
@@ -41,11 +46,49 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 	@Override
 	@RequestMapping(value="/ASForm.do", method= RequestMethod.GET)
 	public ModelAndView ASForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");	
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
 		ModelAndView mav = new ModelAndView();
+		List manufacName = asformService.manufacName();
+		
+		mav.addObject("manufacName", manufacName);
 		mav.setViewName("/ASForm/ASForm");
 		return mav;
 	}
+	
+	// ajax 필터 제품이름
+		@Override
+		@RequestMapping(value="/selectProductName.do", method= {RequestMethod.GET,RequestMethod.POST})
+		public void selectAjaxProductName(HttpServletRequest request, HttpServletResponse response, String param1, String param2) 
+													throws Exception{
+				   response.setCharacterEncoding("UTF-8");
+				   String manufacName = param2;
+				   String productGroup = param1;
+//				   if(!(productGroup.length()>0)) {
+//					   productGroup = null;
+//				   }
+//				   if(!(manufacName.length()>0)) {
+//					   manufacName = null;
+//				   }
+				   System.out.println("p" + productGroup + "m" + manufacName);
+				   Map searchProductNameMap = new HashMap();
+				   searchProductNameMap.put("productGroup", productGroup);
+				   searchProductNameMap.put("manufacName", manufacName);
+				   
+				   List productNameList = asformService.productName(searchProductNameMap);
+				   // jsonArray에 추가
+				   JSONArray jsonArray = new JSONArray();
+				   for (int i = 0; i < productNameList.size(); i++) {
+				      jsonArray.add(productNameList.get(i));
+				   }
+				 
+				   // jsonArray 넘김
+				   PrintWriter pw = response.getWriter();
+				   pw.print(jsonArray.toString());
+				   pw.flush();
+				   pw.close();
+
+		}
 	
 	//신청서 접수 버튼 누른뒤 작업
 		@Override

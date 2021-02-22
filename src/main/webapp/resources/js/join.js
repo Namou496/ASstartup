@@ -33,6 +33,17 @@ function validate(){
 		alert("날짜를 선택하세요.");
 		return false;
 	}
+	
+	var manufacName = document.getElementId("manufacName");
+	var officer = document.getElementId("officer");
+	if(manufacName.value == ""){
+	 alert("제조사이름을 입력하세요.");
+	 return false;
+	}
+	if(officer.value == ""){
+	 alert("담당자명을 입력하세요.");
+	 return false;
+	}
 }    
 
 //카카오지도 API

@@ -25,4 +25,38 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.insert("mapper.member.insertNewMember", memberJoinMap);	//asformVO의 값을 해당 값의 테이블에 추가
 	}
 
+	@Override
+	public String searchLostPw(Map<String, Object> lostPwMap) {
+		String pw = sqlSession.selectOne("mapper.member.lostPw", lostPwMap);
+		return pw;
+	}
+
+	@Override
+	public String searchLostId(Map<String, Object> lostIdMap) throws DataAccessException {
+		String _cuId = sqlSession.selectOne("mapper.member.lostId", lostIdMap);
+		return _cuId;
+	}
+
+	@Override
+	public int RecentManufacNo() {
+		int RecentManufacNo = sqlSession.selectOne("mapper.member.RecentManufacNo");
+		return RecentManufacNo;
+	}
+	
+	@Override
+	public int RecentManufacApply() {
+		int RecentManufacApply = sqlSession.selectOne("mapper.member.RecentManufacApply");
+		return RecentManufacApply;
+	}
+	
+	@Override
+	public void applyManufac(Map<String, Object> memberJoinMap) throws DataAccessException{
+		sqlSession.insert("mapper.member.insertManufacturer", memberJoinMap);
+		sqlSession.insert("mapper.member.insertManufacApply", memberJoinMap);
+	}
+	
+	@Override
+	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException{
+		sqlSession.insert("mapper.member.insertCustomer", memberJoinMap);
+	}
 }

@@ -19,12 +19,12 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 
-				<form class="login100-form validate-form" method="post" action="/join.html">
+				<form class="login100-form validate-form" method="post" action="${contextPath}/member/lostPw.do">
 					<span class="login100-form-title">
 				        비밀번호 찾기
 					</span>
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="email" placeholder="이메일">
+						<input class="input100" type="text" id="email" name="email" placeholder="이메일">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="password" name="id" placeholder="아이디">
+						<input class="input100" type="text" id="cuId" name="cuId" placeholder="아이디">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -40,7 +40,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 							비밀번호 찾기
 						</button>
 					</div>
