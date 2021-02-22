@@ -216,7 +216,7 @@
         <div class="container" id="find">
         <p id="helpWhat">어떤 제품을 수리하실건가요?</p>
         	<form id="submit" action="${contextPath}/Manual/searchProduct.do" method="get">
-	            <div class="input-group mb-3" id="find_prod">
+	            <div class="input-group mb-3" id="find_prod"> 
 	                  <input type="text" name="productName" class="form-control" placeholder="제품이름을 검색하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" >
 	                  <span class="input-group-text" id="basic-addon2">검색</span>
 	            </div>
