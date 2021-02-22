@@ -1,15 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <style>
  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    .actionColor {
+      color:#0A6eff;
+    }
+    
     
     .starcontainer {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
+      padding: 0;
+	  box-sizing: border-box;
+	  margin: 0 auto;
+	  margin-top: 3%;
+	  font-family: 'Poppins', sans-serif;
+	  width: 35%;
     }
-
+/*
     html,
     .starcontainer {
         display: grid;
@@ -18,7 +28,7 @@
         text-align: center;
 
     }
-
+*/
     .ratingcontainer {
         position: relative;
         width: 400px;
@@ -87,7 +97,6 @@
     }
 
     input#rate-5:checked~label {
-/*        color: #0000ff;*/
         text-shadow: 0 0 20px #96a5ff;
     }
 
@@ -117,7 +126,7 @@
     input:checked~form {
         display: block;
     }
-
+/*
     form header {
         width: 100%;
         font-size: 25px;
@@ -127,7 +136,7 @@
         text-align: center;
         transition: all 0.2s ease;
     }
-
+*/
     form .star-textarea {
         height: 100px;
         width: 100%;
@@ -178,64 +187,58 @@
 <head>
     <meta charset="UTF-8">
     <title>설문지</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://kit.fontawesome.com/f8c3b0091f.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="starrate01.css"> 
+    <script>
+    	$(function(){
+    		$(".starpoint").click(function(){
+    			var num = $(this).val();
+    			$("#num").val(num);
+    			
+    		});
+    	});
+    </script>
 </head>
 
 <body>
     <div class="starcontainer">
-    <div class="ratingcontainer">
-        <div class="star-post">
-            <div class="star-text">이용해 주셔서 감사합니다.</div>
-            <div class="star-edit">뒤로</div>
-            <div class="star-exit">메인으로</div>
-        </div>
-        <div class="star-widget">
-            <input type="radio" name="rate" id="rate-5" >
-            <label for="rate-5" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-4">
-            <label for="rate-4" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-3">
-            <label for="rate-3" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-2">
-            <label for="rate-2" class="fas fa-star"></label>
-            <input type="radio" name="rate" id="rate-1">
-            <label for="rate-1" class="fas fa-star"></label>
-            <form class="rate" method="get" action="#">
-                <header>
-
-                </header>
-                <div class="star-textarea">
-                    <textarea cols="30" placeholder="서비스 후기를 남겨주세요.."></textarea>
-                </div>
-                <div class="star-btn">
-                    <button type="submit">설문완료</button>
-                </div>
-           
-            </form>
-        </div>
-        </div>
+	    <div class="ratingcontainer">
+	        <div class="star-post">
+	            <div class="star-text">이용해 주셔서 감사합니다.</div>
+	            <div class="star-edit">뒤로</div>
+	            <div class="star-exit">메인으로</div>
+	        </div>
+		        <div class="star-widget">
+		            <input type="radio" name="rate" value="5" class="starpoint" id="rate-5" >
+		            <label for="rate-5" class="fas fa-star"></label>
+		            <input type="radio" name="rate" value="4" class="starpoint" id="rate-4">
+		            <label for="rate-4" class="fas fa-star"></label>
+		            <input type="radio" name="rate" value="3" class="starpoint" id="rate-3">
+		            <label for="rate-3" class="fas fa-star"></label>
+		            <input type="radio" name="rate" value="2" class="starpoint" id="rate-2">
+		            <label for="rate-2" class="fas fa-star"></label>
+		            <input type="radio" name="rate" value="1" class="starpoint" id="rate-1">
+		            <label for="rate-1" class="fas fa-star"></label>
+		            <form class="rate" method="get" action="${contextPath}/Asstarrate/fillAsstarrate.do">
+		            	<header>
+		            		
+		            	</header>
+		            	<input type="hidden" id="num" name="resultcontainer" value="1"> 
+			            <input type="hidden" name="asNo" value="${asno}">
+			            <div class="star-textarea">
+			                <textarea cols="30" name="starresult" placeholder="서비스 후기를 남겨주세요.."></textarea>
+			            </div>
+			            
+			            <div class="star-btn">
+			                <button type="submit">설문완료</button>
+			            </div>
+		            </form>
+		        </div>
+	        </div>
         </div> 
-        <script>
-            const exitBtn = document.querySelector(".star-exit");
-            const btn = document.querySelector("button");
-            const post = document.querySelector(".star-post");
-            const widget = document.querySelector(".star-widget");
-            const editBtn = document.querySelector(".star-edit");
-            btn.onclick = () => {
-                widget.style.display = "none";
-                post.style.display = "block";
-
-                editBtn.onclick = () => {
-                    widget.style.display = "block";
-                    post.style.display = "none";
-                }
-                return false;
-            }  
-
-        </script>
+        
+        
 </body>
 
 </html>
