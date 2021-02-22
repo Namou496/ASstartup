@@ -32,7 +32,7 @@
  		productNo,name,prodGroup,approvalNum,approvalStatus
 
 		from( 
-		 	select rowNum productNo,name,prodGroup,approvalNum,approvalStatus 
+		 	select rowNum as recNum, productNo,name,prodGroup,approvalNum,approvalStatus 
 
 		 	from(
 		 
@@ -46,7 +46,7 @@
 	 			order by approvalnum desc 
 				 )
 		 	)
-		 where rownum between (#{secNum}-1)*10+1 and (#{secNum}*10) 
+		 where recnum between (#{secNum}-1)*10+1 and (#{secNum}*10) 
 
 
 		 ]]>

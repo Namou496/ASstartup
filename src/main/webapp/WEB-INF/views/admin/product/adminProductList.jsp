@@ -62,10 +62,11 @@ request.setCharacterEncoding("utf-8");
 		
 			<thead>
 				<tr>
+				<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">제품번호</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 20%">제품명</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">분류</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
+					
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인상태</th>
 
 				</tr>
@@ -86,10 +87,11 @@ request.setCharacterEncoding("utf-8");
 					
 						<c:forEach var="adminPro" items="${productList}">
 							<tr>
-								<th scope="row">${adminPro.productNO}</th>
+							<th>${adminPro.approvalNum}</th>
+								<td>${adminPro.productNO}</td>
 								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">${adminPro.name}</a></td>
 								<td>${adminPro.prodGroup}</td>
-								<td>${adminPro.approvalNum}</td>
+								
 								<td>${adminPro.approvalStatus}</td>
 							</tr>
 						</c:forEach>
