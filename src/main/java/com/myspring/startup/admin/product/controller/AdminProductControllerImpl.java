@@ -39,13 +39,31 @@ public class AdminProductControllerImpl implements AdminProductController {
 	@RequestMapping(value="/admin/product/adminProductList.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminProductList(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		
+		String section=request.getParameter("section");
+		String page=request.getParameter("page");
+		
+		
+		
+		int secNum=1;
+		if( section!=null) {
+			secNum=Integer.parseInt(section);
+		}
+		
+		int pageNum=1;
+		if( page!=null) {
+			pageNum=Integer.parseInt(page);
+		}
+		
+		System.out.println("secNum:"+secNum);
+		System.out.println("pageNum:"+pageNum);
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		
-		List<AdminProductVO> ProductList=adminProductService.AdminProductList();
+		Map<String,Object> ProductMap=adminProductService.AdminProductList(secNum,pageNum);
 		ModelAndView mav = new ModelAndView("/product/adminProductList");
-		mav.addObject("productList",ProductList);
+		mav.addObject("productMap",ProductMap);
+
 		
 		return mav;
 		

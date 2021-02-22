@@ -3,7 +3,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="productList" value="${productList}" />
+<c:set var="productList" value="${productMap.productList}" />
+<c:set var="secNum" value="${productMap.secNum}" />
+<%-- <c:set var="pageNum_" value="${productMap.pageNum_}" /> --%>
+<c:set var="lastPageNum" value="${productMap.lastPageNum}" />
 <c:set var="productDetail" value="${productDetail}" />
 <%
 request.setCharacterEncoding("utf-8");
@@ -61,10 +64,11 @@ request.setCharacterEncoding("utf-8");
 		
 			<thead>
 				<tr>
+				<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">제품번호</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 20%">제품명</th>
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">분류</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
+					
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인상태</th>
 
 				</tr>
@@ -83,12 +87,13 @@ request.setCharacterEncoding("utf-8");
 					<c:when test="${productList != null }">
 		
 					
-						<c:forEach var="adminPro" items="${productList }">
+						<c:forEach var="adminPro" items="${productList}">
 							<tr>
-								<th scope="row">${adminPro.productNO}</th>
+							<th>${adminPro.approvalNum}</th>
+								<td>${adminPro.productNO}</td>
 								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">${adminPro.name}</a></td>
 								<td>${adminPro.prodGroup}</td>
-								<td>${adminPro.approvalNum}</td>
+								
 								<td>${adminPro.approvalStatus}</td>
 							</tr>
 						</c:forEach>
@@ -105,16 +110,19 @@ request.setCharacterEncoding("utf-8");
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#"
-					tabindex="-1" aria-disabled="true">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum_-1}"
+					tabindex="-1" >Previous</a></li>
+					
+					<c:forEach var="pageNum" begin="${(secNum-1)*10+1}" end="${(secNum-1)*10+lastPageNum}" step="1">
+						<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
+					</c:forEach>
+					
+				<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum+1}">Next</a></li>
 			</ul>
 		</nav>
 
 	</div>
-
+${secNum_}
+${pageNum_}
 </body>
 </html>
