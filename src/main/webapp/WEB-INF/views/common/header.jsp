@@ -14,226 +14,166 @@
 	    	<c:set var="uNo" value="0"/>		
 	    </c:when>
     </c:choose>
-<meta charset="UTF-8">
- <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-	integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-	crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
 	
+	<style>
+	* {
+    margin: 0px;
+    padding: 0px;
+    }
+        .whole {
+            padding: 0px;
+            background: lightgray;
+            height: 600px;
+            
+        }
+        .navbar{
+            height: 20%;
+        }
+        .navbar-brand img{
+            width: 100px;
+            height: 100px;
+        }
+        #navbarNavAltMarkup{
+            text-align: center;
+        }
+        .navbar-nav{
+            margin: 0 auto;
+        }
+        #img{
+            width: 100%;
+            height: 80%;
+        }
+        #helpWhat{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            color: white;
+            font-size: 1.9em;
+        }
+        
+        #find{
+            position: relative;
+            display: flex;
+            justify-content: ;
+            flex-direction: column;
+            width: 35%;
+            bottom: 210px;
+            margin: 0 auto;
+        }
+        #find_prod{
+            position: relative;
+            display: flex;
+            text-align: center;
+            width: 100%;
+        }
+        
+        a:hover{
+            color: purple;
+        }
+        #img{
+            object-fit: cover;
+        }
+        .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        	padding: 0;
+        }
+    </style>
+
 	<script type="text/javascript">
+		/*김태수*/
 		var uNo=${uNo};
 		var contextPath='${contextPath}';
+		/*안두용*/
+		function resizeNav(){
+            var wth = $(this).width();
+            if(wth <= 992){
+                $('.nav-link').removeAttr('style');
+          	}
+      	};
+		
 		$(function(){
 			$('.actionBtn').click(function(e){
 				e.preventDefault();
 				if(!uNo>0){
 					alert('로그인후 이용가능합니다.');
 				}else{
-					var url = contextPath+$(this).attr('href');
+					var url = $(this).attr('href');
 					location.href=url;
 				}
 			});
-			
-			$('.loginBtn').click(function(){
-				var url=contextPath+'/member/login.do';
-				location.href=url;
-			});
-			
-			$('.logoutBtn').click(function(){
-				var url=contextPath+'/member/logout.do';
-				location.href=url;
-			});
+			/*안두용*/
+			var a = $('.a').attr('style');
+            var b = $('.b').attr('style');
+            var c = $('.c').attr('style');
+            var d = $('.d').attr('style');
+            var e = $('.e').attr('style');
+            var f = $('.f').attr('style');
+          
+            $(window).resize(function(){
+                var wth = $(this).width();
+                if(wth <= 992){
+                    $('.nav-link').removeAttr('style');
+                    $('#find').attr('style','display:none;');
+                } else if(wth >= 992){
+                    $('#find').attr('style','display:flex;');
+                    $('.a').attr('style', a);
+                    $('.b').attr('style', b);
+                    $('.c').attr('style', c);
+                    $('.d').attr('style', d);
+                    $('.e').attr('style', e);
+                    $('.f').attr('style', f);
+                }
+            });
 			
 		});
 	</script>
 
 </head>
 <body>
-    <div class="container-fluid">
-
-        <div class="row">
-
-            <div class="col" id="header">
-                <div class="container">
-
-                    <!-- <p>헤더</p>-->
-					<a href="${contextPath}/main/main.do">
-                    	<img src="${contextPath}/resources/img/logo_transparent%20(4).png" alt="">
-                    </a>
-					
-                    <div class="menubar">
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        	<c:choose>
-	                        	<c:when test="${uNo<=1}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASForm/ASForm.do">A/S신청</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectASAfterList.do">A/S신청 목록</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 리스트</a>
-		                                        </li>
-		                                    </ul>
-		                                    <c:choose>
-			                                    <c:when test="${uNo==0}">
-			                                    	<button class="loginBtn btn-outline-success" type="button">로그인</button>
-			                                    </c:when>
-			                                    <c:when test="${uNo != 0}">
-			                                    	<button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-			                                    </c:when>
-		                                    </c:choose>
-		                                </div>
-		                            </div>
-	                            </c:when>
-	                            <c:when test="${uNo==2}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectASAfterList.do">A/S신청 목록</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 리스트</a>
-		                                        </li>
-		                                    </ul>
-		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-		                                </div>
-		                            </div>
-	                            </c:when>
-	                            <c:when test="${uNo==3}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Product/listProduct.do">제품등록 게시판</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/Manual/listManual.do">매뉴얼 게시판</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASAfter/selectMfrASAfterList.do">A/S신청 목록</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/ASBefore/listASBefore.do">A/S이력 목록</a>
-		                                        </li>
-		                                    </ul>
-		                                    
-		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-		                                </div>
-		                            </div>
-	                            </c:when>
-	                            
-	                            <c:when test="${uNo==4}">
-		                            <div class="container-fluid">
-		                                <a class="navbar-brand" href="#">MENU</a>
-		                                <button 
-		                                	class="navbar-toggler" 
-		                                	type="button" 
-		                                	data-bs-toggle="collapse" 
-		                                	data-bs-target="#navbarSupportedContent" 
-		                                	aria-controls="navbarSupportedContent" 
-		                                	aria-expanded="false" 
-		                                	aria-label="Toggle navigation"
-		                                >
-		                                    <span class="navbar-toggler-icon"></span>
-		                                </button>
-		                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/product/adminProductList.do">제품등록승인</a>
-		                                        </li>
-		
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/manufac/adminManufacList.do">제조사등록승인</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/member/adminMemberList.do">사용자관리</a>
-		                                        </li>
-		                                        
-		                                        <li class="nav-item">
-		                                            <a class="nav-link actionBtn" href="/admin/satisfaction/adminSatisfactionList.do">소비자만족도확인</a>
-		                                        </li>
-		                                    </ul>
-		                                    
-		                                    <button class="logoutBtn btn-outline-success" type="button">로그아웃</button>
-		                                </div>
-		                            </div>
-	                            </c:when>
-                            </c:choose>
-                        </nav>
-
+    <div class="container-fluid whole" style="padding: 0;">
+        <!--navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid navbark">
+                
+                <a class="navbar-brand" href="${contextPath}/main/main.do"><img src="${contextPath}/resources/img/21.png" alt="" style="width: 110px; height: 100px; padding-left: 10px;"></a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="resizeNav();">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    	<c:choose>
+                    		<c:when test="${uNo<=1}">
+                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASForm/ASForm.do" style="padding-right:80px;">신청서</a>
+                        		<a class="nav-link b actionBtn" href="${contextPath}/ASAfter/selectUserASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
+                        		<a class="nav-link c actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="padding-right:80px;">A/S이력 목록</a>
+                        		<a class="nav-link d actionBtn" href="${contextPath}/Manual/listManual.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">매뉴얼 리스트</a>
+                        	</c:when>
+                        	<c:when test="${uNo==2}">
+                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASAfter/selectASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
+                        		<a class="nav-link b actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="padding-right:80px;">A/S이력 목록</a>
+                        		<a class="nav-link c actionBtn" href="${contextPath}/Manual/listManual.do" style="padding-right:80px;">매뉴얼 리스트</a>
+                        	</c:when>
+                        	<c:when test="${uNo==3}">
+                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/Product/listProduct.do" style="padding-right:80px;">제품등록 게시판</a>
+                        		<a class="nav-link b actionBtn" href="${contextPath}/Manual/listManual.do" style="padding-right:80px;">매뉴얼 게시판</a>
+                        		<a class="nav-link c actionBtn" href="${contextPath}/ASAfter/selectMfrASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
+                        		<a class="nav-link d actionBtn" href="${contextPath}/ASBefore/listASBefore.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">A/S이력 목록</a>
+                        	</c:when>
+                        	<c:when test="${uNo==4}">
+                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/admin/product/adminProductList.do" style="padding-right:80px;">제품등록승인</a>
+                        		<a class="nav-link b actionBtn" href="${contextPath}/admin/manufac/adminManufacList.do" style="padding-right:80px;">제조사등록승인</a>
+                        		<a class="nav-link c actionBtn" href="${contextPath}/admin/member/adminMemberList.do" style="padding-right:80px;">사용자관리</a>
+                        		<a class="nav-link d actionBtn" href="${contextPath}/admin/satisfaction/adminSatisfactionList.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">소비자만족도확인</a>
+                        	</c:when>
+                    	</c:choose>
                     </div>
+                    <a class="nav-link e actionBtn" href="${contextPath}/member/logout.do" tabindex="-1">로그아웃</a>
                 </div>
-
-             
             </div>
-
-        </div>
+      		</nav>
+        <img src="${contextPath}/resources/img/19.png" alt="" id="img">
     </div>
 </body>
 </html>

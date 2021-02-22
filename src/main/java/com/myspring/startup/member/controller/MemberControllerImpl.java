@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,12 +39,6 @@ public class MemberControllerImpl implements MemberController{
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-//		member.setCuId("hong");
-//		member.setPw("12345");
-//		String message;
-//		ResponseEntity resEntity = null;
-//		HttpHeaders resHeaders = new HttpHeaders();
-//		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			memberVO = memberService.login(member);
 			if(memberVO != null) {
@@ -88,6 +81,7 @@ public class MemberControllerImpl implements MemberController{
 		Map<String, Object> memberJoinMap = new HashMap<String, Object>();
 		Enumeration enu = request.getParameterNames();
 		while(enu.hasMoreElements()) {
+			System.out.println("11111111");
 			String name=(String)enu.nextElement();
 			String value=request.getParameter(name);		
 			memberJoinMap.put(name, value);
@@ -118,9 +112,9 @@ public class MemberControllerImpl implements MemberController{
 		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			if(uno == 3) {
-				System.out.println("되냐?");
 				memberService.addManufac(memberJoinMap);
 			}else if(uno == 1) {
+				System.out.println("되냐?");
 				memberService.addMember(memberJoinMap);
 			}
 			message = "<script>";
@@ -247,6 +241,14 @@ public class MemberControllerImpl implements MemberController{
 		System.out.println(_cuId);
 		mav.addObject("_cuId", _cuId);
 		mav.setViewName("/member/newId");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/selectMember.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView selectMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/selectMember");
 		return mav;
 	}
 }

@@ -1,12 +1,13 @@
 package com.myspring.startup.ASAfter.dao;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
+import com.myspring.startup.ASAfter.vo.ASrespondVO;
 
 public interface ASAfterDAO {
 	
@@ -18,5 +19,9 @@ public interface ASAfterDAO {
 	
 	public List<ASAfterDetailVO> ASAfterListDetail(int asno) throws DataAccessException;
 	
-//	public List<ASAfterDetailVO> insertASAfterListDetail(int asno, Date respDate, String cuid);
+	public void insertASrespond(ASrespondVO asrespondVO) throws DataAccessException;
+	
+	public void updateSta(Integer asno) throws DataAccessException;
+
+	public List<ASAfterVO> searchASAfterList(Map<String, Object> search) throws DataAccessException;
 }

@@ -5,7 +5,7 @@
 }
 
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .container {
     width: 750px;
   }
@@ -15,7 +15,7 @@
   .container {
     width: 940px;
   }
-}
+} */
 
 
 @media (min-width: 1200px) {
@@ -32,6 +32,10 @@
 /*메인*/
 .col-sm{
     background:;
+}
+.container-fluid{
+	padding-right: 0px;
+	padding-left: 0px;
 }
 
 .login {float: right}

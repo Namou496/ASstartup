@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="uname" column="uname" />
 		<result property="sta" column="sta" />
 	</resultMap>
-	
+
 	<resultMap type="ASAfterDetailVO" id="resultASAfterDetail">
 		<result property="uname" column="uname" />
 		<result property="tel" column="tel" />
@@ -29,38 +29,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectASAfterList" resultMap="resultASAfterList">
 		<![CDATA[
 			select * from ASAfter
+			where sta = 1
 		]]>
 	</select>
 
-	<select id="selectUserASAfterList" resultMap="resultASAfterList" parameterType="String">
+	<select id="selectUserASAfterList" resultMap="resultASAfterList"
+		parameterType="String">
 		<![CDATA[
 			select f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
 			from asform f, product p, customer c
-			where c.cuid = f.cuid and p.productno = f.productno and c.cuid=#{cuid}
+			where c.cuid = f.cuid and p.productno = f.productno and c.cuid=#{cuid} and sta = 1
 		]]>
 	</select>
 
-	<select id="selectMfrASAfterList" resultMap="resultASAfterList" parameterType="String">
+	<select id="selectMfrASAfterList" resultMap="resultASAfterList"
+		parameterType="String">
 		<![CDATA[
 			select f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
 			from asform f, product p, customer c
-			where c.cuid = f.cuid and p.productno = f.productno and p.cuid=#{cuid}
+			where c.cuid = f.cuid and p.productno = f.productno and p.cuid=#{cuid} and sta = 1
 		]]>
 	</select>
-	
+
 	<!-- AS상세 리스트 출력 -->
-	<select id="ASAfterListDetail" resultMap="resultASAfterDetail" parameterType="int">
+	<select id="ASAfterListDetail" resultMap="resultASAfterDetail"
+		parameterType="int">
 		<![CDATA[
-			select c.name uname, a.phone tel, a.addr, p.prodGroup, m.name mname, p.name pname, a.meetDate, a.symptoms
+			select c.name uname, a.phone tel, a.addr, p.prodGroup, m.name mname, p.name pname, a.meeting, a.meetDate, a.symptoms
 			from asform a, customer c, product p, manufacturer m
 			where a.cuid = c.cuid and m.cuid = p.cuid and a.productno = p.productno and a.asno = #{asno}
 		]]>
 	</select>
-	<!-- AS상세 리스트 등록 -->
-<!--  	<insert id="insertASAfterListDetail" parameterType="ASAfterListDetail">
+	<!-- AS상세 리스트 승인 등록 -->
+	<insert id="insertASrespond" parameterType="ASrespondVO">
 		<![CDATA[
-				
+			insert into asrespond(asNo, respDate, cuId)
+			values(#{asNo}, #{respDate}, #{cuId})
 		]]>
-	</insert> -->
+	</insert>
+	<!-- AS현황 처리현황 변경(처리전 -> 처리중) -->
+	<update id="updateSta" parameterType="int">
+	    <![CDATA[
+	    	update asform
+			set sta = 2
+			where asno = #{asNo}
+	    ]]>
+	</update>
+	<!-- AS현황 검색 기능 -->
+	<select id="searchASAfterList" resultMap="resultASAfterList"
+		parameterType="java.util.Map">
+	  	<![CDATA[
+	  		select * from ASAfter
+	  	]]>
+		<where>
+			<choose>
+				<when test="condition == 1 and keyword != ''">
+					sta = 1 and (pname LIKE '%' || #{keyword} || '%' or uname LIKE '%' ||
+					#{keyword} || '%')
+				</when>
 
+				<when test="condition == 2 and keyword != ''">
+					sta = 1 and pname LIKE '%' || #{keyword} || '%'
+				</when>
+
+				<when test="condition == 3 and keyword != ''">
+					sta = 1 and uname LIKE '%' || #{keyword} || '%'
+				</when>
+
+				<when test="keyword == ''">
+					sta = 1
+				</when>
+			</choose>
+		</where>
+	</select>
 </mapper>

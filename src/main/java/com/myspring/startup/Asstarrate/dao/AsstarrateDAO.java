@@ -1,5 +1,9 @@
 package com.myspring.startup.Asstarrate.dao;
 
-public class AsstarrateDAO {
+import java.util.Map;
 
+public interface AsstarrateDAO {
+	
+	public void starrateService(Map asList)throws Exception;
+	
 }

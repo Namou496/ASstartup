@@ -14,5 +14,6 @@ public interface MemberDAO {
 	public int RecentManufacNo() throws DataAccessException;
 	public int RecentManufacApply() throws DataAccessException;
 	public void applyManufac(Map<String, Object> memberJoinMap) throws DataAccessException;
+	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException;
 	
 }

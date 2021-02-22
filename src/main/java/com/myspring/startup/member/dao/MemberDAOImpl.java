@@ -54,4 +54,9 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.insert("mapper.member.insertManufacturer", memberJoinMap);
 		sqlSession.insert("mapper.member.insertManufacApply", memberJoinMap);
 	}
+	
+	@Override
+	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException{
+		sqlSession.insert("mapper.member.insertCustomer", memberJoinMap);
+	}
 }

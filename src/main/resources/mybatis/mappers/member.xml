@@ -18,21 +18,21 @@
 		<result property="manufacNo" column="manufacNo" />
 		<result property="approvalNum" column="approvalNum" />
 	</resultMap>
-	
+<!-- 	로그인 select -->
 	<select id="loginById" resultType="MemberVO" parameterType="MemberVO">
 		<![CDATA[
 			select * from member
 			where cuid = #{cuId} and pw = #{pw} 
 		]]>
 	</select>
-	
+<!-- 	회원가입 멤버테이블 insert -->
 	<insert id="insertNewMember" parameterType="java.util.Map">
 		<![CDATA[
  			insert into Member(cuId, pw, uno)
 			values(#{cuId}, #{pw}, #{uNo,jdbcType=INTEGER})
 		]]>
 </insert>
-	
+<!-- 	비밀번호 찾기시 찾은 비밀번호 -->
 	<select id="lostPw" resultType="String" parameterType="java.util.Map">
 		<![CDATA[
 			select m.pw
@@ -40,7 +40,7 @@
 			where m.cuid=c.cuid and m.cuid=#{cuId} and c.email=#{email}
 		]]>
 	</select>
-	
+<!-- 	아이디 찾기시 찾은 아이디 -->
 	<select id="lostId" resultType="String" parameterType="java.util.Map">
 		<![CDATA[
 			select cuid
@@ -56,7 +56,7 @@
 	<select id="RecentManufacApply" resultType="int">
 		select max(mA.approvalNum) from manufacturerApproval mA
 	</select>
-	
+<!-- 	제조사 회원가입 상세정보 -->
 	<insert id="insertManufacturer">
 		insert into manufacturer(cuId, manufacturerNo, name, addr, officer, tel) 
 		values( #{cuId}, #{manufacNo}, #{manufacName}, #{addr}, #{officer}, #{tel})
@@ -66,5 +66,9 @@
 		insert into manufacturerApproval(approvalNum, approvalStatus, rejectionReason, cuId, applyDate) 
 		values( #{approvalNum}, 3, '', #{cuId}, sysDate)
 	</insert>
-	
+<!-- 	커스터머 회원가입 상세정보 -->
+	<insert id="insertCustomer">
+		insert into customer(cuId, name, addr, email) 
+		values( #{cuId}, #{name}, #{addr}, #{email})
+	</insert>
 </mapper>

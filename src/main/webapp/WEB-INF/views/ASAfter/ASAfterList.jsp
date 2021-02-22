@@ -6,6 +6,7 @@
 <html lang="ko">
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="uNo" value="${sessionScope.member.uNo}" />
 
 <head>
 <meta charset="UTF-8">
@@ -70,10 +71,6 @@ h1 {
 	padding-bottom: 20px;
 }
 
-.selectbox select {
-	padding-right: 15px;
-}
-
 label {
 	margin-left: 30px;
 	margin-right: 10px;
@@ -88,11 +85,16 @@ input[type="checkbox"] {
 	padding-bottom: 20px;
 }
 
+.search select {
+	padding-top: 2px;
+	padding-bottom: 3px;
+}
+
 .search input[type="text"] {
 	padding-right: 24px;
 }
 
-.search input[type="button"] {
+.search input[type="submit"] {
 	padding: 0px 20px;
 }
 
@@ -106,26 +108,29 @@ input[type="checkbox"] {
 <body>
 	<div class="container">
 		<h1>A/S 현황</h1>
-		<div class="select">
-			<div class="selectbox">
-				<select name="region">
-					<option value="">지역</option>
-					<option value="서구">서구</option>
-					<option value="중구">중구</option>
-					<option value="동구">동구</option>
-					<option value="유성구">유성구</option>
-				</select> <label> <input type="checkbox" name="sort" value="TV">TV
-				</label> <label> <input type="checkbox" name="sort" value="컴퓨터">컴퓨터
-				</label> <label> <input type="checkbox" name="sort" value="세탁기">세탁기
-				</label> <label> <input type="checkbox" name="sort" value="라디오">라디오
-				</label> <label> <input type="checkbox" name="sort" value="전자레인지">전자레인지
-				</label>
+		<form action="${contextPath}/ASAfter/searchASAfterList.do"
+			method="get">
+			<div class="select">
+<!-- 				<div class="selectbox"> -->
+<!-- 					<label> <input type="checkbox" name="sort" value="1">TV</label>  -->
+<!-- 					<label> <input type="checkbox" name="sort" value="2">컴퓨터</label>  -->
+<!-- 					<label> <input type="checkbox" name="sort" value="3">세탁기</label>  -->
+<!-- 					<label> <input type="checkbox" name="sort" value="4">라디오</label>  -->
+<!-- 					<label> <input type="checkbox" name="sort" value="5">전자레인지</label> -->
+<!-- 				</div> -->
 			</div>
-		</div>
-		<div class="search">
-			<input type="text" placeholder="내용을 입력해주세요."> <input
-				type="button" value="검색">
-		</div>
+
+			<c:if test="${uNo == 2 || uNo == 4}">
+				<div class="search">
+					<select name="condition">
+						<option value="1">제품명+작성자</option>
+						<option value="2">제품명</option>
+						<option value="3">작성자</option>
+					</select> <input type="text" name="keyword" value="${keyword}"
+						placeholder="내용을 입력해주세요."> <input type="submit" value="검색">
+				</div>
+			</c:if>
+		</form>
 
 		<table class="table">
 			<thead>

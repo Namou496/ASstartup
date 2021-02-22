@@ -1,7 +1,7 @@
 package com.myspring.startup.ASAfter.dao;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
+import com.myspring.startup.ASAfter.vo.ASrespondVO;
 
 @Repository("ASAfterDAO")
 
@@ -41,9 +42,20 @@ public class ASAfterDAOImpl implements ASAfterDAO{
 		return ASAfterListDetail;
 	}
 	
-//	@Override
-//	public List<ASAfterDetailVO> insertASAfterListDetail(int asno, Date respDate, String cuid) {
-//		
-//		return null;
-//	}
+	@Override
+	public void insertASrespond(ASrespondVO asrespondvo) throws DataAccessException {
+		sqlSession.insert("mapper.ASAfter.insertASrespond", asrespondvo);
+	}
+	
+	@Override
+	public void updateSta(Integer asno) throws DataAccessException {
+		sqlSession.update("mapper.ASAfter.updateSta", asno);
+		
+	}
+	
+	@Override
+	public List<ASAfterVO> searchASAfterList(Map<String, Object> search) throws DataAccessException {
+		List<ASAfterVO> searchList = sqlSession.selectList("mapper.ASAfter.searchASAfterList", search);
+		return searchList;
+	}
 }

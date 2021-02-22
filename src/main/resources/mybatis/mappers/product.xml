@@ -32,8 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="componentPrice" column="componentPrice"/>
 		<result property="componentPart" column="componentPart"/>
 		
-		<result property="totProduct" column="totProduct"/>
-		
+		<result property="rejectionReason" column="rejectionReason"/>
 	</resultMap>
 <!-- 사용자 권한 -->
 		<select id="selectUserRight" parameterType="String" resultType="int">
@@ -47,12 +46,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<select id="selectProductList" resultType="ProductVO" parameterType="java.util.Map">
 				<include refid="ProductList"/>
 		</select>
-		<!-- 전체 리스트 숫자 가져오기 -->
-				<select id="selectTotProduct" parameterType="int" resultType="Integer">
-					<![CDATA[
-					select count(approvalNum) totProduct from productApproval
-					]]>
-				</select>
 <!-- 2. 제품상세  -->
 		<select id="selectProductDetail" resultMap="resultProduct" parameterType="java.util.Map">
 			<include refid="ProductDetail"/>
@@ -66,9 +59,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 3. 제품검색  -->
 		<select id="selectProductGroup" resultType="String" parameterType="java.util.Map">
 			<![CDATA[
-				select distinct(p.prodGroup) productGroup
-				from product p, manufacturer m
-				where p.cuId = m.cuId and m.name=#{cuId}
+				select distinct(p.prodGroup)
+				from product p, manufacturer m, productApproval appr
+				where p.cuId = m.cuId
+                      and appr.productno = p.productno
+                      and m.name like '%'|| #{manufacName} ||'%'
 			]]>
 		</select>
 		<select id="searchProduct" resultType="ProductVO" parameterType="java.util.Map">
@@ -195,12 +190,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<![CDATA[
 			         select p.productno 		productNo, 
 			         		p.name 				productName, 
-			         		m.name 				manufacName, 
-			                p.prodgroup 		productGroup,  
+			         		m.name 				manufacName,
+			                p.prodgroup 		productGroup,
+                            appr.approvalstatus approvalStatus,
+                            appr.rejectionReason rejectionReason,
 			                p.useManual 		useManual, 
 			                p.asManual  		asManual, 
-			                p.productImage  	productImage, 
-			                appr.approvalstatus approvalStatus
+			                p.productImage  	productImage
 			         from product p, productapproval appr, manufacturer m
 	        	]]>
 	         where p.productno = appr.productno 
@@ -233,10 +229,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<sql id="selectSearch">
 				<![CDATA[
 	    				select  rowNum as recNum,
-	         			productName, productGroup, manufacName, approvalStatus, approvalNum, productNo
+	         			productName, productGroup, manufacName, approvalStatus, approvalNum, productNo, cuId
 	                    from (  select  p.name productName, p.prodgroup productGroup, p.productNo productNo,
 	                                    m.name manufacName, appr.approvalstatus approvalStatus,
-	                                    appr.approvalNum approvalNum
+	                                    appr.approvalNum approvalNum, m.cuid cuId
 	                            from product p, productapproval appr, manufacturer m
 	                            where p.productno = appr.productno and m.cuid = p.cuid
 	                            order by approvalNum DESC
@@ -266,7 +262,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							        </if>
 				        	</if>
 			        	</if>
-			        </if>
+			        	and cuId=#{cuId} 
+		    </if>
 	<!-- 제품분류를 선택하지 않을 시 -->
 			        <if test = "productGroup == null">
 			        	<if test = "manufacName != null">
@@ -277,6 +274,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
 						        and approvalStatus=1                                                                     
 						   </if>
+						   and cuId=#{cuId} 
 			        	</if>
 			        	
 			        	
@@ -287,15 +285,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
 						        	and approvalStatus=1                                                                     
 						        </if>
+						        and cuId=#{cuId} 
 				        	</if>
 				        	<!-- 아무것도 입력하지 않고 검색시 -->
 				        	<if test = "productName == null">
 				        		
 				        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
-						        	approvalStatus=1                                                                     
+						        	approvalStatus=1        
+						        	and cuId=#{cuId}                                                             
+						        </if>
+						   		<if test="uno == 3">  <!-- 제조사 -->
+									cuId=#{cuId}                                                             
 						        </if>
 				        	</if>
-			        	</if>
+			           </if>
 			        </if>
 			</sql>
 	</mapper>

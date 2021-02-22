@@ -9,6 +9,7 @@ public class ASAfterDetailVO {
 	private String prodGroup;
 	private String mname;
 	private String pname;
+	private String meeting;
 	private Date meetDate;
 	private String symptoms;
 	
@@ -47,6 +48,12 @@ public class ASAfterDetailVO {
 	}
 	public void setPname(String pname) {
 		this.pname = pname;
+	}
+	public String getMeeting() {
+		return meeting;
+	}
+	public void setMeeting(String meeting) {
+		this.meeting = meeting;
 	}
 	public Date getMeetDate() {
 		return meetDate;

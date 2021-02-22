@@ -17,7 +17,6 @@
     <link type="text/css" rel="stylesheet" href="../resources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <!-- JavaScript -->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -31,7 +30,7 @@
 				<h1 style="text-align: center">회원가입</h1>
 			</div>
            <div class="form">
-            <form class="form-horizontal" method="post" action="${contextPath}/ASForm/addForm.do"><br /><br /><br />
+            <form class="form-horizontal" method="post" action="${contextPath}/member/addMember.do"><br /><br /><br />
                 <div class="form-group">
                     <h4><label for="provision" class="col-lg-2 control-label">회원가입약관</label></h4>
                     <input type="hidden" name="uno" id="uno" value="1"/>
@@ -271,6 +270,7 @@
                             </label>
                         </div>
                         <br />
+
                         <div class="form-group">
                             <h5><label class="col-lg-2 control-label">이용자 구분*</label></h5>
                             <div class="col-lg-10">
@@ -340,7 +340,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-        </div>
+        </div>  
     </main>
 </body></html>

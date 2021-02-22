@@ -1,5 +1,8 @@
 package com.myspring.startup.admin.product.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("adminProductVO")
 public class AdminProductVO {
 	
 	private int productNO;
@@ -7,8 +10,28 @@ public class AdminProductVO {
 	private int approvalNum;
 	private int approvalStatus;
 	private String prodGroup;
+	private String useManual;
+	private String ASManual;
+	private String productImage;
 	
-	
+	public String getUseManual() {
+		return useManual;
+	}
+	public void setUseManual(String useManual) {
+		this.useManual = useManual;
+	}
+	public String getASManual() {
+		return ASManual;
+	}
+	public void setASManual(String aSManual) {
+		ASManual = aSManual;
+	}
+	public String getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
+	}
 	public String getProdGroup() {
 		return prodGroup;
 	}

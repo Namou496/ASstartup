@@ -19,5 +19,6 @@
 		
 		<typeAlias type="com.myspring.startup.ASAfter.vo.ASAfterVO" alias="ASAfterVO" />
 		<typeAlias type="com.myspring.startup.ASAfter.vo.ASAfterDetailVO" alias="ASAfterDetailVO" />
+		<typeAlias type="com.myspring.startup.ASAfter.vo.ASrespondVO" alias="ASrespondVO" />
 	</typeAliases>
 </configuration>

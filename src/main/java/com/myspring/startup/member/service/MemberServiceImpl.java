@@ -21,9 +21,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int addMember(Map<String, Object> memberJoinMap) throws Exception {
-		return memberDAO.insertNewMember(memberJoinMap);
-		
+	public void addMember(Map<String, Object> memberJoinMap) throws Exception {
+		memberDAO.insertNewMember(memberJoinMap);
+		memberDAO.insertNewCustomer(memberJoinMap);
 	}
 
 	@Override
