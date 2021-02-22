@@ -95,7 +95,9 @@
                 padding-right: 100px;
             }
         }
-        
+        #basic-addon2{
+        	cursor: pointer;
+        }
 
     </style>
 
@@ -146,6 +148,14 @@
                     $('.e').attr('style', e);
                     $('.f').attr('style', f);
                 }
+            });
+            
+            $("#basic-addon2").click(function(){
+            	if(!uNo>0){
+					alert('로그인후 이용가능합니다.');
+				}else{
+            		$("#submit").submit();
+				}
             });
 		});
 	</script>
@@ -205,10 +215,12 @@
 
         <div class="container" id="find">
         <p id="helpWhat">어떤 제품을 수리하실건가요?</p>
-            <div class="input-group mb-3" id="find_prod">
-                  <input type="text" class="form-control" placeholder="제품이름을 검색하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" >
-                  <span class="input-group-text" id="basic-addon2">검색</span>
-            </div>
+        	<form id="submit" action="${contextPath}/Manual/searchProduct.do" method="get">
+	            <div class="input-group mb-3" id="find_prod">
+	                  <input type="text" name="productName" class="form-control" placeholder="제품이름을 검색하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" >
+	                  <span class="input-group-text" id="basic-addon2">검색</span>
+	            </div>
+            </form>
         </div>
     </div>
 </body>
