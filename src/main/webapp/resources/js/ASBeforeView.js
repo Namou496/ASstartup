@@ -218,10 +218,21 @@ $(function() {
 			sw=false;
 		}
 		
-		if(sw){
-    		$("#addForm").submit();
-		}else{
+		var manPrice = $('.manPrice').val();
+		
+		if(manPrice==null||manPrice.length<=0){
+			costSw=false;
+		}
+		
+		if(!sw){
 			alert("수량이 없는 부품이 있습니다.");
+		}
+		if(!costSw){
+			alert("인건비를 입력해주세요");
+		}
+		
+		if(sw&&costSw){
+			$("#addForm").submit();
 		}
 	});
 
