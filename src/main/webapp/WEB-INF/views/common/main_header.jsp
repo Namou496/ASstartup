@@ -189,7 +189,7 @@
                     <c:choose>
                    		<c:when test="${uNo==0}">
                         	<a class="nav-link e" href="${contextPath}/member/login.do" tabindex="-1">로그인</a>
-                        	<a class="nav-link f" href="#" tabindex="-1" style="display: relative; left: 100px; float:right">회원가입</a>
+                        	<a class="nav-link f" href="${contextPath}/member/selectMember.do" tabindex="-1" style="display: relative; left: 100px; float:right">회원가입</a>
                        	</c:when>
                        	
                        	<c:when test="${uNo!=0}">
