@@ -151,14 +151,14 @@
                         		<a class="nav-link d actionBtn" href="${contextPath}/Manual/listManual.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">매뉴얼 리스트</a>
                         	</c:when>
                         	<c:when test="${uNo==2}">
-                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASAfter/selectUserASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
+                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASAfter/selectASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
                         		<a class="nav-link b actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="padding-right:80px;">A/S이력 목록</a>
                         		<a class="nav-link c actionBtn" href="${contextPath}/Manual/listManual.do" style="padding-right:80px;">매뉴얼 리스트</a>
                         	</c:when>
                         	<c:when test="${uNo==3}">
                         		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/Product/listProduct.do" style="padding-right:80px;">제품등록 게시판</a>
                         		<a class="nav-link b actionBtn" href="${contextPath}/Manual/listManual.do" style="padding-right:80px;">매뉴얼 게시판</a>
-                        		<a class="nav-link c actionBtn" href="${contextPath}/ASAfter/selectUserASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
+                        		<a class="nav-link c actionBtn" href="${contextPath}/ASAfter/selectMfrASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
                         		<a class="nav-link d actionBtn" href="${contextPath}/ASBefore/listASBefore.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">A/S이력 목록</a>
                         	</c:when>
                         	<c:when test="${uNo==4}">
