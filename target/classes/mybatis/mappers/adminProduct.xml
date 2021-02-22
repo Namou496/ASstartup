@@ -25,7 +25,7 @@
 
 	<!-- 승인요청리스트 -->
 	<select id="selectProductApprovalList"
-		resultMap="productApprovalResult" parameterType="int">
+		resultMap="productApprovalResult" parameterType="java.util.Map">
 
 		<![CDATA[
 		 select 
@@ -46,7 +46,7 @@
 	 			order by approvalnum desc 
 				 )
 		 	)
-		 where recnum between (#{secNum}-1)*10+1 and (#{secNum}*10) 
+		 where recnum between (#{secNum}-1)*100 + (#{pageNum}-1)*10+1 and (#{secNum}-1)*100 + (#{pageNum}*10) 
 
 
 		 ]]>

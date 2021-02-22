@@ -12,7 +12,7 @@ import com.myspring.startup.admin.product.vo.AdminProductVO;
 public interface AdminProductDAO {
 
 	//제품승인요청리스트
-	public List<AdminProductVO> selectProductApprovalList(int secNum) throws DataAccessException;
+	public List<AdminProductVO> selectProductApprovalList(Map<String,Object> pageMap) throws DataAccessException;
 	//카운트숫자	
 	public int selectProductApprovalListCount(int secNum);
 	//제품상세
@@ -21,6 +21,7 @@ public interface AdminProductDAO {
 	public List<AdminProductVO> selectByProduct(String name) throws DataAccessException;
 	//제품승인거절
 	void updateProductApprovalStatus(AdminProductVO adminProductVO) throws DataAccessException;
+
 
 
 }

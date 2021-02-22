@@ -4,7 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="productList" value="${productMap.productList}" />
-<c:set var="pageNum" value="${productMap.pageNum}" />
+<c:set var="secNum" value="${productMap.secNum}" />
+<%-- <c:set var="pageNum_" value="${productMap.pageNum_}" /> --%>
+<c:set var="lastPageNum" value="${productMap.lastPageNum}" />
 <c:set var="productDetail" value="${productDetail}" />
 <%
 request.setCharacterEncoding("utf-8");
@@ -108,18 +110,19 @@ request.setCharacterEncoding("utf-8");
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#"
-					tabindex="-1" aria-disabled="true">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum_-1}"
+					tabindex="-1" >Previous</a></li>
 					
-					<c:forEach var="pageNum" begin="1" end="${pageNum}" step="1">
-					<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${pageNum}">${pageNum}</a></li>
+					<c:forEach var="pageNum" begin="${(secNum-1)*10+1}" end="${(secNum-1)*10+lastPageNum}" step="1">
+						<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
 					</c:forEach>
 					
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum+1}">Next</a></li>
 			</ul>
 		</nav>
 
 	</div>
-${pageNum}
+${secNum_}
+${pageNum_}
 </body>
 </html>
