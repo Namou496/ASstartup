@@ -22,15 +22,9 @@
             margin: 0px;
             padding: 0px;
         }
-        .whole {
-            padding: 0px;
-            background: lightgray;
-            height: 600px;
-            margin-bottom: 30px;
-        }
-        
-        .navbar{
-        	height: 20%;
+         .navbar{
+        	padding: 0px;
+        	/* height: 20%; */
         }
         .navbar-brand img{
             width: 100px;
@@ -67,7 +61,7 @@
         #find_prod{
             position: relative;
             display: flex;
-            text-align: center
+            text-align: center;
             width: 40%;
         }
         a:hover{
@@ -87,16 +81,31 @@
             #find{
                 display: none;
             }
+            .whole {
+			    background: lightgray;
+			    height: 70%;
+			    margin-bottom: 80px;
+			}
             
         }
         
+
+        
          @media screen and (min-width: 992px){
+            .whole {
+	            height: 600px;
+	            margin-bottom: 30px;
+	        }
             .navbar-nav li{
                 padding-right: 100px;
             }
+
         }
         #basic-addon2{
         	cursor: pointer;
+        }
+                .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        	padding: 0;
         }
 
     </style>

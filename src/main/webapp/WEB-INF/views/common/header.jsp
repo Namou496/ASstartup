@@ -21,14 +21,8 @@
     margin: 0px;
     padding: 0px;
     }
-        .whole {
-            padding: 0px;
-            background: lightgray;
-            height: 600px;
-            
-        }
         .navbar{
-            height: 20%;
+           padding: 0px;
         }
         .navbar-brand img{
             width: 100px;
@@ -39,17 +33,6 @@
         }
         .navbar-nav{
             margin: 0 auto;
-        }
-        #img{
-            width: 100%;
-            height: 80%;
-        }
-        #helpWhat{
-            position: relative;
-            display: flex;
-            justify-content: center;
-            color: white;
-            font-size: 1.9em;
         }
         
         #find{
@@ -77,6 +60,9 @@
         .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         	padding: 0;
         }
+        .on{
+        margin-top:200px;
+        }
     </style>
 
 	<script type="text/javascript">
@@ -84,12 +70,22 @@
 		var uNo=${uNo};
 		var contextPath='${contextPath}';
 		/*안두용*/
+		var sw = 0;
 		function resizeNav(){
             var wth = $(this).width();
+            
             if(wth <= 992){
                 $('.nav-link').removeAttr('style');
-          	}
-      	};
+                if(sw == 0){
+                	$('#board').css({'margin-top':"200px"});
+                	sw = 1;
+                }else{
+                	$('#board').css({'margin-top':"0px"});
+                	sw = 0;
+                }
+                
+	        }
+		}
 		
 		$(function(){
 			$('.actionBtn').click(function(e){
@@ -113,9 +109,8 @@
                 var wth = $(this).width();
                 if(wth <= 992){
                     $('.nav-link').removeAttr('style');
-                    $('#find').attr('style','display:none;');
+                    
                 } else if(wth >= 992){
-                    $('#find').attr('style','display:flex;');
                     $('.a').attr('style', a);
                     $('.b').attr('style', b);
                     $('.c').attr('style', c);
@@ -133,7 +128,7 @@
     <div class="container-fluid whole" style="padding: 0;">
         <!--navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid navbark">
+            <div class="container-fluid navbar2">
                 
                 <a class="navbar-brand" href="${contextPath}/main/main.do"><img src="${contextPath}/resources/img/21.png" alt="" style="width: 110px; height: 100px; padding-left: 10px;"></a>
                 
