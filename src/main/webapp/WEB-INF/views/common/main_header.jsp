@@ -62,7 +62,7 @@
             position: relative;
             display: flex;
             text-align: center;
-            width: 40%;
+            width: 100%;
         }
         a:hover{
             color: purple;
