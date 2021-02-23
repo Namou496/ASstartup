@@ -14,7 +14,7 @@
 <title>Main</title>
 </head>
 <body>
-<div class="container">
+<div class="container main">
         <div class="row">
 
             <div class="col-sm">

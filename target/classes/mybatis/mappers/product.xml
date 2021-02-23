@@ -66,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                       and m.name like '%'|| #{manufacName} ||'%'
 			]]>
 		</select>
+		
 		<select id="searchProduct" resultType="ProductVO" parameterType="java.util.Map">
 			    <include refid="search"/>
 		</select>	
