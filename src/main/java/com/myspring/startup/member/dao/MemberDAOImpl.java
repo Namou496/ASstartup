@@ -59,4 +59,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException{
 		sqlSession.insert("mapper.member.insertCustomer", memberJoinMap);
 	}
+
+	@Override
+	public String overlapId(String cuId) throws DataAccessException {
+		String i = sqlSession.selectOne("mapper.member.overlapId", cuId);
+		return i;
+	}
 }

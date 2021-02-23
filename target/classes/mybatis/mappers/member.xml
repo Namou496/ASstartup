@@ -71,4 +71,13 @@
 		insert into customer(cuId, name, addr, email) 
 		values( #{cuId}, #{name}, #{addr}, #{email})
 	</insert>
+	
+<!-- 	회원가입시 아이디 중복검사 -->
+	<select id="overlapId" resultType="String" parameterType="String">
+		<![CDATA[
+			select cuId
+			from member
+			where cuid=#{cuId}
+		]]>
+	</select>
 </mapper>
