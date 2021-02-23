@@ -10,4 +10,5 @@ public interface MemberService {
 	public String searchLostPw(Map<String, Object> lostPwMap) throws Exception;
 	public String searchLostId(Map<String, Object> lostIdMap) throws Exception;
 	public void addManufac(Map<String, Object> memberJoinMap) throws Exception;
+	public String overlapId(String _cuId) throws Exception;
 }

@@ -180,7 +180,7 @@
 							<div class="form-group col-lg-10" id="divId">
 								<label for="phonenum" class="col-lg-2 control-label">전화번호</label>
 								<div class="col-lg-12">
-									<input type="text" class="form-control onlyAlphabetAndNumber"
+									<input type="text" class="form-control"
 										id="phone" name="phone" data-rule-required="true"
 										placeholder="-빼고 입력해주세요." maxlength="13">
 								</div>

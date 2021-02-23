@@ -20,7 +20,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="../resources/js/join.js"></script>
+    <script type="text/javascript" src="../resources/js/join.js"></script>
 </head>
 
 <body>
@@ -30,13 +30,13 @@
 				<h1 style="text-align: center">회원가입</h1>
 			</div>
            <div class="form">
-            <form class="form-horizontal" method="post" action="${contextPath}/member/addMember.do"><br /><br /><br />
+            <form class="form-horizontal" onsubmit="return validate();" method="post" action="${contextPath}/member/addMember.do"><br /><br /><br />
                 <div class="form-group">
                     <h4><label for="provision" class="col-lg-2 control-label">회원가입약관</label></h4>
-                    <input type="hidden" name="uno" id="uno" value="1"/>
+                    <input type="hidden" name="uno" id="uno" value=""/>
                     <div class="col-lg-10" id="provision">
                         <textarea class="form-control" rows="8" style="resize:none">제 1조 (목적)
-    본 약관은 스타트업 AS(이하 "수리점"이라 합니다)에서 운영하는 인터넷 홈페이지ㄹ에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 합니다)의 이용에 관한 사항을 규정함을 목적으로 합니다.
+    본 약관은 스타트업 AS(이하 "수리점"이라 합니다)에서 운영하는 인터넷 홈페이지에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 합니다)의 이용에 관한 사항을 규정함을 목적으로 합니다.
 
 제 2조(정의)
     1. 이용자(회원) : 인터넷 홈페이지에 로그인 하여 본 약관에 따라 수리점이 제공 하는 서비스를 받는 자를 말합니다.
@@ -166,7 +166,7 @@
                         </textarea>
                         <div class="radio">
                             <label>
-                                <input type="radio" id="provisionYn agree" name="provisionYn" autofocus="autofocus">
+                                <input type="radio" id="provisionYn" name="provisionYn" autofocus="autofocus">
                                 회원가입 약관에 동의합니다.
                             </label>
                         </div>
@@ -284,37 +284,41 @@
                         </div>
                         <div class="form-group" id="divId">
                             <label for="inputId" class="col-lg-2 control-label">아이디*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyAlphabetAndNumber" id="cuId" name="cuId" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
+                            <div class="col-lg-12">
+                                <input type="text" class="form-control" id="cuId" name="cuId" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
+                                <input type="hidden" id="che" value="">
+                                <input type="button"
+										class="btn btn-primary"
+										onclick="return overlap()" value="중복검사"> 
                             </div>
                         </div>
                         <div class="form-group" id="divPassword">
                             <label for="inputPassword" class="col-lg-2 control-label">비밀번호*</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <input type="password" class="form-control" id="pw" name="pw" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
                             </div>
                         </div>
                         <div class="form-group" id="divPasswordCheck">
                             <label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호 확인*</label>
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <input type="password" class="form-control" id="pw_re" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
                             </div>
                         </div>
                         <div class="form-group" id="divName">
                             <label for="inputName" class="col-lg-2 control-label">이름*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="name" name="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
+                            <div class="col-lg-12">
+                                <input type="text" class="form-control" id="name" name="name" data-rule-required="true" placeholder="한글만 입력 가능합니다." maxlength="15">
                             </div>
                         </div>
 
                         <div class="form-group" id="divEmail">
-                            <label for="inputEmail" class="col-lg-2 control-label">본인 확인 용 이메일*</label>
-                            <div class="col-lg-10">
+                            <label for="inputEmail" class="col-lg-4 control-label">본인 확인 용 이메일*</label>
+                            <div class="col-lg-12">
                                 <input type="email" class="form-control" id="email" name="email" data-rule-required="true" placeholder="이메일을 입력하세요." maxlength="40">
                             </div>
                         </div>
 
-                        <div class="form-group col-lg-10" id="divNickname">
+                        <div class="form-group col-lg-12" id="divNickname">
 								<label for="addr" class="col-lg-2 control-label">주소</label>
 								<div class="col-lg-12">
 									<input type="text" class="col-lg-4" id="postCode"
