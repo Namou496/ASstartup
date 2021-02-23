@@ -43,7 +43,7 @@ request.setCharacterEncoding("utf-8");
 	<div class="container">
 		<p></p>
 		
-			<div style="margin-left: 25%">
+			<div style="">
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
 				<option selected>선택</option>
@@ -58,7 +58,7 @@ request.setCharacterEncoding("utf-8");
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
-
+<p></p>
 		<table class="table">
 		
 		
