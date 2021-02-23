@@ -83,13 +83,16 @@ public class ManualServiceImpl implements ManualService{
 					
 					@Override
 					public Map searchProduct(Map searchMap, String memberId) throws Exception{
+						int uno;
 						String manufacName;
 						MemberVO memberVO = new MemberVO();
 						memberVO.setCuId(memberId);
-						int uno = ManuDAO.selectUserRight(memberVO);
-						if(memberId == null) {
+						if(memberId!=null) {
+							uno = ManuDAO.selectUserRight(memberVO);
+						} else {
 							uno = 1;
 						}
+						System.out.println("uno::"+ uno);
 						searchMap.put("memberId", memberId);
 						searchMap.put("uno", uno);
 						

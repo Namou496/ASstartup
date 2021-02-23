@@ -243,8 +243,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 			
 			<sql id="searchCondition">
-			where
+
 			<if test = "productGroup != null">
+			where
 			         productGroup=#{productGroup}
 			        	<if test = "manufacName != null">
 			        	  and manufacName=#{manufacName}
@@ -266,6 +267,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    </if>
 	<!-- 제품분류를 선택하지 않을 시 -->
 			        <if test = "productGroup == null">
+			        where
 			        	<if test = "manufacName != null">
 			        			manufacName=#{manufacName}
 			        		<if test = "productName != null">
