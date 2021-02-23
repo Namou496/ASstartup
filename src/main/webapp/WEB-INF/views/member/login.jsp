@@ -19,7 +19,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="../resources/img/1020.png" alt="IMG">
+					<a href="${contextPath}/main/main.do"><img src="../resources/img/1020.png" alt="IMG"></a>
 				</div>
 
 				<form class="login100-form validate-form" method="post"
@@ -49,7 +49,7 @@
 					</div>
 					<!-- 회원가입 폼으로 -->
 					<div class="text-center p-t-136">
-						<a class="txt2" href="${contextPath}/member/join.do"> 회원가입 <i
+						<a class="txt2" href="${contextPath}/member/selectMember.do"> 회원가입 <i
 							class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>
