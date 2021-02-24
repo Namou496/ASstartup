@@ -513,23 +513,62 @@
                     	</ul>
                     </div>
                     <div class="loginZon">
-                    	<ul>
-	                    	 <li>
-		                    	 <a href="${contextPath}/Manual/listManual.do">
-				                    <button class="blob-btn">
-				                       		로그인
-				                        <span class="blob-btn__inner">
-				                            <span class="blob-btn__blobs">
-				                                <span class="blob-btn__blob"></span>
-				                                <span class="blob-btn__blob"></span>
-				                                <span class="blob-btn__blob"></span>
-				                                <span class="blob-btn__blob"></span>
-				                            </span>
-				                        </span>
-				                    </button>
-				                </a>
-	                    	 </li>
-                    	 </ul>	
+	                    <c:choose>
+	                    	<c:when test="${uNo==0}">
+		                    	<ul>
+			                    	 <li>
+				                    	 <a href="${contextPath}/member/login.do">
+						                    <button class="blob-btn">
+						                       		로그인
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+			                    	 </li>
+			                    	 
+			                    	 <li>
+				                    	 <a href="${contextPath}/member/selectMember.do">
+						                    <button class="blob-btn">
+						                       		회원가입
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+			                    	 </li>
+		                    	 </ul>	
+		                    </c:when>
+		                    <c:when test="${uNo!=0}">
+		                    	<ul>
+			                    	 <li>
+				                    	 <a href="${contextPath}/member/logout.do">
+						                    <button class="blob-btn">
+						                       		로그아웃
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+			                    	 </li>
+		                    	 </ul>
+		                    </c:when>
+	                    </c:choose>
                     </div>
                 </div>
             </div>
