@@ -139,7 +139,7 @@ $(function(){
 	dataType: "json",
 	data: {param1:productGroup, param2:manufacName},
 	success: function(result){
-				$("#productName").find("option").remove().end().append("<option value=''>제품</option>");
+				$("#productName").find("option").remove().end().append("<option value=''>제품명</option>");
 				$.each(result, function(i){
 					$("#productName").append("<option value='" + result[i] + "'>" + result[i] + "</option>");
 				});

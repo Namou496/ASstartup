@@ -223,7 +223,7 @@
 								<div class="col-lg-12">
 									<textarea class="form-control" id="symptoms" name="symptoms"
 										data-rule-required="true"
-										placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000"></textarea>
+										placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000" style="resize: none"></textarea>
 								</div>
 							</div>
 							<br />
