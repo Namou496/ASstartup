@@ -1,5 +1,6 @@
 package com.myspring.startup.admin.manufac.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.myspring.startup.admin.manufac.vo.AdminManufacVO;
+
 
 
 @Repository("adminManufacDAO")
@@ -34,6 +36,21 @@ public class AdminManufacDAOImpl implements AdminManufacDAO{
 	@Override
 	public AdminManufacVO selectManufacApprovalDetail(int manufacNO) throws DataAccessException {
 		return sqlSession.selectOne("mapper.adminManufac.selectManufacApprovalDetail",manufacNO);
+		
+	}
+	
+//	제조사검색
+	@Override
+	public ArrayList selectByManufac(String name) throws DataAccessException {
+		ArrayList List= (ArrayList)sqlSession.selectList("mapper.adminManufac.selectByManufac",name);
+		return List;
+		
+	}
+	
+//	제조사승인거절
+	@Override
+	public void updateManufacApprovalStatus(AdminManufacVO adminManufacVO) throws DataAccessException {
+		sqlSession.update("mapper.adminManufac.updateManufacApprovalStatus",adminManufacVO);
 		
 	}
 	

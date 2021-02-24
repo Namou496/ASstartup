@@ -71,41 +71,44 @@ public class AdminManufacControllerImpl implements AdminManufacController {
 			return mav;
 		}
 		
-//		//제품승인 및 거절
-//		@Override
-//		@RequestMapping(value = "/admin/product/adminProductApproval.do", method = {RequestMethod.GET, RequestMethod.POST })
-//		public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception{
-//			
-//			int productNO=Integer.parseInt(request.getParameter("productNO"));
-//			int approvalStatus=Integer.parseInt(request.getParameter("approvalStatus"));
-//			String rejectionReason=request.getParameter("rejectionReason");
-//			
-//			AdminProductVO adminProductVO=new AdminProductVO();
-//
-//			adminProductVO.setProductNO(productNO);
-//			adminProductVO.setApprovalStatus(approvalStatus);
-//			adminProductVO.setRejectionReason(rejectionReason);
-//			
-//			adminProductService.AdminProductApproval(adminProductVO);
-//			
-//			ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
-//			
-//			return mav;
-//			
-//		}
-//		
-//		
-//		//제품명으로검색
-//		
-//		@Override
-//		@RequestMapping(value = "/admin/product/adminProductSearch.do", method = {RequestMethod.GET, RequestMethod.POST })
-//		public ModelAndView adminProductSearch(@RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//			
-//			List<AdminProductVO> searchList=adminProductService.AdminProductSearch(name);
-//			ModelAndView mav = new ModelAndView("/product/adminProductSearch");
-//			mav.addObject("searchList",searchList );
-//			return mav;
-//		
-//		} 
+		//제조사승인 및 거절
+		@Override
+		@RequestMapping(value = "/admin/manufac/adminManufacApproval.do", method = {RequestMethod.GET, RequestMethod.POST })
+		public ModelAndView adminManufacApproval(HttpServletRequest request, HttpServletResponse response) throws Exception{
+			
+			AdminManufacVO adminManufacVO=new AdminManufacVO();
+			
+			int approvalStatus=Integer.parseInt(request.getParameter("approvalStatus"));
+			System.out.println("approvalStatus: "+ approvalStatus);
+			String rejectionReason=request.getParameter("rejectionReason");
+			String cuId=request.getParameter("cuId");
+			
+			adminManufacVO.setCuId(cuId);
+			adminManufacVO.setApprovalStatus(approvalStatus);
+			adminManufacVO.setRejectionReason(rejectionReason);
+			ModelAndView mav = new ModelAndView();
+			try {
+				adminManufacService.AdminManufacApproval(adminManufacVO);
+				mav.setViewName("redirect:/admin/manufac/adminManufacList.do");
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return mav;
+			
+		}
+		
+		
+		//제조사명으로검색
+		
+		@Override
+		@RequestMapping(value = "/admin/manufac/adminManufacSearch.do", method = {RequestMethod.GET, RequestMethod.POST })
+		public ModelAndView adminManufacSearch(@RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+			List<AdminManufacVO> searchList=adminManufacService.AdminManufacSearch(name);
+			ModelAndView mav = new ModelAndView("/manufac/adminManufacSearch");
+			mav.addObject("searchList",searchList );
+			return mav;
+		
+		} 
 
 }

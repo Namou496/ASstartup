@@ -16,5 +16,9 @@ public interface AdminManufacDAO {
 
 	//제조사상세
 	AdminManufacVO selectManufacApprovalDetail(int manufacNO) throws DataAccessException;
+	
+	List selectByManufac(String name);
+	
+	void updateManufacApprovalStatus(AdminManufacVO adminManufacVO);
 
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class AdminManufacVO {
 	
 //	제조사테이블
-	private String cuid;
+	private String cuId;
 	private int manufacturerNO;
 	private String name;
 	private String addr;
@@ -18,6 +18,13 @@ public class AdminManufacVO {
 	private int approvalStatus;
 	private String rejectionReason;
 	
+	
+	public String getCuId() {
+		return cuId;
+	}
+	public void setCuId(String cuId) {
+		this.cuId = cuId;
+	}
 	public int getApprovalNum() {
 		return approvalNum;
 	}
@@ -36,12 +43,7 @@ public class AdminManufacVO {
 	public void setRejectionReason(String rejectionReason) {
 		this.rejectionReason = rejectionReason;
 	}
-	public String getCuid() {
-		return cuid;
-	}
-	public void setCuid(String cuid) {
-		this.cuid = cuid;
-	}
+
 	public int getManufacturerNO() {
 		return manufacturerNO;
 	}

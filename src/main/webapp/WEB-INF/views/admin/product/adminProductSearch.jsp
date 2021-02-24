@@ -52,18 +52,18 @@ request.setCharacterEncoding("utf-8");
 				<option value="productNO">제품번호</option>
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;">
+			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/product/adminProductSearch.do">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
 <p></p>
-		<table class="table">
+		<table class="table" >
 		
 		
 		
-			<thead>
+			<thead style="text-align:center">
 				<tr>
 
 					<th scope="col" style="border-right: 1px solid #eee; width: 15%">제품번호</th>
@@ -77,7 +77,7 @@ request.setCharacterEncoding("utf-8");
 
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="text-align:center">
 				<c:choose>
 					<c:when test="${searchList==null }">
 
@@ -92,7 +92,7 @@ request.setCharacterEncoding("utf-8");
 					
 						<c:forEach var="search" items="${searchList }">
 
-							<tr>
+							<tr >
 								<th scope="row">${search.productNO}</th>
 
 								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${search.productNO}">${search.name}</a></td>

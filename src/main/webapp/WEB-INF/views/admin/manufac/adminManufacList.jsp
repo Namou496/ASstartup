@@ -52,7 +52,7 @@ request.setCharacterEncoding("utf-8");
 				<option value="1">담당자명</option>
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;" action="">
+			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/manufac/adminManufacSearch.do">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search" name="name">
 				<button class="btn btn-outline-success" type="submit">search</button>

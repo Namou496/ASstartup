@@ -41,23 +41,26 @@
 
 <script>
 	$(function(){
-		var manufacNO=$("#manufacNO").text();
+		var cuId=$("#cuId").text();
+		console.log(cuId);
 		
-		$("#approvalNum").click(function(){
+		$("#approvalNo").click(function(){
+			console.log("1");
 			var rejectionReason=$("#rejectionReason").val();
 			$("#status").val(2);
 			$("#reason").val(rejectionReason);
-			$("#no").val(manufacNO);
+			$("#id").val(cuId);
 			$("#frmApproval").submit();
-			alert('승인거절이 완료되었습니다.')
+			alert('승인거절이 완료되었습니다.');
 		});
 		
 		$("#approvalOk").click(function(){
+			console.log("2");
 			$("#status").val(1);
 			$("#reason").val("승인완료");
-			$("#no").val(manufacNO);
+			$("#id").val(cuId);
 			$("#frmApproval").submit();
-			alert('승인이 완료되었습니다.')
+			alert('승인이 완료되었습니다.');
 		});
 		
 	});
@@ -79,10 +82,6 @@
 	padding-left: 30px;
 }
 
-#product_image a img {
-	width: 100px;
-	height: 50px;
-}
 
 .approvalBtn {
 	text-align: center;
@@ -114,8 +113,13 @@
 							<td id="td2" scope="row" colspan="1" name="name">${manufacDetail.name }</td>
 						</tr>
 						<tr>
+							<td id="td1" scope="row" colspan="1">아이디:</td>
+							<td id="cuId" scope="row" colspan="1" name="cuId">${manufacDetail.cuId}</td>
+						</tr>
+						
+						<tr>
 							<td id="td1" scope="row" colspan="1">제조사번호:</td>
-							<td id="manufacNO" scope="row" colspan="1" name="manufacturerNO">${manufacDetail.manufacturerNO }</td>
+							<td id="td2" scope="row" colspan="1" name="manufacturerNO">${manufacDetail.manufacturerNO }</td>
 						</tr>
 						
 						<tr>
@@ -156,12 +160,15 @@
 		</div>
 
 		<p></p>
+	
+		
 	</div>
 	<form id="frmApproval" action="${contextPath }/admin/manufac/adminManufacApproval.do">
 		<input type="hidden" id="status" name="approvalStatus">
-		<input type="hidden" id="no" name="manufacturerNO">
+		<input type="hidden" id="id" name="cuId">
 		<input type="hidden" id="reason" name="rejectionReason">
 	</form>
+	
 </body>
 
 </html>
