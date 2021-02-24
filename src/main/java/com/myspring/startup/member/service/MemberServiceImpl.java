@@ -2,6 +2,8 @@ package com.myspring.startup.member.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -49,5 +51,11 @@ public class MemberServiceImpl implements MemberService{
 		memberJoinMap.put("approvalNum", RecentManufacApply+1);
 		
 		memberDAO.applyManufac(memberJoinMap);
+	}
+
+	@Override
+	public String overlapId(String cuId) throws Exception {
+		String i = memberDAO.overlapId(cuId);
+		return i;
 	}
 }

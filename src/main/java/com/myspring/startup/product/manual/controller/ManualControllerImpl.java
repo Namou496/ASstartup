@@ -149,12 +149,13 @@ public class ManualControllerImpl implements ManualController{
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		String _memberId = null;
 		//		테스트
 		HttpSession session = request.getSession();
-		
-		MemberVO memberId = (MemberVO) session.getAttribute("member");
-		String _memberId = memberId.getCuId();
-		
+		if((session.getAttribute("member"))!=null) {
+			MemberVO memberId = (MemberVO) session.getAttribute("member");
+			_memberId = memberId.getCuId();
+		}
 		if(!(productGroup.length() > 0)) {
 			productGroup = null;
 		}

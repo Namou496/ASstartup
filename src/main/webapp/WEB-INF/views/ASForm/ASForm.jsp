@@ -33,6 +33,11 @@
 <script type="text/javascript"
 	src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="../resources/js/asform.js"></script>
+<script>
+    $(function(){
+    	$("#img").css({display:"none"});
+    });
+    </script>
 </head>
 
 <body>
@@ -180,7 +185,7 @@
 							<div class="form-group col-lg-10" id="divId">
 								<label for="phonenum" class="col-lg-2 control-label">전화번호</label>
 								<div class="col-lg-12">
-									<input type="text" class="form-control onlyAlphabetAndNumber"
+									<input type="text" class="form-control"
 										id="phone" name="phone" data-rule-required="true"
 										placeholder="-빼고 입력해주세요." maxlength="13">
 								</div>

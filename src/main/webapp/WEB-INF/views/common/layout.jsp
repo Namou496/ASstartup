@@ -30,7 +30,11 @@
 		<div class="clear"></div>
 	</div>
 
+<<<<<<< HEAD
 	<div class="container mainBody" style="min-height: 53%">
+=======
+	<div class="container" style="min-height: 53%" id="board">
+>>>>>>> refs/heads/develop
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>

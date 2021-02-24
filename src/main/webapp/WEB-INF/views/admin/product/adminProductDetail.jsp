@@ -156,7 +156,7 @@
 			style="width: 80%; text-align: center; margin: 0 auto;">
 			<span class="input-group-text">승인불가 사유</span>
 			<textarea class="form-control" aria-label="With textarea"
-				id="rejectionReason" ></textarea> <!-- 1 -->
+				id="rejectionReason" placeholder="승인 불가시에만 입력"></textarea> <!-- 1 -->
 			
 
 		</div>
