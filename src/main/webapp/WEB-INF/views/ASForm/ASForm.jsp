@@ -33,6 +33,11 @@
 <script type="text/javascript"
 	src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="../resources/js/asform.js"></script>
+<script>
+    $(function(){
+    	$("#img").css({display:"none"});
+    });
+    </script>
 </head>
 
 <body>

@@ -17,10 +17,16 @@
     <link type="text/css" rel="stylesheet" href="../resources/css/bootstrap.min.css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <!-- JavaScript -->
+    <script type="text/javascript" src="../resources/js/join.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" src="../resources/js/join.js"></script>
+    <script>
+    $(function(){
+    	$("#img").css({display:"none"});
+    });
+    </script>
 </head>
 
 <body>
@@ -33,7 +39,6 @@
             <form class="form-horizontal" onsubmit="return validate();" method="post" action="${contextPath}/member/addMember.do"><br /><br /><br />
                 <div class="form-group">
                     <h4><label for="provision" class="col-lg-2 control-label">회원가입약관</label></h4>
-                    <input type="hidden" name="uno" id="uno" value=""/>
                     <div class="col-lg-10" id="provision">
                         <textarea class="form-control" rows="8" style="resize:none">제 1조 (목적)
     본 약관은 스타트업 AS(이하 "수리점"이라 합니다)에서 운영하는 인터넷 홈페이지에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 합니다)의 이용에 관한 사항을 규정함을 목적으로 합니다.
@@ -275,10 +280,10 @@
                             <h5><label class="col-lg-2 control-label">이용자 구분*</label></h5>
                             <div class="col-lg-10">
                                 <label class="radio-inline">
-                                    <input type="radio" id="sta" name="sta" value="1" checked> A/S이용자
+                                    <input type="radio" id="uno" name="uno" value="1" checked> A/S이용자
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" id="sta" name="sta" value="2"> 수리기사
+                                    <input type="radio" id="uno" name="uno" value="2"> 수리기사
                                 </label>
                             </div>
                         </div>
@@ -288,7 +293,7 @@
                                 <input type="text" class="form-control" id="cuId" name="cuId" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
                                 <input type="hidden" id="che" value="">
                                 <input type="button"
-										class="btn btn-primary"
+										class="btn btn-primary marginLeft"
 										onclick="return overlap()" value="중복검사"> 
                             </div>
                         </div>
@@ -321,11 +326,11 @@
                         <div class="form-group col-lg-12" id="divNickname">
 								<label for="addr" class="col-lg-2 control-label">주소</label>
 								<div class="col-lg-12">
-									<input type="text" class="col-lg-4" id="postCode"
+									<input type="text" class="col-lg-4 marginLeft" id="postCode"
 										style="padding: 5px; border-radius: 5px;" name="postCode"
 										data-rule-required="true" placeholder="우편주소" maxlength="30"
 										disabled> <input type="button"
-										class="col-lg-2 btn btn-primary"
+										class="col-lg-2 btn btn-primary marginLeft"
 										onclick="sample5_execDaumPostcode()" value="주소 검색"> 
 										<input type="text" class="form-control" id="addr1" name="addr1"
 										data-rule-required="true" placeholder="주소" maxlength="30"
