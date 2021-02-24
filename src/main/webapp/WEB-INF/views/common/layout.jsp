@@ -19,24 +19,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	
 </head>
+
 <body>
 
 <!-- ㅁㄴㅇㄹ -->
-	<div class="container-fluid whole" style="padding: 0;">
+	<div class="container-fluid whole mainHeader" style="padding: 0;">
 		<header>
 			<tiles:insertAttribute name="header" />
 		</header>
 		<div class="clear"></div>
 	</div>
 
-	<div class="container" style="min-height: 53%">
+	<div class="container mainBody" style="min-height: 53%">
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>
 		<div class="clear"></div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container-fluid mainFooter">
 		<footer>
 			<tiles:insertAttribute name="footer" />
 		</footer>

@@ -55,3 +55,13 @@
 }
 #footer p{color: #5D5D5D;font-size: 12px;text-align: center;}
 
+.mainHeader{
+	position: relative;
+	z-index: 1;
+}
+.mainBody{
+	position: relative;
+}
+.mainFooter{
+	position: relative;
+}

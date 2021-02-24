@@ -17,22 +17,21 @@
 	<meta charset="UTF-8">
 	
 	<style>
-	* {
-    margin: 0px;
-    padding: 0px;
-    }
+		* {
+	    	margin: 0px;
+	    	padding: 0px;
+	    }
         .whole {
             padding: 0px;
             background: lightgray;
-            height: 600px;
-            
         }
         .navbar{
-            height: 20%;
+            height: 6.6%;
+            
         }
-        .navbar-brand img{
+        .navbar-brand>img{
             width: 100px;
-            height: 100px;
+            height: 60px;
         }
         #navbarNavAltMarkup{
             text-align: center;
@@ -40,9 +39,16 @@
         .navbar-nav{
             margin: 0 auto;
         }
+        .navbark{
+        	background: #524F4F;
+        }
         #img{
             width: 100%;
-            height: 80%;
+            height: 30%;
+        }
+        #img>img{
+        	height: 100%;
+        	width: 100%;
         }
         #helpWhat{
             position: relative;
@@ -50,22 +56,6 @@
             justify-content: center;
             color: white;
             font-size: 1.9em;
-        }
-        
-        #find{
-            position: relative;
-            display: flex;
-            justify-content: ;
-            flex-direction: column;
-            width: 35%;
-            bottom: 210px;
-            margin: 0 auto;
-        }
-        #find_prod{
-            position: relative;
-            display: flex;
-            text-align: center;
-            width: 100%;
         }
         
         a:hover{
@@ -77,17 +67,150 @@
         .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         	padding: 0;
         }
+        .loginZon>ul{
+        	padding: 0px;
+        	margin-bottom: 0px;
+        }
+        .loginZon>ul>li{
+        	list-style: none;
+        	float: left;
+        }
+/*         buttons */
+		*:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .headerBody{
+            font-family: "Open Sans", Helvetica, Arial, sans-serif;
+        }
+
+        .buttons {
+            text-align: center;
+        }
+
+        .blob-btn {
+            z-index: 1;
+            position: relative;
+            padding: 20px 50px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #0fe0f5;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            transition: color 0.5s;
+            cursor: pointer;
+        }
+
+        .blob-btn:before {
+            content: "";
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .blob-btn:hover {
+            color: #222;
+        }
+
+        .blob-btn:hover:after {
+            transition: all 0.3s;
+            left: 0;
+            top: 0;
+        }
+
+        .blob-btn__inner {
+            z-index: -1;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .blob-btn__blobs {
+            position: relative;
+            display: block;
+            height: 100%;
+            filter: url("#goo");
+        }
+
+        .blob-btn__blob {
+            position: absolute;
+            top: 6px;
+            width: 25%;
+            height: 100%;
+            background: #0fe0f5;
+            border-radius: 100%;
+            transform: translate3d(0, 150%, 0) scale(1.7);
+            transition: transform 0.45s;
+        }
+
+        @supports (filter: url("#goo")) {
+            .blob-btn__blob {
+                transform: translate3d(0, 150%, 0) scale(1.4);
+            }
+        }
+
+        .blob-btn__blob:nth-child(1) {
+            left: 0%;
+            transition-delay: 0s;
+        }
+
+        .blob-btn__blob:nth-child(2) {
+            left: 30%;
+            transition-delay: 0.08s;
+        }
+
+        .blob-btn__blob:nth-child(3) {
+            left: 60%;
+            transition-delay: 0.16s;
+        }
+
+        .blob-btn__blob:nth-child(4) {
+            left: 90%;
+            transition-delay: 0.24s;
+        }
+
+        .blob-btn:hover .blob-btn__blob {
+            transform: translateZ(0) scale(1.7);
+        }
+
+        @supports (filter: url("#goo")) {
+            .blob-btn:hover .blob-btn__blob {
+                transform: translateZ(0) scale(1.4);
+            }
+        }
+        .manuBtns{
+        	margin: 0px;
+        	padding: 0px;
+        }
+        
+        .manuBtns>li{
+            list-style: none;
+            float:left;
+            
+        }
     </style>
 
 	<script type="text/javascript">
-		/*김태수*/
 		var uNo=${uNo};
 		var contextPath='${contextPath}';
-		/*안두용*/
 		function resizeNav(){
             var wth = $(this).width();
-            if(wth <= 992){
+            if(wth <= 1000){
                 $('.nav-link').removeAttr('style');
+                $('.manuBtns>li').css({borderTop:"1px solid #786B6B",float:"none"});
+                $('.loginZon>ul>li').css({borderTop:"1px solid #786B6B",float:"none"});
           	}
       	};
 		
@@ -101,41 +224,29 @@
 					location.href=url;
 				}
 			});
-			/*안두용*/
-			var a = $('.a').attr('style');
-            var b = $('.b').attr('style');
-            var c = $('.c').attr('style');
-            var d = $('.d').attr('style');
-            var e = $('.e').attr('style');
-            var f = $('.f').attr('style');
-          
+			
             $(window).resize(function(){
                 var wth = $(this).width();
-                if(wth <= 992){
+                if(wth <= 1000){
                     $('.nav-link').removeAttr('style');
-                    $('#find').attr('style','display:none;');
-                } else if(wth >= 992){
-                    $('#find').attr('style','display:flex;');
-                    $('.a').attr('style', a);
-                    $('.b').attr('style', b);
-                    $('.c').attr('style', c);
-                    $('.d').attr('style', d);
-                    $('.e').attr('style', e);
-                    $('.f').attr('style', f);
+                }else{
+                	$('.manuBtns>li').removeAttr('style');
+                    $('.loginZon>ul>li').removeAttr('style');
                 }
+                
             });
-			
+
 		});
 	</script>
 
 </head>
 <body>
-    <div class="container-fluid whole" style="padding: 0;">
+    <div class="container-fluid whole headerBody" style="padding:0;">
         <!--navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid navbark">
+            <div class="container-fluid navbark" style="padding:0;">
                 
-                <a class="navbar-brand" href="${contextPath}/main/main.do"><img src="${contextPath}/resources/img/21.png" alt="" style="width: 110px; height: 100px; padding-left: 10px;"></a>
+                <a class="navbar-brand" href="${contextPath}/main/main.do" style="padding-bottom: 0;"><img src="${contextPath}/resources/img/logo.png" alt=""></a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="resizeNav();">
                     <span class="navbar-toggler-icon"></span>
@@ -143,37 +254,289 @@
                 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                    	<c:choose>
-                    		<c:when test="${uNo<=1}">
-                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASForm/ASForm.do" style="padding-right:80px;">신청서</a>
-                        		<a class="nav-link b actionBtn" href="${contextPath}/ASAfter/selectUserASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
-                        		<a class="nav-link c actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="padding-right:80px;">A/S이력 목록</a>
-                        		<a class="nav-link d actionBtn" href="${contextPath}/Manual/listManual.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">매뉴얼 리스트</a>
-                        	</c:when>
-                        	<c:when test="${uNo==2}">
-                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/ASAfter/selectASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
-                        		<a class="nav-link b actionBtn" href="${contextPath}/ASBefore/listASBefore.do" style="padding-right:80px;">A/S이력 목록</a>
-                        		<a class="nav-link c actionBtn" href="${contextPath}/Manual/listManual.do" style="padding-right:80px;">매뉴얼 리스트</a>
-                        	</c:when>
-                        	<c:when test="${uNo==3}">
-                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/Product/listProduct.do" style="padding-right:80px;">제품등록 게시판</a>
-                        		<a class="nav-link b actionBtn" href="${contextPath}/Manual/listManual.do" style="padding-right:80px;">매뉴얼 게시판</a>
-                        		<a class="nav-link c actionBtn" href="${contextPath}/ASAfter/selectMfrASAfterList.do" style="padding-right:80px;">A/S신청 목록</a>
-                        		<a class="nav-link d actionBtn" href="${contextPath}/ASBefore/listASBefore.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">A/S이력 목록</a>
-                        	</c:when>
-                        	<c:when test="${uNo==4}">
-                        		<a class="nav-link active a actionBtn" aria-current="page" href="${contextPath}/admin/product/adminProductList.do" style="padding-right:80px;">제품등록승인</a>
-                        		<a class="nav-link b actionBtn" href="${contextPath}/admin/manufac/adminManufacList.do" style="padding-right:80px;">제조사등록승인</a>
-                        		<a class="nav-link c actionBtn" href="${contextPath}/admin/member/adminMemberList.do" style="padding-right:80px;">사용자관리</a>
-                        		<a class="nav-link d actionBtn" href="${contextPath}/admin/satisfaction/adminSatisfactionList.do" tabindex="-1" aria-disabled="true" style="padding-right:30px;">소비자만족도확인</a>
-                        	</c:when>
-                    	</c:choose>
+                    	<ul class="manuBtns">
+	                    	<c:choose>
+	                    		<c:when test="${uNo<=1}">
+	                        		<li class="buttons">
+						                <a href="${contextPath}/ASForm/ASForm.do">
+						                    <button class="blob-btn">
+						                       		 신청서
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+	                        		<li class="buttons">
+						                <a href="${contextPath}/ASAfter/selectUserASAfterList.do">
+						                    <button class="blob-btn">
+						                       		 A/S신청 목록
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            <li class="buttons">
+						                <a href="${contextPath}/ASBefore/listASBefore.do">
+						                    <button class="blob-btn">
+						                       		 A/S이력 목록
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            <li class="buttons">
+						                <a href="${contextPath}/Manual/listManual.do">
+						                    <button class="blob-btn">
+						                       		 매뉴얼 리스트
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+	                        	</c:when>
+	                        	
+	                        	<c:when test="${uNo==2}">
+	                        		<li class="buttons">
+						                <a href="${contextPath}/ASAfter/selectASAfterList.do">
+						                    <button class="blob-btn">
+						                       		 A/S신청 목록
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+	                        		<li class="buttons">
+						                <a href="${contextPath}/ASBefore/listASBefore.do">
+						                    <button class="blob-btn">
+						                       		 A/S이력 목록
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+						            <li class="buttons">
+						                <a href="${contextPath}/Manual/listManual.do">
+						                    <button class="blob-btn">
+						                       		 매뉴얼 리스트
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+	                        	</c:when>
+	                        	
+	                        	<c:when test="${uNo==3}">
+	                        		<li class="buttons">
+						                <a href="${contextPath}/Product/listProduct.do">
+						                    <button class="blob-btn">
+						                       		 제품등록 게시판
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+	                        		<li class="buttons">
+						                <a href="${contextPath}/Manual/listManual.do">
+						                    <button class="blob-btn">
+						                       		 매뉴얼 게시판
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+						            <li class="buttons">
+						                <a href="${contextPath}/ASAfter/selectMfrASAfterList.do">
+						                    <button class="blob-btn">
+						                       		 A/S신청 목록
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+						            <li class="buttons">
+						                <a href="${contextPath}/ASBefore/listASBefore.do">
+						                    <button class="blob-btn">
+						                       		 A/S이력 목록
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+	                        	</c:when>
+	                        	
+	                        	<c:when test="${uNo==4}">
+	                        		<li class="buttons">
+						                <a href="${contextPath}/admin/product/adminProductList.do">
+						                    <button class="blob-btn">
+						                       		 제품등록승인
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+	                        		<li class="buttons">
+						                <a href="${contextPath}/admin/manufac/adminManufacList.do">
+						                    <button class="blob-btn">
+						                       		 제조사등록승인
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+						            <li class="buttons">
+						                <a href="${contextPath}/admin/member/adminMemberList.do">
+						                    <button class="blob-btn">
+						                       		 사용자관리
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+						            
+						            <li class="buttons">
+						                <a href="${contextPath}/admin/satisfaction/adminSatisfactionList.do">
+						                    <button class="blob-btn">
+						                       		 소비자만족도확인
+						                        <span class="blob-btn__inner">
+						                            <span class="blob-btn__blobs">
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                                <span class="blob-btn__blob"></span>
+						                            </span>
+						                        </span>
+						                    </button>
+						                </a>
+						            </li>
+	                        	</c:when>
+	                    	</c:choose>
+	                    	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: 0px; height: 0px;">
+					            <defs>
+					                <filter id="goo">
+					                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+					                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+					                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+					                </filter>
+					            </defs>
+					        </svg>
+                    	</ul>
                     </div>
-                    <a class="nav-link e actionBtn" href="${contextPath}/member/logout.do" tabindex="-1">로그아웃</a>
+                    <div class="loginZon">
+                    	<ul>
+	                    	 <li>
+		                    	 <a href="${contextPath}/Manual/listManual.do">
+				                    <button class="blob-btn">
+				                       		로그인
+				                        <span class="blob-btn__inner">
+				                            <span class="blob-btn__blobs">
+				                                <span class="blob-btn__blob"></span>
+				                                <span class="blob-btn__blob"></span>
+				                                <span class="blob-btn__blob"></span>
+				                                <span class="blob-btn__blob"></span>
+				                            </span>
+				                        </span>
+				                    </button>
+				                </a>
+	                    	 </li>
+                    	 </ul>	
+                    </div>
                 </div>
             </div>
-      		</nav>
-        <img src="${contextPath}/resources/img/19.png" alt="" id="img">
+   		</nav>
+      	<div id="img">
+        	<img src="${contextPath}/resources/img/background.png" alt="">
+        </div>
     </div>
 </body>
 </html>
