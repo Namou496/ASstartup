@@ -7,8 +7,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mapper.adminSatisfaction">
 
-<!-- 	<resultMap type="" id=""> -->
-<!-- 		<result property="" column="" /> -->
-<!-- 	</resultMap> -->
+<!-- vo -->
+<resultMap type="AsstarrateVO" id="satisfactionResult">
+		<result property="asNo" column="asNo" />
+		<result property="respDate" column="respDate" />
+		<result property="ascomment" column="ascomment" />
+		<result property="manCost" column="manCost" />
+		<result property="serviceCost" column="serviceCost" />
+		<result property="star" column="star" />
+		<result property="textBox" column="textBox" />
+		<result property="cuid" column="cuid" />
+
+	</resultMap>
+
+<!-- 만족도리스트 -->
+	<select id="selectSatisfactionList"
+		resultMap="satisfactionResult" parameterType="java.util.Map">
+
+		<![CDATA[
+		select
+			respdate,asno,star,cuid
+		from
+			asrespond
+	
+
+		 ]]>
+
+	</select>
+
+<!-- 하단 페이징 버튼 sql -->
+	<select id="selectSatisfactionListCount" parameterType="int"
+		resultType="int">
+		
+		<![CDATA[
+		select count(rownum) from(
+		
+			select rownum
+			from
+			asrespond
+	
+		)
+		where rownum between (#{secNum}-1)*100+1 and (#{secNum}*100)
+		]]>
+	</select>
+
+
+	<!-- 승인상세 -->
+	<select id="selectSatisfactionDetail"
+		resultType="AsstarrateVO" parameterType="int">
+
+		<![CDATA[
+	
+		select asno,ascomment,mancost,servicecost,star,textbox,cuid
+		from asrespond
+		where
+		asNo=#{asNo}
+		]]>
+
+	</select>
+
 
 </mapper>

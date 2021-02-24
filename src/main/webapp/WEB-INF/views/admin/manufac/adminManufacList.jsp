@@ -8,7 +8,7 @@
 <c:set var="lastPageNum" value="${manufacMap.lastPageNum}" />
 <c:set var="manufacDetail" value="${manufacDetail}" />
 <%
-request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("utf-8");
 %>
 <!DOCTYPE html>
 <html>
@@ -42,8 +42,8 @@ request.setCharacterEncoding("utf-8");
 
 	<div class="container">
 		<p></p>
-		
-			<div style="">
+
+		<div style="">
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
 				<option selected>선택</option>
@@ -52,27 +52,37 @@ request.setCharacterEncoding("utf-8");
 				<option value="1">담당자명</option>
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/manufac/adminManufacSearch.do">
+			<form class="d-flex" style="width: 40%; position: relative;"
+				action="${contextPath}/admin/manufac/adminManufacSearch.do">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search" name="name">
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
-<p></p>
+		<p></p>
 		<table class="table">
-		
+
 			<thead>
 				<tr>
-				<th scope="col" style="border-right: 1px solid #eee; width: 10%; text-align:center">승인번호</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 25% ; text-align:center">제조사명</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">제조사번호</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%;text-align:center">담당자명</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">연락처</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 10%;text-align:center">승인상태</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 10%; text-align: center">승인번호</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 10%; text-align: center">제조사번호</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 25%; text-align: center">제조사명</th>
+
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 15%; text-align: center">담당자명</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 20%; text-align: center">연락처</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 10%; text-align: center">승인상태</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 10%; text-align: center">상세</th>
 
 				</tr>
 			</thead>
-			<tbody style="text-align:center">
+			<tbody style="text-align: center">
 				<c:choose>
 					<c:when test="${manufacList==null }">
 
@@ -84,16 +94,19 @@ request.setCharacterEncoding("utf-8");
 					</c:when>
 
 					<c:when test="${manufacList != null }">
-		
-					
+
+
 						<c:forEach var="adminMan" items="${manufacList}">
 							<tr>
-							<th>${adminMan.approvalNum}</th>
-								<td><a href="${contextPath }/admin/manufac/adminManufacDetail.do?manufacNo=${adminMan.manufacturerNO}">${adminMan.name}</td>
-								<td>${adminMan.manufacturerNO}</a></td>
+								<th>${adminMan.approvalNum}</th>
+								<td>${adminMan.manufacturerNO}</td>
+								<td>${adminMan.name}</td>
+
 								<td>${adminMan.officer}</td>
 								<td>${adminMan.tel}</td>
 								<td>${adminMan.approvalStatus}</td>
+								<td><a
+									href="${contextPath }/admin/manufac/adminManufacDetail.do?manufacNo=${adminMan.manufacturerNO}">상세보기</a></td>
 							</tr>
 						</c:forEach>
 
@@ -109,14 +122,18 @@ request.setCharacterEncoding("utf-8");
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum_-1}"
-					tabindex="-1" >Previous</a></li>
-					
-					<c:forEach var="pageNum" begin="${(secNum-1)*10+1}" end="${(secNum-1)*10+lastPageNum}" step="1">
-						<li class="page-item"><a class="page-link" href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
-					</c:forEach>
-					
-				<li class="page-item"><a class="page-link" href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum+1}">Next</a></li>
+				<li class="page-item"><a class="page-link"
+					href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum_-1}"
+					tabindex="-1">Previous</a></li>
+
+				<c:forEach var="pageNum" begin="${(secNum-1)*10+1}"
+					end="${(secNum-1)*10+lastPageNum}" step="1">
+					<li class="page-item"><a class="page-link"
+						href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
+				</c:forEach>
+
+				<li class="page-item"><a class="page-link"
+					href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum+1}">Next</a></li>
 			</ul>
 		</nav>
 

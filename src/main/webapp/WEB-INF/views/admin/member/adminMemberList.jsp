@@ -22,49 +22,64 @@
 <link href="${contextPath}/resources/css/common.css" rel="stylesheet"
 	type="text/css" media="screen">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+	crossorigin="anonymous"></script>
 
 <title>Insert title here</title>
 </head>
 <body>
 
- <div class="container">
+	<div class="container">
 
-        <p></p>
+		<p></p>
 
-        <div style="">
+		<div style="">
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
-				<option selected>선택</option>
-				<option value="name">제조사명</option>
-				<option value="1">제조사번호</option>
-				<option value="1">담당자명</option>
+				<option selected>사용자</option>
+				<option value="name">공급자</option>
+				<option value="1">제조사</option>
+
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/member/adminMemberSearch.do">
+			<form class="d-flex" style="width: 40%; position: relative;"
+				action="${contextPath}/admin/member/adminMemberSearch.do">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search" name="name">
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
-        <p></p>
+		<p></p>
 
-        <table class="table">
-            <thead>
+		<table class="table">
+			<thead>
+
 				<tr>
-				<th scope="col" style="border-right: 1px solid #eee; width: 50%; text-align:center">아이디</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 50% ; text-align:center">권한</th>
-<!-- 					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">제조사번호</th> -->
-<!-- 					<th scope="col" style="border-right: 1px solid #eee; width: 15%;text-align:center">담당자명</th> -->
-<!-- 					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">연락처</th> -->
-<!-- 					<th scope="col" style="border-right: 1px solid #eee; width: 10%;text-align:center">승인상태</th> -->
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 30%; text-align: center">아이디</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 30%; text-align: center">이름</th>
+
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 20%; text-align: center">권한</th>
+					<th scope="col"
+						style="border-right: 1px solid #eee; width: 20%; text-align: center">상세</th>
+
 
 				</tr>
 			</thead>
-			<tbody style="text-align:center">
+			<tbody style="text-align: center">
 				<c:choose>
 					<c:when test="${memberList==null }">
 
@@ -75,16 +90,18 @@
 					</c:when>
 
 					<c:when test="${memberList != null }">
-		
-					
+
+
 						<c:forEach var="adminMem" items="${memberList}">
 							<tr>
-							
-								<td><a href="${contextPath }/admin/member/adminMemberDetail.do?cuId=${adminMem.cuId}">${adminMem.cuId}</a></td>
+
+								<td>${adminMem.cuId}</td>
+								<td>${adminMem.name}</td>
+
 								<td>${adminMem.uNo}</td>
-<%-- 								<td>${adminMem.officer}</td> --%>
-<%-- 								<td>${adminMem.tel}</td> --%>
-<%-- 								<td>${adminMem.approvalStatus}</td> --%>
+
+								<td><a
+									href="${contextPath }/admin/member/adminMemberDetail.do?cuId=${adminMem.cuId}">상세보기</a></td>
 							</tr>
 						</c:forEach>
 
@@ -96,22 +113,26 @@
 
 
 			</tbody>
-        </table>
+		</table>
 
-        <nav aria-label="Page navigation example">
+		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="${contextPath}/admin/member/adminMemberList.do?section=${secNum_-1}"
-					tabindex="-1" >Previous</a></li>
-					
-					<c:forEach var="pageNum" begin="${(secNum-1)*10+1}" end="${(secNum-1)*10+lastPageNum}" step="1">
-						<li class="page-item"><a class="page-link" href="${contextPath}/admin/member/adminMemberList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
-					</c:forEach>
-					
-				<li class="page-item"><a class="page-link" href="${contextPath}/admin/member/adminMemberist.do?section=${secNum+1}">Next</a></li>
+				<li class="page-item"><a class="page-link"
+					href="${contextPath}/admin/member/adminMemberList.do?section=${secNum_-1}"
+					tabindex="-1">Previous</a></li>
+
+				<c:forEach var="pageNum" begin="${(secNum-1)*10+1}"
+					end="${(secNum-1)*10+lastPageNum}" step="1">
+					<li class="page-item"><a class="page-link"
+						href="${contextPath}/admin/member/adminMemberList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
+				</c:forEach>
+
+				<li class="page-item"><a class="page-link"
+					href="${contextPath}/admin/member/adminMemberist.do?section=${secNum+1}">Next</a></li>
 			</ul>
 		</nav>
 
-    </div>
+	</div>
 
 
 
