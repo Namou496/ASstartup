@@ -212,7 +212,7 @@
       	};
 		
 		$(function(){
-			$('.actionBtn').click(function(e){
+			$('.buttons').click(function(e){
 				e.preventDefault();
 				if(!uNo>0){
 					alert('로그인후 이용가능합니다.');
@@ -255,7 +255,7 @@
 	                    	<c:choose>
 	                    		<c:when test="${uNo<=1}">
 	                        		<li class="buttons">
-						                <a href="${contextPath}/ASForm/ASForm.do">
+						                <a href="${contextPath}/ASForm/ASForm.do" class="actionBtn">
 						                    <button class="blob-btn">
 						                       		 신청서
 						                        <span class="blob-btn__inner">
@@ -270,7 +270,7 @@
 						                </a>
 						            </li>
 	                        		<li class="buttons">
-						                <a href="${contextPath}/ASAfter/selectUserASAfterList.do">
+						                <a href="${contextPath}/ASAfter/selectUserASAfterList.do" class="actionBtn">
 						                    <button class="blob-btn">
 						                       		 A/S신청 목록
 						                        <span class="blob-btn__inner">
