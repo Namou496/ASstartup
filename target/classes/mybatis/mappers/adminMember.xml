@@ -3,137 +3,72 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--사용자관리 -->
-
-<!-- 공급자vo없어서 공급자 수정,삭제 미완 -->
-<!-- 회원목록보기에 페이징기능 필요 -->
 
 <mapper namespace="mapper.adminMember">
 
-	<!-- 제조사vo -->
-<!-- 	<resultMap type="ManuMemberVO" id="manufacResult"> -->
-<!-- 		<result property="cuId" column="cuId" /> -->
-<!-- 		<result property="manufacturerNo" column="manufacturerNo" /> -->
-<!-- 		<result property="name" column="name" /> -->
-<!-- 		<result property="addr" column="addr" /> -->
-<!-- 		<result property="officer" column="officer" /> -->
-<!-- 		<result property="tel" column="tel" /> -->
-<!-- 	</resultMap> -->
+<!-- 멤버 vo -->
+	<resultMap type="MemberVO" id="memberResult">
+		<result property="cuId" column="cuId" />
+		<result property="pw" column="pw" />
+		<result property="uNo" column="uNo" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="addr" column="addr" />
+		
+		<result property="officer" column="officer" />
+		<result property="tel" column="tel" />
+		<result property="manufacNo" column="manufacNo" />
+		<result property="approvalNum" column="approvalNum" />
+		
+	</resultMap>
 
-	<!-- 사용자vo -->
-<!-- 	<resultMap type="CustMemberVO" id="custResult"> -->
-<!-- 		<result property="cuId" column="cuId" /> -->
-<!-- 		<result property="pw" column="pw" /> -->
-<!-- 		<result property="uNo" column="uNO" /> -->
-<!-- 		<result property="name" column="name" /> -->
-<!-- 		<result property="addr" column="addr" /> -->
-<!-- 		<result property="email" column="email" /> -->
-<!-- 	</resultMap> -->
-
-	<!-- 공급자vo -->
-	<!-- <resultMap type="" id=""> -->
-	<!-- <result property="" column="" /> -->
-	<!-- <result property="" column="" /> -->
-	<!-- <result property="" column="" /> -->
-	<!-- <result property="" column="" /> -->
-	<!-- <result property="" column="" /> -->
-	<!-- </resultMap> -->
 
 <!-- 사용자목록보기 -->
-<!-- 	<select id="selectCustList" resultMap="custResult" -->
-<!-- 		parameterType="java.util.Map"> -->
+	<select id="selectMemberList" resultMap="memberResult"
+		parameterType="java.util.Map">
 
-<!-- 		<![CDATA[ -->
-<!-- 		select * -->
-		
-<!-- 		from customer -->
-		
-<!-- 		order by name -->
-		
-<!-- 		]]> -->
-<!-- 	</select> -->
-	
-<!-- 제조사목록보기 -->
-
-<!-- <select id="selectManufacList" resultMap="manufacResult" -->
-<!-- 		parameterType="java.util.Map"> -->
-
-<!-- 		<![CDATA[ -->
-<!-- 		select * -->
-		
-<!-- 		from manufacturer -->
-		
-<!-- 		order by manufacturerno -->
-		
-<!-- 		]]> -->
-<!-- 	</select> -->
-
-
-<!-- 공급자목록보기 -->
-
-
-	<!-- 제조사 수정 -->
-<!-- 	<update id="updateManufacturer" parameterType="java.util.Map"> -->
-	<!--
-	<![CDATA[
-		update Manufacturer
-		
-		set manufacturerNo=#{manufacturerNo},
-			name=#{name},
-			addr=#{addr},
-			officer=#{officer},
-			tel=#{tel}
-		
+		<![CDATA[
+		select
+			member.cuid,customer.name,customer.addr,customer.email,member.uno
+		from
+			customer,member
 		where
-		manufacturerNo=#{manufacturerNo}
-	]]>
-	
-	</update>
--->
-
-
-
-	<!-- 제조사 삭제 -->
-	<!-- 
-	<delete id="deleteManufacturer" parameterType="java.util.Map">
-	
-	<![CDATA[
-		delete from manufacturer
-		where manufacturerno=#{manufacturerno}
-	]]>
-	
-	</delete>
--->
-
-	<!-- 사용자 수정 -->
-	<!-- 
-	<update id="updateCustomer" parameterType="java.util.Map">
-<![CDATA[
-		update customer
+			customer.cuid=member.cuid and uno=1
 		
-		set uNo=#{uNo},
-			name=#{name},
-			addr=#{addr},
-			email=#{email}
+ 		]]>
+	</select>
+	
+	<!-- 하단 페이징 버튼 sql -->
+	<select id="selectMemberListCount" parameterType="int"
+		resultType="int">
 		
+		<![CDATA[
+		select count(rownum) from(
+		
+			select rownum
+			from
+			member
+	
+			order by uNo desc
+		)
+		where rownum between (#{secNum}-1)*100+1 and (#{secNum}*100)
+		]]>
+	</select>
+	
+	<!-- 멤버상세 -->
+	<select id="selectMemberDetail"
+		resultType="MemberVO" parameterType="int">
+
+		<![CDATA[
+		select
+		*
+		from
+		member
 		where
 		cuId=#{cuId}
-]]>
-	</update>
--->
-
-	<!-- 사용자 삭제 -->
-	<!-- 
-	<delete id="deleteCustomer" parameterType="java.util.Map">
-		<![CDATA[
-		delete from customer
-		where cuId=#{cuId}
 		]]>
-	</delete>
--->
-	<!-- 공급자 수정 -->
-	<!-- 공급자 삭제 -->
 
+	</select>
 
 
 </mapper>
