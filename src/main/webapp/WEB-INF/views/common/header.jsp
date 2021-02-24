@@ -212,7 +212,7 @@
       	};
 		
 		$(function(){
-			$('.buttons').click(function(e){
+			$('.buttons>a').click(function(e){
 				e.preventDefault();
 				if(!uNo>0){
 					alert('로그인후 이용가능합니다.');
