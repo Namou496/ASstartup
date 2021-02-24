@@ -17,7 +17,6 @@
 	<meta charset="UTF-8">
 	
 	<style>
-<<<<<<< HEAD
 		* {
 	    	margin: 0px;
 	    	padding: 0px;
@@ -26,19 +25,8 @@
             padding: 0px;
             background: lightgray;
         }
-=======
-	* {
-    margin: 0px;
-    padding: 0px;
-    }
->>>>>>> refs/heads/develop
         .navbar{
-<<<<<<< HEAD
             height: 6.6%;
-            
-=======
-           padding: 0px;
->>>>>>> refs/heads/develop
         }
         .navbar-brand>img{
             width: 100px;
@@ -50,7 +38,6 @@
         .navbar-nav{
             margin: 0 auto;
         }
-<<<<<<< HEAD
         .navbark{
         	background: #524F4F;
         }
@@ -69,9 +56,6 @@
             color: white;
             font-size: 1.9em;
         }
-=======
->>>>>>> refs/heads/develop
-        
         a:hover{
             color: purple;
         }
@@ -81,7 +65,6 @@
         .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         	padding: 0;
         }
-<<<<<<< HEAD
         .loginZon>ul{
         	padding: 0px;
         	margin-bottom: 0px;
@@ -212,49 +195,21 @@
         
         .manuBtns>li{
             list-style: none;
-            float:left;
-            
-=======
-        .on{
-        margin-top:200px;
->>>>>>> refs/heads/develop
+            float:left; 
         }
     </style>
 
 	<script type="text/javascript">
 		var uNo=${uNo};
 		var contextPath='${contextPath}';
-<<<<<<< HEAD
-=======
-		/*안두용*/
-		var sw = 0;
->>>>>>> refs/heads/develop
 		function resizeNav(){
             var wth = $(this).width();
-<<<<<<< HEAD
             if(wth <= 1000){
-=======
-            
-            if(wth <= 992){
->>>>>>> refs/heads/develop
                 $('.nav-link').removeAttr('style');
-<<<<<<< HEAD
                 $('.manuBtns>li').css({borderTop:"1px solid #786B6B",float:"none"});
                 $('.loginZon>ul>li').css({borderTop:"1px solid #786B6B",float:"none"});
           	}
       	};
-=======
-                if(sw == 0){
-                	$('#board').css({'margin-top':"200px"});
-                	sw = 1;
-                }else{
-                	$('#board').css({'margin-top':"0px"});
-                	sw = 0;
-                }
-                
-	        }
-		}
->>>>>>> refs/heads/develop
 		
 		$(function(){
 			$('.actionBtn').click(function(e){
@@ -271,22 +226,11 @@
                 var wth = $(this).width();
                 if(wth <= 1000){
                     $('.nav-link').removeAttr('style');
-<<<<<<< HEAD
                 }else{
                 	$('.manuBtns>li').removeAttr('style');
                     $('.loginZon>ul>li').removeAttr('style');
-=======
-                    
-                } else if(wth >= 992){
-                    $('.a').attr('style', a);
-                    $('.b').attr('style', b);
-                    $('.c').attr('style', c);
-                    $('.d').attr('style', d);
-                    $('.e').attr('style', e);
-                    $('.f').attr('style', f);
->>>>>>> refs/heads/develop
                 }
-                
+               
             });
 
 		});
@@ -297,12 +241,8 @@
     <div class="container-fluid whole headerBody" style="padding:0;">
         <!--navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<<<<<<< HEAD
             <div class="container-fluid navbark" style="padding:0;">
-=======
-            <div class="container-fluid navbar2">
->>>>>>> refs/heads/develop
-                
+               
                 <a class="navbar-brand" href="${contextPath}/main/main.do" style="padding-bottom: 0;"><img src="${contextPath}/resources/img/logo.png" alt=""></a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="resizeNav();">
