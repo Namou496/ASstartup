@@ -23,21 +23,21 @@
 <body>
 
 <!-- ㅁㄴㅇㄹ -->
-	<div class="container-fluid whole" style="padding: 0;">
+	<div class="container-fluid whole mainHeader" style="padding: 0;">
 		<header>
 			<tiles:insertAttribute name="header" />
 		</header>
 		<div class="clear"></div>
 	</div>
 
-	<div class="container" style="min-height: 53%" id="board">
+	<div class="container mainBody" style="min-height: 53%">
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>
 		<div class="clear"></div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container-fluid mainFooter">
 		<footer>
 			<tiles:insertAttribute name="footer" />
 		</footer>
