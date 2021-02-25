@@ -84,7 +84,6 @@ public class MemberControllerImpl implements MemberController{
 		Map<String, Object> memberJoinMap = new HashMap<String, Object>();
 		Enumeration enu = request.getParameterNames();
 		while(enu.hasMoreElements()) {
-			System.out.println("11111111");
 			String name=(String)enu.nextElement();
 			String value=request.getParameter(name);		
 			memberJoinMap.put(name, value);

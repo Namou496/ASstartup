@@ -48,22 +48,23 @@ function validate(){
 	var pw_re = document.getElementById("pw_re").value;
 	if(pw != pw_re){
 		alert("두 비밀번호가 맞지 않습니다. 다시한번 확인하세요");
+		console.log("적용");
 		return false;
 	}
-	
-	var manufacName = document.getElementId("manufacName");
-	if(manufacName.value == ""){
+	//
+	var manufacName = document.getElementId("manufacName").value;
+	if(manufacName == ""){
 	 	alert("제조사이름을 입력하세요.");
 	 	return false;
 	}
 	
-	var add1 = document.getElementById("addr1");	
-	if(add1.value == ""){
+	var add1 = document.getElementById("addr1").value;	
+	if(add1 == ""){
 		alert("주소를 검색하세요.");
 		return false;
 	}
-	var add2 = document.getElementById("addr2");
-	if(add2.value == ""){
+	var add2 = document.getElementById("addr2").value;
+	if(add2 == ""){
 		alert("상세주소를 입력하세요.");
 		return false;
 	}
@@ -82,6 +83,7 @@ function validate(){
 		$("#phone").focus();
 		return false;
 	};
+	
 }    
 
 //카카오지도 API

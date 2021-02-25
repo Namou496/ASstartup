@@ -108,29 +108,7 @@ var element_layer = document.getElementById('layer');
                 }
             }).open();
         }
-//아이디 중복
-//function overlap(){	
-//	var cuId = document.getElementById("cuId").value;
-//	if(cuId == ""){
-//		alert("아이디를 입력하세요.");
-//		return false;
-//	}
-//	if(cuId.search(/\s/) != -1){
-//  		alert("공백 없이 입력해주세요.");
-//  		return false;
-// 	}
-//	var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-//	if(special_pattern.test(cuId) == true) {
-//		alert("특수문자 없이 입력해주세요.")
-//		return false; 
-//	}
-//
-//    var url = '../member/overlapId.do?param=' + encodeURI(cuId);
-//    window.location.href = url;
-//
-//	var hid = document.getElementById("che");
-//	hid.attr('value', '1');
-//}
+
 	//아이디 중복검사
 	function overlap(){
 	var cuId = document.getElementById("cuId").value;

@@ -21,7 +21,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" src="../resources/js/join.js"></script>
+    <script type="text/javascript" src="../resources/js/manufacJoin.js"></script>
     <script>
     $(function(){
     	$("#img").css({display:"none"});
@@ -292,7 +292,7 @@
                         <div class="form-group" id="divPassword">
                             <label for="inputPassword" class="col-lg-2 control-label">비밀번호*</label>
                             <div class="col-lg-10">
-                                <input type="password" class="form-control" id="password" name="pw" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
+                                <input type="password" class="form-control" id="pw" name="pw" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
                             </div>
                         </div>
                        	<div class="form-group" id="divPasswordCheck">
@@ -303,7 +303,7 @@
                         <div class="form-group" id="divName">
                             <label for="inputName" class="col-lg-2 control-label">제조사명*</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="name" name="manufacName" data-rule-required="true" placeholder="제조사명" maxlength="15">
+                                <input type="text" class="form-control onlyHangul" id="manufacName" name="manufacName" placeholder="제조사명" maxlength="15">
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@
 										disabled> <input type="button"
 										class="col-lg-2 btn btn-primary"
 										onclick="sample5_execDaumPostcode()" value="주소 검색"> 
-										<input type="text" class="form-control" id="addr1" name="addr1"
+										<input type="text" class="form-control" id="addr 1" name="addr1"
 										data-rule-required="true" placeholder="주소" maxlength="30"
 										readonly> 
 										<input type="text" class="form-control"
@@ -335,7 +335,7 @@
                         <div class="form-group" id="divName">
                             <label for="inputName" class="col-lg-2 control-label">전화번호*</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="phone" name="tel" data-rule-required="true" placeholder="'-'빼고 입력해주세요." maxlength="11">
+                                <input type="text" class="form-control onlyHangul" id="phone" name="phone" data-rule-required="true" placeholder="'-'빼고 입력해주세요." maxlength="11">
                             </div>
                         </div>
                     </div>
