@@ -17,12 +17,22 @@
 		<result property="tel" column="tel" />
 		<result property="manufacNo" column="manufacNo" />
 		<result property="approvalNum" column="approvalNum" />
+		<result property="approvalstatus" column="approvalstatus" />
 	</resultMap>
-<!-- 	로그인 select -->
+<!-- 	로그인 select + session정보 -->
 	<select id="loginById" resultType="MemberVO" parameterType="MemberVO">
 		<![CDATA[
-			select * from member
-			where cuid = #{cuId} and pw = #{pw} 
+			select *
+			from member
+			where cuid = #{cuId} and pw = #{pw}
+		]]>
+	</select>
+	
+	<select id="appStatus" resultType="int" parameterType="String">
+		<![CDATA[
+			select man.approvalstatus
+			from member m, manufacturerapproval man
+			where m.cuid = #{cuId} and man.cuid=m.cuid
 		]]>
 	</select>
 <!-- 	회원가입 멤버테이블 insert -->

@@ -2,8 +2,6 @@ package com.myspring.startup.member.dao;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.dao.DataAccessException;
 
 import com.myspring.startup.member.vo.MemberVO;
@@ -17,6 +15,5 @@ public interface MemberDAO {
 	public int RecentManufacApply() throws DataAccessException;
 	public void applyManufac(Map<String, Object> memberJoinMap) throws DataAccessException;
 	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException;
-	public String overlapId(String cuId) throws DataAccessException;
-	
+	public String overlapId(String cuId) throws DataAccessException;	
 }

@@ -43,9 +43,9 @@ public class MemberControllerImpl implements MemberController{
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
+			HttpSession session = request.getSession();
 			memberVO = memberService.login(member);
 			if(memberVO != null) {
-				HttpSession session = request.getSession();
 				session.setAttribute("member",  memberVO);
 				session.setAttribute("isLogOn", true);
 				mav.setViewName("redirect:/main/main.do");
