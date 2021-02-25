@@ -1,4 +1,4 @@
-//유효성 검사
+ //유효성 검사
 
 function validate(){
 	var pro = document.getElementById("provisionYn");
@@ -101,7 +101,7 @@ var element_layer = document.getElementById('layer');
             new daum.Postcode({
                 oncomplete: function(data) {
                     var addr = data.address; // 최종 주소 변수
-					
+					console.log(addr);
                     // 주소 정보를 해당 필드에 넣는다.
                     document.getElementById("addr1").value = addr;
 					document.getElementById("postCode").value = data.zonecode;
