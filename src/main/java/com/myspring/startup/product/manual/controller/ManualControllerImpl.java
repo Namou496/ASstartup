@@ -33,7 +33,7 @@ public class ManualControllerImpl implements ManualController{
 	@Autowired
 	private ProductVO ProductVO;
 	
-//	1) 제품리스트(페이징)
+//	1) 매뉴얼 리스트(페이징)
 	@Override
 	@RequestMapping(value="/Manual/listManual.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView listManual(@RequestParam(value="section", required=false, defaultValue="1") int section,
@@ -43,34 +43,39 @@ public class ManualControllerImpl implements ManualController{
 									) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		
-		HttpSession session = request.getSession();
-		MemberVO memberId = (MemberVO) session.getAttribute("member");
-		String _memberId = memberId.getCuId();
-
-		String manufacName = ManualService.manufacName(_memberId);
-
-		Map pageMap = new HashMap();
-		pageMap.put("section", section);
-		pageMap.put("pageNum", pageNum);
-		pageMap.put("manufacName", manufacName);
-		
-		Map productMap= ManualService.ProductList(pageMap, _memberId); 
-			// productMap --> 제품리스트, 전체글수, 제조사이름리스트, 사용자권한
-		
-		//		페이징 section, pageNum
-		productMap.put("section", section);
-		productMap.put("pageNum", pageNum);
-		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("pageMap", pageMap);
-		mav.addObject("productMap", productMap);
-		mav.setViewName("/manual/manualBoard");
+		PrintWriter pw = response.getWriter();
+		try {	
+			HttpSession session = request.getSession();
+			MemberVO memberId = (MemberVO) session.getAttribute("member");
+			String _memberId = memberId.getCuId();
+	
+			String manufacName = ManualService.manufacName(_memberId);
+	
+			Map pageMap = new HashMap();
+			pageMap.put("section", section);
+			pageMap.put("pageNum", pageNum);
+			pageMap.put("manufacName", manufacName);
+			
+			Map productMap= ManualService.ProductList(pageMap, _memberId); 
+				// productMap --> 매뉴얼 리스트, 전체글수, 제조사이름리스트, 사용자권한
+			
+			//		페이징 section, pageNum
+			productMap.put("section", section);
+			productMap.put("pageNum", pageNum);
+			
+			mav.addObject("pageMap", pageMap);
+			mav.addObject("productMap", productMap);
+			mav.setViewName("/manual/manualBoard");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 제조사 회원이 아닙니다. 제조사 로그인 후 이용하세요.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
-		
 	}
 	
-//	2) 제품상세
+//	2) 매뉴얼 상세
 	@Override
 	@RequestMapping(value="/Manual/ManualDetail.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView ManualDetail(@RequestParam(value="section", required=false, defaultValue="1") int section,
@@ -81,24 +86,31 @@ public class ManualControllerImpl implements ManualController{
 									  HttpServletRequest request, 
 						 			  HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		MemberVO memberId = (MemberVO) session.getAttribute("member");
-		String _memberId = memberId.getCuId();
-		
-
-		Map pageMap = new HashMap();
-		pageMap.put("section", section);
-		pageMap.put("pageNum", pageNum);
-		pageMap.put("productNo", productNo);
-
-		
-		ProductVO product = ManualService.ManualDetail(pageMap, _memberId); //제품상세 정보
-		product.setUno(uno);
-		product.setManufacName(manufacName);
+		response.setContentType("text/html;charset=UTF-8");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("product", product);
-		mav.addObject("pageMap", pageMap);
-		mav.setViewName("/manual/manualDetail");
+		PrintWriter pw = response.getWriter();
+		try {
+			HttpSession session = request.getSession();
+			MemberVO memberId = (MemberVO) session.getAttribute("member");
+			String _memberId = memberId.getCuId();
+		
+			Map pageMap = new HashMap();
+			pageMap.put("section", section);
+			pageMap.put("pageNum", pageNum);
+			pageMap.put("productNo", productNo);
+	
+			
+			ProductVO product = ManualService.ManualDetail(pageMap, _memberId); //제품상세 정보
+			product.setUno(uno);
+			product.setManufacName(manufacName);
+			mav.addObject("product", product);
+			mav.addObject("pageMap", pageMap);
+			mav.setViewName("/manual/manualDetail");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 제조사 회원이 아닙니다. 제조사 로그인 후 이용하세요.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
 	}
 	
@@ -136,7 +148,7 @@ public class ManualControllerImpl implements ManualController{
 			   pw.flush();
 			   pw.close();
 	}
-	// 제품 검색
+	// 매뉴얼 검색
 	@Override
 	@RequestMapping(value="/Manual/searchProduct.do", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView searchProduct(  @RequestParam(value="section", required=false, defaultValue="1") int section,
@@ -149,37 +161,46 @@ public class ManualControllerImpl implements ManualController{
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		String _memberId = null;
-		//		테스트
-		HttpSession session = request.getSession();
-		if((session.getAttribute("member"))!=null) {
-			MemberVO memberId = (MemberVO) session.getAttribute("member");
-			_memberId = memberId.getCuId();
-		}
-		if(!(productGroup.length() > 0)) {
-			productGroup = null;
-		}
-		if(!(manufacName.length() > 0)) {
-			manufacName = null;
-		}
-		if(!(productName.length() > 0)) {
-			productName = null;
-		}
-		
-		Map searchMap = new HashMap();
-		searchMap.put("section", section);
-		searchMap.put("pageNum", pageNum);
-		searchMap.put("productGroup", productGroup);
-		searchMap.put("manufacName", manufacName);
-		searchMap.put("productName", productName);
-		Map productMap = ManualService.searchProduct(searchMap, _memberId);
-		
-		productMap.put("section", section);
-		productMap.put("pageNum", pageNum);
-		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("productMap", productMap);
-		mav.setViewName("/manual/manualSearch");
+		PrintWriter pw = response.getWriter();
+		try {
+			String _memberId = null;
+			HttpSession session = request.getSession();
+			//비회원 게시판 이용
+			if((session.getAttribute("member"))!=null) {
+				MemberVO memberId = (MemberVO) session.getAttribute("member");
+				_memberId = memberId.getCuId();
+			}
+			
+			// ""값  mybatis에 맞게 형변환
+			if(!(productGroup.length() > 0)) {
+				productGroup = null;
+			}
+			if(!(manufacName.length() > 0)) {
+				manufacName = null;
+			}
+			if(!(productName.length() > 0)) {
+				productName = null;
+			}
+			
+			Map searchMap = new HashMap();
+			searchMap.put("section", section);
+			searchMap.put("pageNum", pageNum);
+			searchMap.put("productGroup", productGroup);
+			searchMap.put("manufacName", manufacName);
+			searchMap.put("productName", productName);
+			Map productMap = ManualService.searchProduct(searchMap, _memberId);
+			
+			productMap.put("section", section);
+			productMap.put("pageNum", pageNum);
+			
+			mav.addObject("productMap", productMap);
+			mav.setViewName("/manual/manualSearch");
+		} catch(Exception e) {
+			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다. 메인페이지로 돌아갑니다.');"+"location.href='"+request.getContextPath()
+			+ "/main/main.do';"
+			+ "</script>");
+		}
 		return mav;
 	}
 	
