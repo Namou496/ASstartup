@@ -10,11 +10,19 @@ import com.myspring.startup.member.vo.MemberVO;
 public interface AdminMemberDAO {
 
 //	멤버리스트
-	List<MemberVO> selectMemberList(Map<String, Object> pageMap) throws DataAccessException;
+	public List<MemberVO> selectMemberList(Map<String, Object> pageMap) throws DataAccessException;
 
-	int selectMemberListCount(int secNum);
+	public int selectMemberListCount(int secNum);
 
 //	멤버상세
-	MemberVO selectMemberDetail(String cuId) throws DataAccessException;
+	public MemberVO selectMemberDetail(String cuId) throws DataAccessException;
 
+//	멤버삭제
+	public void deleteMember(String cuId) throws DataAccessException;
+
+//	멤버수정
+//	public void modifyMember(String cuId) throws DataAccessException;
+
+//	멤버수정페이지
+	
 }

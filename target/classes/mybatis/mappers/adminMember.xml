@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mapper.adminMember">
 
-<!-- 멤버 vo -->
+	<!-- 멤버 vo -->
 	<resultMap type="MemberVO" id="memberResult">
 		<result property="cuId" column="cuId" />
 		<result property="pw" column="pw" />
@@ -14,16 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="name" column="name" />
 		<result property="email" column="email" />
 		<result property="addr" column="addr" />
-		
+
 		<result property="officer" column="officer" />
 		<result property="tel" column="tel" />
 		<result property="manufacNo" column="manufacNo" />
 		<result property="approvalNum" column="approvalNum" />
-		
+
 	</resultMap>
 
 
-<!-- 사용자목록보기 -->
+	<!-- 사용자목록보기 -->
 	<select id="selectMemberList" resultMap="memberResult"
 		parameterType="java.util.Map">
 
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
  		]]>
 	</select>
-	
+
 	<!-- 하단 페이징 버튼 sql -->
 	<select id="selectMemberListCount" parameterType="int"
 		resultType="int">
@@ -54,21 +54,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rownum between (#{secNum}-1)*100+1 and (#{secNum}*100)
 		]]>
 	</select>
-	
-	<!-- 멤버상세 -->
-	<select id="selectMemberDetail"
-		resultType="MemberVO" parameterType="int">
+
+	<!-- 사용자 상세 -->
+	<select id="selectMemberDetail" resultType="MemberVO"
+		parameterType="String">
 
 		<![CDATA[
 		select
-		*
+		cuid,name,addr,email
 		from
-		member
+		customer
 		where
 		cuId=#{cuId}
 		]]>
 
 	</select>
+
+	<!-- customer 삭제 -->
+	<delete id="deleteMember" parameterType="String">
+	
+		<![CDATA[
+  		delete from customer where cuId=#{cuId} 
+  		]]>
+
+	</delete>
+
+
+	<!-- 제조사삭제 -->
+	<!-- <delete id="deleteManufacturer" parameterType="String"> -->
+	<!-- <![CDATA[ -->
+	<!-- delete from manufacturerapproval where cuId=#{cuId} -->
+	<!-- delete from manufacturer where cuId=#{cuId} -->
+	<!-- delete from member where cuId=#{cuId} -->
+	<!-- ]]> -->
+	<!-- </delete> -->
+
+
+	<!-- customer 수정 -->
+	<!--  
+	<update id="modifyMember" parameterType="MemberVO">
+		<![CDATA[
+		UPDATE
+		customer
+		SET name=#{name},addr=#{addr},email=#{email}
+		where cuId=#{cuId}
+		]]>
+	</update>
+-->
 
 
 </mapper>

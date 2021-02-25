@@ -8,6 +8,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <c:set var="memberList" value="${memberList}" />
 <c:set var="memberDetail" value="${memberDetail}" />
+<c:set var="memberDelete" value="${memberDelete}" />
 
 <!DOCTYPE html>
 <html>
@@ -36,33 +37,36 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 	crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-
-<!-- <script> -->
-// 	$(function(){
-// 		var productNO=$("#productNO").text();
-		
-// 		$("#approvalNo").click(function(){
-// 			var rejectionReason=$("#rejectionReason").val();
-// 			$("#status").val(2);
-// 			$("#reason").val(rejectionReason);
-// 			$("#no").val(productNO);
-// 			$("#frmApproval").submit();
-// 			alert('승인거절이 완료되었습니다.')
-// 		});
-		
-// 		$("#approvalOk").click(function(){
-// 			$("#status").val(1);
-// 			$("#reason").val("승인완료");
-// 			$("#no").val(productNO);
-// 			$("#frmApproval").submit();
-// 			alert('승인이 완료되었습니다.')
-// 		});
-		
-// 	});
 	
-<!-- </script> -->
+</script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+	integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+	crossorigin="anonymous"></script>
+
+<script>
+	$(function() {
+		var cuId = $("#cuId").text();
+		var email = $("#email").text();
+
+		$("#mod").click(function() {
+			$("#id").val(cuId);
+			
+			console.log(cuId);
+			
+			$("#frmModify").submit();
+
+		});
+
+		$("#del").click(function() {
+			$("#id").val(cuId);
+			console.log(cuId);
+			$("#frmDelete").submit();
+			alert('삭제가 완료되었습니다.')
+		});
+
+	});
+</script>
 
 
 <style>
@@ -93,62 +97,77 @@
 </head>
 
 <body>
-<p></p>
-<h3 style="text-align:center">멤버 상세정보</h3>
-<p></p>
+	<p></p>
+	<h3 style="text-align: center">멤버 상세정보</h3>
+	<p></p>
 	<div class="container">
 		<table class="table">
 			<tbody>
 				<c:choose>
 					<c:when test="${memberDetail==null }">
 						<tr>
-							<td colspan=5 style="text-align: center"><b>회원 상세정보가 등록되지 않았습니다</b>
+							<td colspan=5 style="text-align: center"><b>회원 상세정보가
+									등록되지 않았습니다</b>
 						</tr>
 					</c:when>
 					<c:when test="${memberDetail!=null }">
-		
+
 
 						<tr>
-							<td id="td1" scope="row" colspan="1">제품번호:</td>
-							<td id="td2" scope="row" colspan="1">${memberDetail.productNO }</td>
+							<td id="td1" scope="row" colspan="1">아이디:</td>
+							<td id="cuId" scope="row" colspan="1" name="cuId">${memberDetail.cuId }</td>
 						</tr>
 
 						<tr>
-							<td id="td1" scope="row" colspan="1">제품명:</td>
+							<td id="td1" scope="row" colspan="1">이름:</td>
 							<td id="td2" scope="row" colspan="1" name="productName">${memberDetail.name }</td>
 						</tr>
-						
+
 						<tr>
-							<td id="td1" scope="row">분류:</td>
-							<td id="td2" scope="row" name="prodGroup">${memberDetail.prodGroup }</td>
+							<td id="td1" scope="row">주소:</td>
+							<td id="td2" scope="row" name="prodGroup">${memberDetail.addr}</td>
 						</tr>
 						<tr>
-							<td id="td1" scope="row">사용매뉴얼:</td>
-							<td id="td2" scope="row" name="useManual">${memberDetail.useManual }</td>
+							<td id="td1" scope="row">이메일:</td>
+							<td id="td2" scope="row" name="useManual">${memberDetail.email }</td>
 						</tr>
+
 						<tr>
-							<td id="td1" scope="row">AS매뉴얼:</td>
-							<td id="td2" scope="row" name="asManual">${memberDetail.ASManual }</td>
+							<td id="td1" scope="row">이메일:</td>
+							<td id="td2" scope="row" name="email">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" value="${memberDetail.email }">
+							</div></td>
 						</tr>
+
 
 					</c:when>
 				</c:choose>
 			</tbody>
 		</table>
-		
+
 		<p></p>
 		<div class="approvalBtn">
-			<button class="btn btn-outline-primary" id="approvalOk">수정</button>
-			<button class="btn btn-outline-primary" id="approvalNo">삭제</button>
+			<button class="btn btn-outline-primary" id="mod">수정</button>
+			<button class="btn btn-outline-primary" id="del">삭제</button>
 		</div>
 
 		<p></p>
 	</div>
-<%-- 	<form id="frmApproval" action="${contextPath }/admin/product/adminProductApproval.do"> --%>
-<!-- 		<input type="hidden" id="status" name="approvalStatus"> -->
-<!-- 		<input type="hidden" id="no" name="productNO"> -->
-<!-- 		<input type="hidden" id="reason" name="rejectionReason"> -->
-<!-- 	</form> -->
+	<form id="frmDelete"
+		action="${contextPath }/admin/member/adminMemberDelete.do">
+
+		<input type="hidden" id="id" name="cuId">
+		
+
+	</form>
+
+	<form id="frmModify">
+
+		<input type="hidden" id="id" name="cuId">
+		<input type="hidden" id="mail" name="email">
+
+	</form>
 </body>
 
 </html>

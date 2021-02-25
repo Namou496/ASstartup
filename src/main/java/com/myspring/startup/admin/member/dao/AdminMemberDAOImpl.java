@@ -37,5 +37,21 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
 		
 	}
 	
+//	멤버삭제
+	@Override
+	public void deleteMember(String cuId) throws DataAccessException {
+		sqlSession.delete("mapper.adminMember.deleteMember",cuId);
+	}
+	
+	
+//	멤버수정
+//	@Override
+//	public void modifyMember(MemberVO memberVO) throws DataAccessException {
+//		sqlSession.update("mapper.adminMember.modifyMember",memberVO);
+//		
+//	}
+	
+//	멤버수정페이지
+
 
 }

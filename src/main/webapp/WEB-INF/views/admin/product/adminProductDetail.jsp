@@ -143,6 +143,21 @@
 							<td id="td1" scope="row">AS매뉴얼:</td>
 							<td id="td2" scope="row" name="asManual">${productDetail.ASManual }</td>
 						</tr>
+						
+						<tr>
+							<td id="td1" scope="row">부품명:</td>
+							<td id="td2" scope="row" name="asManual"></td>
+						</tr>
+						
+						<tr>
+							<td id="td1" scope="row">부품가격:</td>
+							<td id="td2" scope="row" name="asManual"></td>
+						</tr>
+						
+						<tr>
+							<td id="td1" scope="row">부품구분:</td>
+							<td id="td2" scope="row" name="asManual"></td>
+						</tr>
 
 					</c:when>
 				</c:choose>

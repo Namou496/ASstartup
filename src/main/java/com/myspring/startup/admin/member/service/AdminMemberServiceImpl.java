@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myspring.startup.admin.member.dao.AdminMemberDAO;
+import com.myspring.startup.admin.product.vo.AdminProductVO;
 import com.myspring.startup.member.vo.MemberVO;
 
 @Service("AdminMemberService")
@@ -42,5 +43,26 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		MemberVO memberVO = adminMemberDAO.selectMemberDetail(cuId);
 		return memberVO;
 	}
+	
+//	멤버삭제
+	@Override
+	public void AdminMemberDelete(String cuId) {
+		adminMemberDAO.deleteMember(cuId);
+	}
+	
+//	멤버수정
+//	@Override
+//	public void AdminMemberModify(MemberVO memberVO) {
+//		adminMemberDAO.modifyMember(memberVO);
+//		
+//	}
+	
+//	멤버수정상세페이지
+	@Override
+	public MemberVO AdminMemberModifyPage(String cuId) {
+		MemberVO memberVO = adminMemberDAO.selectMemberDetail(cuId);
+		return memberVO;
+	}
+//	
 
 }

@@ -7,9 +7,20 @@ import com.myspring.startup.member.vo.MemberVO;
 public interface AdminMemberService {
 
 //	멤버리스트
-	Map<String, Object> AdminMemberList(int secNum, int pageNum) throws Exception;
+	public Map<String, Object> AdminMemberList(int secNum, int pageNum) throws Exception;
 
 //	멤버상세
-	MemberVO AdminMemberDetail(String cuId);
+	public MemberVO AdminMemberDetail(String cuId);
+
+//	멤버삭제
+	public void AdminMemberDelete(String cuId);
+
+//	멤버수정페이지
+	public MemberVO AdminMemberModifyPage(String cuId);
+	
+//	멤버수정
+//	public void AdminMemberModify(MemberVO memberVO);
+
+
 
 }
