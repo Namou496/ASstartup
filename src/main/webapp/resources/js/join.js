@@ -3,7 +3,7 @@
 function validate(){
 	var pro = document.getElementById("provisionYn");
 	if($("input[id=provisionYn]:radio:checked").length == 0){
-		alert("회원가입약관에 동의를 체크해 주세요.")
+		alert("회원가입약관에 동의를 체크해 주세요.");
         return false;
 	}
 	
@@ -34,7 +34,7 @@ function validate(){
 	var eng = pw.search(/[a-z]/ig);
 
  	if(pw.length < 8 || pw.length > 16){
-  		alert("8자리 ~ 16자리 이내로 입력해주세요.");
+  		alert("비밀번호는 8자리 ~ 16자리 이내로 입력해주세요.");
   		return false;
  	}
     if(pw.search(/\s/) != -1){
@@ -43,6 +43,7 @@ function validate(){
  	}
     if(num<0 || eng<0){
         alert("비밀번호는 숫자와 영문자를 혼용하여야 합니다.");
+		return false;
     }
 
 	var pw_re = document.getElementById("pw_re").value;
@@ -130,8 +131,7 @@ var element_layer = document.getElementById('layer');
 //	var hid = document.getElementById("che");
 //	hid.attr('value', '1');
 //}
-	var count = 0;
-	
+	//아이디 중복검사
 	function overlap(){
 	var cuId = document.getElementById("cuId").value;
 	if(cuId == ""){
