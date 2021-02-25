@@ -28,7 +28,7 @@
  			#{addr}, #{symptoms},
  			#{meeting}, #{meetDate},
 			#{fileimg, jdbcType=VARCHAR}, #{sta},
-			#{cuId}, #{productNo})
+			#{cuId}, #{productName})
 		]]>
 	</insert>
 	<!-- 제조사 이름 가져오기 -->
@@ -42,9 +42,9 @@
 			]]>
 		</select>
 		
-	<select id="productName" parameterType="java.util.Map" resultType="String">
+	<select id="productName" parameterType="java.util.Map" resultType="java.util.Map">
 			<![CDATA[
-				select p.name productName
+				select p.productno productNo, p.name productName
 				from product p, manufacturer m
 				where p.prodgroup=#{productGroup} and m.name=#{manufacName} and m.cuid=p.cuid
 			]]>

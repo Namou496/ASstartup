@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -71,15 +70,17 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 //					   manufacName = null;
 //				   }
 				   System.out.println("p" + productGroup + "m" + manufacName);
-				   Map searchProductNameMap = new HashMap();
+				   Map<String, Object> searchProductNameMap = new HashMap<String, Object>();
 				   searchProductNameMap.put("productGroup", productGroup);
 				   searchProductNameMap.put("manufacName", manufacName);
 				   
-				   List productNameList = asformService.productName(searchProductNameMap);
+				   List productNameMap = asformService.productName(searchProductNameMap);
 				   // jsonArray에 추가
+				   System.out.println("이름: " + productNameMap);
 				   JSONArray jsonArray = new JSONArray();
-				   for (int i = 0; i < productNameList.size(); i++) {
-				      jsonArray.add(productNameList.get(i));
+				   for (int i = 0; i < productNameMap.size(); i++) {
+				      jsonArray.add(productNameMap.get(i));
+				      System.out.println(jsonArray);
 				   }
 				 
 				   // jsonArray 넘김
@@ -112,10 +113,10 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			for(String mapkey : asformMap.keySet()) {
 				if(mapkey.equals("addr1")) {
 					addr1 = (String) asformMap.get(mapkey);
-					System.out.println(addr1);
+//					System.out.println(addr1);
 				}else if(mapkey.equals("addr2")) {
 					addr2 = (String) asformMap.get(mapkey);
-					System.out.println(addr2);
+//					System.out.println(addr2);
 				}
 			}			
 			String addr = addr1 + " " + addr2;			
@@ -127,7 +128,7 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 //			memberVO.setCuId("hong");
 			String id = memberVO.getCuId();
 			asformMap.put("cuId", id);
-			asformMap.put("imageFileName", imageFileName);
+			asformMap.put("fileimg", imageFileName);
 			
 			int asNo = (int)(Math.random()*5000);
 			asformMap.put("asNo", asNo);
@@ -135,6 +136,7 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 //			System.out.println("여기로 오냐");
 //			System.out.println(memberVO.getCuId());
 //			System.out.println(multipartRequest.getParameter(imageFileName));
+			System.out.println(asformMap);
 			String message;
 			ResponseEntity resEntity = null;
 			HttpHeaders resHeaders = new HttpHeaders();
@@ -154,7 +156,7 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}catch(Exception e) {
 				message = "<script>";
-				message += "alert('접수 중 오류가 발생했습니다. 다시 시도해 주세요.');";
+				message += "alert('접수 중 오류가 발생했습니다. 다시 시도해 주세요. Try 1) 첨부파일 명을 바꿔 주세요. 2) 중복된 신청이 있습니다.');";
 				message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
 				message += " </script>";
 //				System.out.println("실패");
