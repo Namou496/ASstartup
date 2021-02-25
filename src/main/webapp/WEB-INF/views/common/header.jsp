@@ -15,249 +15,18 @@
 	</c:when>
 </c:choose>
 <meta charset="UTF-8">
-
-<style>
-* {
-	margin: 0px;
-	padding: 0px;
-}
-
-.whole {
-	padding: 0px;
-	background: lightgray;
-}
-
-.navbar {
-	height: 6.6%;
-}
-
-.navbar-brand>img {
-	width: 100px;
-	height: 60px;
-}
-
-#navbarNavAltMarkup {
-	text-align: center;
-}
-
-.navbar-nav {
-	margin: 0 auto;
-}
-
-.navbark {
-	background: #524F4F;
-}
-
-#imgBanner {
-	width: 100%;
-	height: 30%;
-}
-
-#imgBanner img {
-	height: 100%;
-	width: 100%;
-}
-
-#helpWhat {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	color: white;
-	font-size: 1.9em;
-}
-
-a:hover {
-	color: purple;
-}
-
-#imgBanner {
-	object-fit: cover;
-}
-
-.container, .container-fluid, .container-lg, .container-md,
-	.container-sm, .container-xl, .container-xxl {
-	padding: 0;
-}
-
-.loginZon>ul {
-	padding: 0px;
-	margin-bottom: 0px;
-}
-
-.loginZon>ul>li {
-	list-style: none;
-	float: left;
-}
-/*         buttons */
-*:before, *:after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
-.headerBody {
-	font-family: "Open Sans", Helvetica, Arial, sans-serif;
-}
-
-.buttons {
-	text-align: center;
-}
-
-.blob-btn {
-	z-index: 1;
-	position: relative;
-	padding: 20px 50px;
-	text-align: center;
-	text-transform: uppercase;
-	color: #0fe0f5;
-	font-size: 16px;
-	font-weight: bold;
-	background-color: transparent;
-	outline: none;
-	border: none;
-	transition: color 0.5s;
-	cursor: pointer;
-}
-
-.blob-btn:before {
-	content: "";
-	z-index: 1;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.blob-btn:hover {
-	color: #222;
-}
-
-.blob-btn:hover:after {
-	transition: all 0.3s;
-	left: 0;
-	top: 0;
-}
-
-.blob-btn__inner {
-	z-index: -1;
-	overflow: hidden;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.blob-btn__blobs {
-	position: relative;
-	display: block;
-	height: 100%;
-	filter: url("#goo");
-}
-
-.blob-btn__blob {
-	position: absolute;
-	top: 6px;
-	width: 25%;
-	height: 100%;
-	background: #0fe0f5;
-	border-radius: 100%;
-	transform: translate3d(0, 150%, 0) scale(1.7);
-	transition: transform 0.45s;
-}
-
-@
-supports (filter: url( "#goo ")) { .blob-btn__blob { transform:translate3d(0,
-	150%, 0)scale(1.4);
-	
-}
-
-}
-.blob-btn__blob:nth-child(1) {
-	left: 0%;
-	transition-delay: 0s;
-}
-
-.blob-btn__blob:nth-child(2) {
-	left: 30%;
-	transition-delay: 0.08s;
-}
-
-.blob-btn__blob:nth-child(3) {
-	left: 60%;
-	transition-delay: 0.16s;
-}
-
-.blob-btn__blob:nth-child(4) {
-	left: 90%;
-	transition-delay: 0.24s;
-}
-
-.blob-btn:hover .blob-btn__blob {
-	transform: translateZ(0) scale(1.7);
-}
-
-@
-supports (filter: url( "#goo ")) { .
-	blob-btn: hover .blob-btn__blob{
-                transform: translateZ(0) scale(1.4);
-}
-
-}
-.manuBtns {
-	margin: 0px;
-	padding: 0px;
-}
-
-.manuBtns>li {
-	list-style: none;
-	float: left;
-}
-</style>
-
+<!-- createCss -->
+<link href="${contextPath}/resources/css/header.css" rel="stylesheet" type="text/css" media="screen">
+<!-- createFunction -->
 <script type="text/javascript">
 		var uNo=${uNo};
 		var contextPath='${contextPath}';
-		function resizeNav(){
-            var wth = $(this).width();
-            if(wth <= 1000){
-                $('.nav-link').removeAttr('style');
-                $('.manuBtns>li').css({borderTop:"1px solid #786B6B",float:"none"});
-                $('.loginZon>ul>li').css({borderTop:"1px solid #786B6B",float:"none"});
-          	}
-      	};
-		
-		$(function(){
-			$('.buttons>a').click(function(e){
-				e.preventDefault();
-				if(!uNo>0){
-					alert('로그인후 이용가능합니다.');
-				}else{
-					var url = $(this).attr('href');
-					location.href=url;
-				}
-			});
-			
-            $(window).resize(function(){
-                var wth = $(this).width();
-                if(wth <= 1000){
-                    $('.nav-link').removeAttr('style');
-                }else{
-                	$('.manuBtns>li').removeAttr('style');
-                    $('.loginZon>ul>li').removeAttr('style');
-                }
-               
-            });
-            
-            console.log('img:',$('#imgBanner').attr('displey'));
-
-		});
-	</script>
+</script>
+<script type="text/javascript" src="${contextPath}/resources/js/header.js"></script>
 
 </head>
 <body>
-	<div class="container-fluid whole headerBody" style="padding: 0;">
+	<div class="container-fluid headerBody" style="padding: 0;">
 		<!--navbar-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid navbark" style="padding: 0;">
@@ -559,7 +328,7 @@ supports (filter: url( "#goo ")) { .
 				</div>
 			</div>
 		</nav>
-		<div id="imgBanner">
+		<div id="imgBanner"style="display: block;">
 			<div id="carouselExampleSlidesOnly" class="carousel slide"
 				data-bs-ride="carousel">
 				<div class="carousel-inner">
