@@ -30,7 +30,7 @@
 		<div class="clear"></div>
 	</div>
 
-	<div class="container mainBody" style="min-height: 53%">
+	<div class="container mainBody" style="min-height: 100%">
 		<article>
 			<tiles:insertAttribute name="body" />
 		</article>

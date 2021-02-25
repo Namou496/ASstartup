@@ -9,8 +9,7 @@
 /* 데스크탑 */
          @media only screen and (min-width: 992px){
             .whole {
-            position: relative;
-/* 	            height: 600px; */
+            	position: relative;
 	            margin-bottom: 30px;
 
 	        }
