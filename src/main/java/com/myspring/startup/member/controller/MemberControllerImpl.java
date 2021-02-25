@@ -116,7 +116,7 @@ public class MemberControllerImpl implements MemberController{
 		try {
 			if(uno == 3) {
 				memberService.addManufac(memberJoinMap);
-			}else if(uno == 1) {
+			}else if(uno == 1 || uno == 2) {
 				System.out.println("되냐?");
 				memberService.addMember(memberJoinMap);
 			}

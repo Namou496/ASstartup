@@ -96,7 +96,6 @@
         
          @media screen and (min-width: 992px){
             .whole {
-	            height: 600px;
 	            margin-bottom: 30px;
 	        }
             .navbar-nav li{

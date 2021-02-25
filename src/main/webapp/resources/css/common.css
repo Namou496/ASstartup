@@ -9,8 +9,7 @@
 /* 데스크탑 */
          @media only screen and (min-width: 992px){
             .whole {
-            position: relative;
-	            height: 600px;
+            	position: relative;
 	            margin-bottom: 30px;
 
 	        }
@@ -103,3 +102,13 @@
 }
 #footer p{color: #5D5D5D;font-size: 12px;text-align: center;}
 
+.mainHeader{
+	position: relative;
+	z-index: 1;
+}
+.mainBody{
+	position: relative;
+}
+.mainFooter{
+	position: relative;
+}
