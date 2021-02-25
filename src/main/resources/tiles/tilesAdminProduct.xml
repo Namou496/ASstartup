@@ -17,12 +17,12 @@
 		</definition>
 		
 		<definition name="/product/adminProductDetail" extends="baseLayout">
-			<put-attribute name="title" value="승인요청리스트"/>
+			<put-attribute name="title" value="승인요청상세"/>
 			<put-attribute name="body" value="/WEB-INF/views/admin/product/adminProductDetail.jsp"/>
 		</definition>
 		
 		<definition name="/product/adminProductSearch" extends="baseLayout">
-			<put-attribute name="title" value="승인요청리스트"/>
+			<put-attribute name="title" value="승인요청검색"/>
 			<put-attribute name="body" value="/WEB-INF/views/admin/product/adminProductSearch.jsp"/>
 		</definition>
 		

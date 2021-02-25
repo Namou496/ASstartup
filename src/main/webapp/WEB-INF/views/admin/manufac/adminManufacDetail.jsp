@@ -6,8 +6,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-<c:set var="productList" value="${productList}" />
-<c:set var="productDetail" value="${productDetail}" />
+<c:set var="manufacList" value="${manufacList}" />
+<c:set var="manufacDetail" value="${manufacDetail}" />
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>제품상세</title>
+<title>제조사상세</title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
@@ -41,23 +41,26 @@
 
 <script>
 	$(function(){
-		var productNO=$("#productNO").text();
+		var cuId=$("#cuId").text();
+		console.log(cuId);
 		
 		$("#approvalNo").click(function(){
+			console.log("1");
 			var rejectionReason=$("#rejectionReason").val();
 			$("#status").val(2);
 			$("#reason").val(rejectionReason);
-			$("#no").val(productNO);
+			$("#id").val(cuId);
 			$("#frmApproval").submit();
-			alert('승인거절이 완료되었습니다.')
+			alert('승인거절이 완료되었습니다.');
 		});
 		
 		$("#approvalOk").click(function(){
+			console.log("2");
 			$("#status").val(1);
 			$("#reason").val("승인완료");
-			$("#no").val(productNO);
+			$("#id").val(cuId);
 			$("#frmApproval").submit();
-			alert('승인이 완료되었습니다.')
+			alert('승인이 완료되었습니다.');
 		});
 		
 	});
@@ -79,10 +82,6 @@
 	padding-left: 30px;
 }
 
-#product_image a img {
-	width: 100px;
-	height: 50px;
-}
 
 .approvalBtn {
 	text-align: center;
@@ -95,54 +94,49 @@
 
 <body>
 <p></p>
-<h3 style="text-align:center">제품 상세정보</h3>
+<h3 style="text-align:center">제조사 승인 상세</h3>
 <p></p>
 	<div class="container">
 		<table class="table">
 			<tbody>
 				<c:choose>
-					<c:when test="${productDetail==null }">
+					<c:when test="${manufacDetail==null }">
 						<tr>
 							<td colspan=5 style="text-align: center"><b>제품 정보가 아직
 									등록되지 않았습니다</b>
 						</tr>
 					</c:when>
-					<c:when test="${productDetail!=null }">
-						<tr>
-							<td id="td1" scope="row">이미지:</td>
-							<td id="td2" scope="row">
-								<div id="product_image">
-									<a href="#"><img src="img/as.png"></a>
-								</div>
-							</td>
-						</tr>
+					<c:when test="${manufacDetail!=null }">
 
 						<tr>
-							<td id="td1" scope="row" colspan="1">제품번호:</td>
-							<td id="productNO" scope="row" colspan="1">${productDetail.productNO }</td>
+							<td id="td1" scope="row" colspan="1">제조사명:</td>
+							<td id="td2" scope="row" colspan="1" name="name">${manufacDetail.name }</td>
 						</tr>
-
 						<tr>
-							<td id="td1" scope="row" colspan="1">제품명:</td>
-							<td id="td2" scope="row" colspan="1" name="productName">${productDetail.name }</td>
+							<td id="td1" scope="row" colspan="1">아이디:</td>
+							<td id="cuId" scope="row" colspan="1" name="cuId">${manufacDetail.cuId}</td>
 						</tr>
 						
 						<tr>
-							<td id="td1" scope="row">제조사:</td>
-							<td id="td2" scope="row" name="manufacName"></td>
+							<td id="td1" scope="row" colspan="1">제조사번호:</td>
+							<td id="td2" scope="row" colspan="1" name="manufacturerNO">${manufacDetail.manufacturerNO }</td>
 						</tr>
+						
 						<tr>
-							<td id="td1" scope="row">분류:</td>
-							<td id="td2" scope="row" name="prodGroup">${productDetail.prodGroup }</td>
+							<td id="td1" scope="row" colspan="1">담당자명:</td>
+							<td id="td2" scope="row" colspan="1" name="officer">${manufacDetail.officer }</td>
 						</tr>
+
 						<tr>
-							<td id="td1" scope="row">사용매뉴얼:</td>
-							<td id="td2" scope="row" name="useManual">${productDetail.useManual }</td>
+							<td id="td1" scope="row" colspan="1">연락처:</td>
+							<td id="td2" scope="row" colspan="1" name="tel">${manufacDetail.tel}</td>
 						</tr>
+
 						<tr>
-							<td id="td1" scope="row">AS매뉴얼:</td>
-							<td id="td2" scope="row" name="asManual">${productDetail.ASManual }</td>
+							<td id="td1" scope="row" colspan="1">주소:</td>
+							<td id="td2" scope="row" colspan="1" name="addr">${manufacDetail.addr}</td>
 						</tr>
+						
 
 					</c:when>
 				</c:choose>
@@ -155,7 +149,7 @@
 			style="width: 80%; text-align: center; margin: 0 auto;">
 			<span class="input-group-text">승인불가 사유</span>
 			<textarea class="form-control" aria-label="With textarea"
-				id="rejectionReason" placeholder="승인 불가시에만 입력"></textarea> <!-- 1 -->
+				id="rejectionReason" placeholder="승인 불가시에만 입력"></textarea>
 			
 
 		</div>
@@ -166,12 +160,15 @@
 		</div>
 
 		<p></p>
+	
+		
 	</div>
-	<form id="frmApproval" action="${contextPath }/admin/product/adminProductApproval.do">
+	<form id="frmApproval" action="${contextPath }/admin/manufac/adminManufacApproval.do">
 		<input type="hidden" id="status" name="approvalStatus">
-		<input type="hidden" id="no" name="productNO">
+		<input type="hidden" id="id" name="cuId">
 		<input type="hidden" id="reason" name="rejectionReason">
 	</form>
+	
 </body>
 
 </html>

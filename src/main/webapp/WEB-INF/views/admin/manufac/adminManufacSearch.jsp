@@ -3,8 +3,8 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="productList" value="${productList}" />
-<c:set var="productDetail" value="${productDetail}" />
+<c:set var="manufacList" value="${manufacList}" />
+<c:set var="manufacDetail" value="${manufacDetail}" />
 <c:set var="searchList" value="${searchList}" />
 
 <%
@@ -47,37 +47,34 @@ request.setCharacterEncoding("utf-8");
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
 				<option selected>선택</option>
-				<option value="name">제품명</option>
-				<option value="1">제조사명</option>
-				<option value="productNO">제품번호</option>
+				<option value="name">제조사명</option>
+				<option value="1">제조사번호</option>
+				<option value="1">담당자명</option>
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/product/adminProductSearch.do">
+			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/manufac/adminManufacSearch.do">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
 <p></p>
-		<table class="table" >
+		<table class="table" style="text-align:center">
 		
 		
 		
-			<thead style="text-align:center">
+			<thead>
 				<tr>
 
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">제품번호</th>
-					
-					<th scope="col" style="border-right: 1px solid #eee; width: 20%">제품명</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">분류</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인상태</th>
-
-
-
+				<th scope="col" style="border-right: 1px solid #eee; width: 10%; text-align:center">승인번호</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 25% ; text-align:center">제조사명</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">제조사번호</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 15%;text-align:center">담당자명</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">연락처</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 10%;text-align:center">승인상태</th>
 				</tr>
 			</thead>
-			<tbody style="text-align:center">
+			<tbody>
 				<c:choose>
 					<c:when test="${searchList==null }">
 
@@ -92,16 +89,14 @@ request.setCharacterEncoding("utf-8");
 					
 						<c:forEach var="search" items="${searchList }">
 
-							<tr >
-								<th scope="row">${search.productNO}</th>
-
-								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${search.productNO}">${search.name}</a></td>
-								<td>${search.prodGroup}</td>
-								<td>${search.approvalNum}</td>
+							<tr>
+							<th>${search.approvalNum}</th>
+								<td><a href="${contextPath }/admin/manufac/adminManufacDetail.do?manufacNo=${search.manufacturerNO}">${search.name}</td>
+								<td>${search.manufacturerNO}</a></td>
+								<td>${search.officer}</td>
+								<td>${search.tel}</td>
 								<td>${search.approvalStatus}</td>
-
 							</tr>
-
 						</c:forEach>
 
 					</c:when>

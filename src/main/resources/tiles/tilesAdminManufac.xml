@@ -11,19 +11,19 @@
 			<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 		</definition>
 		
-		<definition name="/product/adminProductList" extends="baseLayout">
+		<definition name="/manufac/adminManufacList" extends="baseLayout">
 			<put-attribute name="title" value="승인요청리스트"/>
-			<put-attribute name="body" value="/WEB-INF/views/admin/product/adminProductList.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/views/admin/manufac/adminManufacList.jsp"/>
 		</definition>
 		
-		<definition name="/product/adminProductDetail" extends="baseLayout">
+		<definition name="/manufac/adminManufacDetail" extends="baseLayout">
 			<put-attribute name="title" value="승인요청상세"/>
-			<put-attribute name="body" value="/WEB-INF/views/admin/product/adminProductDetail.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/views/admin/manufac/adminManufacDetail.jsp"/>
 		</definition>
 		
-		<definition name="/product/adminProductSearch" extends="baseLayout">
+		<definition name="/manufac/adminManufacSearch" extends="baseLayout">
 			<put-attribute name="title" value="승인요청검색"/>
-			<put-attribute name="body" value="/WEB-INF/views/admin/product/adminProductSearch.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/views/admin/manufac/adminManufacSearch.jsp"/>
 		</definition>
 		
 	</tiles-definitions>

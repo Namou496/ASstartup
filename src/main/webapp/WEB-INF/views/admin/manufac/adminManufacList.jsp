@@ -3,11 +3,10 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="productList" value="${productMap.productList}" />
-<c:set var="secNum" value="${productMap.secNum}" />
-<%-- <c:set var="pageNum_" value="${productMap.pageNum_}" /> --%>
-<c:set var="lastPageNum" value="${productMap.lastPageNum}" />
-<c:set var="productDetail" value="${productDetail}" />
+<c:set var="manufacList" value="${manufacMap.manufacList}" />
+<c:set var="secNum" value="${manufacMap.secNum}" />
+<c:set var="lastPageNum" value="${manufacMap.lastPageNum}" />
+<c:set var="manufacDetail" value="${manufacDetail}" />
 <%
 request.setCharacterEncoding("utf-8");
 %>
@@ -48,53 +47,53 @@ request.setCharacterEncoding("utf-8");
 			<select class="form-select" aria-label="Default select example"
 				style="width: 25%; float: left;">
 				<option selected>선택</option>
-				<option value="name">제품명</option>
-				<option value="1">제조사명</option>
-				<option value="productNO">제품번호</option>
+				<option value="name">제조사명</option>
+				<option value="1">제조사번호</option>
+				<option value="1">담당자명</option>
 
 			</select>
-			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/product/adminProductSearch.do">
+			<form class="d-flex" style="width: 40%; position: relative;" action="${contextPath}/admin/manufac/adminManufacSearch.do">
 				<input class="form-control me-2" type="search" placeholder="Search"
 					aria-label="Search" name="name">
 				<button class="btn btn-outline-success" type="submit">search</button>
 			</form>
 		</div>
 <p></p>
-		<table class="table" style="text-align:center">
+		<table class="table">
 		
 			<thead>
 				<tr>
-				<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인번호</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">제품번호</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 20%">제품명</th>
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">분류</th>
-					
-					<th scope="col" style="border-right: 1px solid #eee; width: 15%">승인상태</th>
+				<th scope="col" style="border-right: 1px solid #eee; width: 10%; text-align:center">승인번호</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 25% ; text-align:center">제조사명</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">제조사번호</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 15%;text-align:center">담당자명</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 20%;text-align:center">연락처</th>
+					<th scope="col" style="border-right: 1px solid #eee; width: 10%;text-align:center">승인상태</th>
 
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="text-align:center">
 				<c:choose>
-					<c:when test="${productList==null }">
+					<c:when test="${manufacList==null }">
 
 						<tr>
-							<td colspan=5 style="text-align: center"><b>등록 요청된 제품이
+							<td colspan=5 style="text-align: center"><b>등록 요청된 제조사가
 									없습니다</b>
 						</tr>
 
 					</c:when>
 
-					<c:when test="${productList != null }">
+					<c:when test="${manufacList != null }">
 		
 					
-						<c:forEach var="adminPro" items="${productList}">
+						<c:forEach var="adminMan" items="${manufacList}">
 							<tr>
-							<th>${adminPro.approvalNum}</th>
-								<td>${adminPro.productNO}</td>
-								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">${adminPro.name}</a></td>
-								<td>${adminPro.prodGroup}</td>
-								
-								<td>${adminPro.approvalStatus}</td>
+							<th>${adminMan.approvalNum}</th>
+								<td><a href="${contextPath }/admin/manufac/adminManufacDetail.do?manufacNo=${adminMan.manufacturerNO}">${adminMan.name}</td>
+								<td>${adminMan.manufacturerNO}</a></td>
+								<td>${adminMan.officer}</td>
+								<td>${adminMan.tel}</td>
+								<td>${adminMan.approvalStatus}</td>
 							</tr>
 						</c:forEach>
 
@@ -110,19 +109,18 @@ request.setCharacterEncoding("utf-8");
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum_-1}"
+				<li class="page-item"><a class="page-link" href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum_-1}"
 					tabindex="-1" >Previous</a></li>
 					
 					<c:forEach var="pageNum" begin="${(secNum-1)*10+1}" end="${(secNum-1)*10+lastPageNum}" step="1">
-						<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
+						<li class="page-item"><a class="page-link" href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum}&page=${pageNum}">${pageNum}</a></li>
 					</c:forEach>
 					
-				<li class="page-item"><a class="page-link" href="${contextPath}/admin/product/adminProductList.do?section=${secNum+1}">Next</a></li>
+				<li class="page-item"><a class="page-link" href="${contextPath}/admin/manufac/adminManufacList.do?section=${secNum+1}">Next</a></li>
 			</ul>
 		</nav>
 
 	</div>
-${secNum_}
-${pageNum_}
+
 </body>
 </html>
