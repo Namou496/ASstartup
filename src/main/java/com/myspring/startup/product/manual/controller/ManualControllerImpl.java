@@ -58,7 +58,7 @@ public class ManualControllerImpl implements ManualController{
 			pageMap.put("manufacName", manufacName);
 			
 			Map productMap= ManualService.ProductList(pageMap, _memberId); 
-				// productMap --> 매뉴얼 리스트, 전체글수, 제조사이름리스트, 사용자권한
+				// productMap -->  매뉴얼 리스트, 전체글수, 제조사이름리스트, 사용자권한
 			
 			//		페이징 section, pageNum
 			productMap.put("section", section);
