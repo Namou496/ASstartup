@@ -30,11 +30,11 @@
 </head>
 
 <body>
-    <header>
-        <!-- 헤더를 쓰는 곳 -->
-    </header>
     <main>
         <div class="container">
+        <div class="pageName">
+				<h1 style="text-align: center">회원가입</h1>
+			</div><br/><br/><br/>
            <div class="form">
             <form class="form-horizontal" role="form" method="post" onsubmit="return validate();" action="${contextPath}/member/addMember.do">
                 <div class="form-group">
@@ -173,7 +173,7 @@
                         </textarea>
                         <div class="radio">
                             <label>
-                                <input type="radio" id="provisionYn agree" name="provisionYn" autofocus="autofocus">
+                                <input type="radio" id="provisionYn" name="provisionYn" autofocus="autofocus">
                                 회원가입 약관에 동의합니다.
                             </label>
                         </div>
@@ -283,6 +283,10 @@
                             <label for="inputId" class="col-lg-2 control-label">아이디*</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control onlyAlphabetAndNumber" id="cuId"  name="cuId" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
+                                <input type="hidden" id="che" value="">
+                                <input type="button"
+										class="btn btn-primary marginLeft"
+										onclick="return overlap()" value="중복검사"> 
                             </div>
                         </div>
                         <div class="form-group" id="divPassword">
@@ -344,5 +348,5 @@
                 </div>
             </form>
         </div>
-        </div>
+        </div></main>
 </body></html>

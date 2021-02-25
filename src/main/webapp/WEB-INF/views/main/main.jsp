@@ -12,88 +12,111 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
+<link href="${contextPath}/resources/css/main.css" rel="stylesheet" type="text/css" media="screen">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	
+	<script>
+        $(function(){
+            var wth = $(this).width();
+            if(wth > 550){
+                $('#apply_next>img').attr('src','../resources/img/next-logo.png');
+            }else if(wth <= 550){
+                $('#apply_next>img').attr('src','../resources/img/next-logo2.png');
+            }
+            $(window).resize(function(){
+              var wth = $(this).width();
+                
+                console.log(wth);
+              if(wth < 550){
+                  $('#apply_next>img').attr('src','../resources/img/next-logo2.png');
+              } else if(wth >= 550){
+                  $('#apply_next>img').attr('src','../resources/img/next-logo.png');
+              };
+              
+                           });
+        })
+    </script>
 </head>
 <body>
-<div class="container main">
-        <div class="row">
+<div class="container-fluid main">
+   <div id="intro">
 
-            <div class="col-sm">
-
-                <!-- <p>메인</p>-->
-
-
-
-
+    <!--            사용자                -->
+        <div class="row" id="body">
+            <div id="title">
+                <img src="../resources/img/guid.png" alt="">
             </div>
-
-            <p></p>
-            <h4>공지사항 <span class="badge bg-primary">New</span></h4>
-
-
-
-           <table class="table">
-  <thead>
-    <tr>
-      
-      <th scope="col" style="border-right: 1px solid #eee; width: 55%">제목</th>
-      <th scope="col" style="border-right: 1px solid #eee; width: 25%">날짜</th>
-      <th scope="col" style="border-right: 1px solid #eee; width: 20%">작성자</th>
-     
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">※AS신청서 양식※</th>
-      <td>2020-12-12</td>
-      <td>Mark</td>
-     
-    </tr>
-    <tr>
-      <th scope="row">※AS신청시 주의사항※</th>
-      <td>2020-12-12</td>
-      <td>안두용</td>
-    
-     
-    </tr>
-    <tr>
-      <th scope="row">※AS기사 유의사항※</th>
-      <td>2020-12-12</td>
-      <td>김지은</td>
-    </tr>
-  </tbody>
-     </table>
-
-            <p></p>
-
-            <h4>최근게시물 <span class="badge bg-primary">New</span></h4>
-
-            <div>
-
+            <div id="member" class="user">
+               <div id="member_title">
+                    <img src="../resources/img/member.png" alt="">
+               </div>
+               <div id="user_intro">
+                    <div id="apply" class="apply">
+                        <img src="../resources/img/apply_logo_1.png" alt="" id="apply_pic">
+                        <img src="../resources/img/text_apply.png" alt=""  id="apply_text">
+                    </div>
+                    <div id="apply_next"><img src="../resources/img/next-logo.png" alt=""></div>
+                    <div id="apply_end" class="apply">
+                        <img src="../resources/img/send_logo.png" alt="" id="apply_pic">
+                        <img src="../resources/img/text_applyEnd.png" alt="" id="apply_text">
+                    </div>
+                    <div id="apply_next"><img src="../img/next-logo.png" alt=""></div>
+                    <div id="apply_visit" class="apply">
+                        <img src="../resources/img/house.png" alt="" id="apply_pic">
+                        <img src="../resources/img/text_visit.png" alt="" id="apply_text">
+                    </div>
+               </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/air-conditioner.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">에어컨이 고장나서 뜨거운 바람만 나와요</p>
-                </div>
+    <!--            as기사                -->
+           <div id="member" class="supplyer">
+               <div id="member_title">
+                    <img src="../resources/img/member_as.png" alt="">
+               </div>
+               <div id="user_intro">
+                    <div id="apply_location" class="apply">
+                        <img src="../resources/img/location.png" alt="" id="as_location">
+                        <img src="../resources/img/as_select.png" alt=""  id="as_location_text">
+                    </div>
+                    <div id="apply_next"><img src="../img/next-logo.png" alt=""></div>
+                    <div id="apply_end" class="apply as_request">
+                        <img src="../resources/img/apply.png" alt="" id="as_request">
+                        <img src="../resources/img/as_request.png" alt="" id="as_request_text">
+                    </div>
+                    <div id="apply_next"><img src="../img/next-logo.png" alt=""></div>
+                    <div id="apply_approval" class="apply">
+                        <img src="../resources/img/approval2.png" alt="" id="apply_pic">
+                        <img src="../resources/img/as_approval.png" alt="" id="apply_text">
+                    </div>
+                    <div id="apply_next"><img src="../resources/img/next-logo.png" alt=""></div>
+                    <div id="as_visit" class="apply as_visit">
+                        <img src="../resources/img/visit.png" alt="" id="apply_pic">
+                        <img src="../resources/img/as_visit.png" alt="" id="apply_text">
+                    </div>
+               </div>
+           </div>
+    <!--            제조사                -->
+           <div id="member" class="manufacturer">
+               <div id="member_title">
+                    <img src="../resources/img/member_manufac.png" alt="">
+               </div>
+               <div id="user_intro" >
+                        <div id="manufac_member" class="apply">
+                            <img src="../resources/img/manufac_approval2.png" alt="" id="apply_pic">
+                            <img src="../resources/img/Play__11_-removebg-preview.png" alt=""  id="apply_text">
+                        </div>
+                        <div id="apply_next"><img src="./img/next-logo.png" alt=""></div>
+                        <div id="manufac_product" class="apply">
+                            <img src="../resources/img/manufac_approval.png" alt="" id="apply_pic">
+                            <img src="../resources/img/Play__12_-removebg-preview.png" alt="" id="apply_text">
+                        </div>
+               </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/microwave.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">전자레인지 작동이 되지 않습니다</p>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/washing-machine.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">소음이 심하고 빨래를 해도 세탁이 제대로 되지 않습니다</p>
-                </div>
-            </div>
-
-
-            <p></p>
-            <p></p>
-            <p></p>
-        </div>
+       </div>
     </div>
+</div>
 </body>
 </html>

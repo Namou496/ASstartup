@@ -170,6 +170,7 @@ a:hover {
 @
 supports (filter: url( "#goo ")) { .blob-btn__blob { transform:translate3d(0,
 	150%, 0)scale(1.4);
+	
 }
 
 }
@@ -228,7 +229,7 @@ supports (filter: url( "#goo ")) { .
       	};
 		
 		$(function(){
-			$('.actionBtn').click(function(e){
+			$('.buttons>a').click(function(e){
 				e.preventDefault();
 				if(!uNo>0){
 					alert('로그인후 이용가능합니다.');
@@ -559,18 +560,22 @@ supports (filter: url( "#goo ")) { .
 			</div>
 		</nav>
 		<div id="imgBanner">
-			<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <img src="${contextPath}/resources/img/background.png" class="d-block w-100" alt="...">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${contextPath}/resources/img/background.png" class="d-block w-100" alt="...">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${contextPath}/resources/img/background.png" class="d-block w-100" alt="...">
-			    </div>
-			  </div>
+			<div id="carouselExampleSlidesOnly" class="carousel slide"
+				data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="${contextPath}/resources/img/background.png"
+							class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="${contextPath}/resources/img/background.png"
+							class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="${contextPath}/resources/img/background.png"
+							class="d-block w-100" alt="...">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

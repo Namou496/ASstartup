@@ -23,7 +23,10 @@
             padding: 0px;
         }
          .navbar{
+            background: #FFCC80;
         	padding: 0px;
+        	border-right: 1px solid #DCE775;
+        	border-bottom: 1px solid #DCE775;
         	/* height: 20%; */
         }
         .navbar-brand img{
@@ -93,7 +96,6 @@
         
          @media screen and (min-width: 992px){
             .whole {
-	            height: 600px;
 	            margin-bottom: 30px;
 	        }
             .navbar-nav li{

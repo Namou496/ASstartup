@@ -26,7 +26,7 @@ public class ASFormDAOImpl implements ASFormDAO {
 
 	@Override
 	public List selectProductName(Map searchProductNameMap) {
-		List productNameList = sqlSession.selectList("mapper.asform.productName", searchProductNameMap);
-		return productNameList;
+		System.out.println(sqlSession.selectList("mapper.asform.productName", searchProductNameMap));
+		return sqlSession.selectList("mapper.asform.productName", searchProductNameMap);
 	}
 }
