@@ -1,0 +1,275 @@
+                .main{text-align: center; height: 100%;}
+                #body{
+                    display: flex; 
+                    flex-direction: column;
+                    height: 100%;
+                }
+                #title{
+                    height: 10%;
+                }
+                #title img{
+                    width: 150px;
+                    height: 150px;
+                    object-fit: contain;
+                }
+
+                #user_intro{
+                    display: inline-flex;
+                    flex-direction: row; 
+                    justify-content: center;
+                }
+        /*        일반회원 가이드        */
+                #member{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    border-top: 1px solid #bbb;
+                    border-bottom: 1px solid #bbb;
+                }
+                #member_title{
+                    display: inline-flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    object-fit: contain;
+                    width: 100%;
+                    height: 50px;
+                }
+
+                /*    신청서 작성    */
+                .apply{
+                    display: flex; 
+                    flex-direction: column;
+                    align-items: center;
+                    height: 100%;
+                    width: 20%;
+                }
+
+                #apply #apply_pic{
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 200px;
+                    height: 200px;
+                }
+
+                #apply #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    width: 100px;
+                    height: 50px;
+                    bottom: 30px;
+                }
+                #apply_next{
+                    object-fit: contain;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    margin-top: 0;
+                    width: 100%;
+                    
+                }
+                #apply_next img{
+                    object-fit: contain;
+                    margin-top: 30px;
+                    width: 120px;
+                    height: 140px;
+                }
+                /*    as신청 승인    */
+                #apply_end #apply_pic{
+                    margin-top: 15px;
+                    margin-left: 10px;
+                    object-fit: contain;
+                    width: 170px;
+                    height: 170px;
+                }
+                #apply_end #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    width: 100px;
+                    height: 50px;
+                    bottom: 17px;
+                }
+                /*    기사님 방문    */
+                #apply_visit #apply_pic{
+                    margin-top: 50px;
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 100px;
+                    height: 100px;
+                }
+                #apply_visit #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    margin-left: 30px;
+                    width: 100px;
+                    height: 50px;
+                    top: 15px;
+                }
+        /*        AS기사 회원 가이드       */
+                /*    지역배정    */
+                #as_location{
+                    position: relative;
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 150px;
+                    height: 200px;
+                    bottom: 5px;
+                }
+                #as_location_text{
+                    position: relative;
+                    object-fit: contain;
+                    width: 100px;
+                    height: 50px;
+                    bottom: 30px;
+                }
+                /*    수리요청   */
+                #as_request{
+                    margin-top: 30px;
+                    margin-left: 10px;
+                    object-fit: contain;
+                    width: 150px;
+                    height: 150px;
+                }
+                #as_request_text{
+                    position: relative;
+                    object-fit: contain;
+                    width: 100px;
+                    height: 50px;
+                    bottom: 11px;
+                }
+                /*    수리승인    */
+                #apply_approval #apply_pic{
+                    margin-top: 50px;
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 100px;
+                    height: 100px;
+                }
+                #apply_approval #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    margin-left: 30px;
+                    width: 100px;
+                    height: 50px;
+                    top: 15px;
+                }
+                /*    방문    */
+                #as_visit #apply_pic{
+                    margin-top: 45px;
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 115px;
+                    height: 115px;
+                }
+                #as_visit #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    margin-top: 5px;
+                    margin-left: 30px;
+                    width: 100px;
+                    height: 50px;
+                }
+
+
+        /*        제조사 회원 가이드       */
+        .manufacturer #user_intro #apply_next{position: relative; top:55px;}
+                /*    회원요청 및 승인    */
+                #manufac_member #apply_pic{
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 250px;
+                    height: 250px;
+                }
+
+                #manufac_member #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    margin-left: 30px;
+                    width: 150px;
+                    height: 100px;
+                    bottom: 60px;
+                }
+                /*    제품 및 매뉴얼 등록    */
+                #manufac_product #apply_pic{
+                    margin-top: 50px;
+                    margin-left: 30px;
+                    object-fit: contain;
+                    width: 150px;
+                    height: 150px;
+                }
+
+                #manufac_product #apply_text{
+                    position: relative;
+                    object-fit: contain;
+                    margin-top: 15px;
+                    margin-left: 35px;
+                    width: 165px;
+                    height: 115px;
+                    bottom: 30px;
+                }
+/* 데스크탑 */
+        @media only screen and (max-width: 775px){
+            #member{height: 100%;}
+            #apply_next img{width: 60px;}
+            #apply #apply_pic{width: 130px;height: 130px;}
+            #apply_end #apply_pic{margin-top: 5px;margin-left: 10px;object-fit: contain;width: 125px;height: 125px;}
+            #apply_end #apply_text{position: relative;object-fit: contain;width: 100px;height: 50px;bottom: 28px;}
+            #apply_visit #apply_pic{margin-top: 20px;margin-left: 30px;width: 90px;height: 90px;}
+            #apply_visit #apply_text{margin-left: 30px;top: -5px;width: 100px;height: 50px;}
+            #title{position: relative;height: 5%;}
+            #title img{width: 130px;height: 130px;}
+            #member_title{height: 45px;}
+            .user #member_title{position: relative;top: 15px;}
+            .supplyer #member_title{position: relative;top: 25px;}
+            .manufacturer #member_title{position: relative;top: 30px;}
+            .manufacturer #user_intro #apply_next{position: relative; top:30px;}
+            #as_location{position: relative;margin-left: 30px;width: 100px;height: 150px;}
+            #as_location_text{ margin-left: 20px;width: 95px;}
+            #as_request{width: 100px;height: 100px;}
+            #as_request_text{bottom: 10px;}
+            /*    수리승인    */
+            #apply_approval #apply_pic{margin-top: 40px;margin-left: 0px;object-fit: contain;width: 90px;height: 90px;}
+            #apply_approval #apply_text{position: relative;object-fit: contain;margin-left: 0px;width: 100px;height: 50px;top: -10px;}
+            /*    방문    */
+            #as_visit #apply_pic{margin-top: 36px;margin-left: 30px;object-fit: contain;width: 90px;height: 90px;}
+            #as_visit #apply_text{position: relative;object-fit: contain;margin-top: -6px;margin-left: 30px; width: 100px;height: 50px;}
+            /*    회원요청 및 승인    */
+            #manufac_member #apply_pic{position: relative;top: 30px;margin-left: 30px;object-fit: contain;width: 190px;height: 190px;}
+            #manufac_member #apply_text{position: relative;object-fit: contain;margin-left: 30px;width: 130px;height: 90px;bottom: 30px;}
+            /*    제품 및 매뉴얼 등록    */
+            #manufac_product #apply_pic{margin-top: 50px;margin-left: 30px;object-fit: contain;width: 110px;height: 110px;}
+            #manufac_product #apply_text{position: relative;object-fit: contain;margin-top: 15px;margin-left: 35px;width: 145px;height: 100px;bottom: 35px;}
+            #manufac_member{position: relative;bottom: 17px;}
+        }
+      
+ /* 휴대폰 기기 */
+		@media only screen and (min-device-width: 320px) and (max-device-width: 566px){
+            #user_intro{display: flex; flex-direction: column; align-items: center;}
+            #apply_next{
+                display: flex;
+                flex-direction: row;
+            }
+		}
+        @media only screen and (max-width: 566px){
+            #user_intro{display: flex; flex-direction: column; align-items: center;}
+            #apply_next{
+                display: flex;
+                flex-direction: row;
+            }
+		}
+/* 아이폰 5, se */
+        @media only screen and (max-device-width: 321px){
+            #user_intro{display: flex; flex-direction: column; align-items: center;}
+            #apply_next{
+                    display: flex;
+                    flex-direction: row;
+                }
+        }
+        
+/* 아이폰 6, 7, 8 */
+        @media only screen and (min-device-width: 321px) and (max-device-width: 375px){
+            #user_intro{display: flex; flex-direction: column; align-items: center;}
+            #apply_next{
+                display: flex;
+                flex-direction: row;
+            }
+		}
