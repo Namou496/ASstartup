@@ -69,7 +69,7 @@ function validate(){
 		return false;
 	}
 	
-	var officer = document.getElementId("officer");
+	var officer = document.getElementById("officer");
 	if(officer.value == ""){
 	 alert("담당자명을 입력하세요.");
 	 return false;
