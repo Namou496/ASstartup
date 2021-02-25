@@ -23,7 +23,7 @@
 <body>
 
 <!-- ㅁㄴㅇㄹ -->
-	<div class="container-fluid whole mainHeader" style="padding: 0;">
+	<div class="container-fluid mainHeader" style="padding: 0;">
 		<header>
 			<tiles:insertAttribute name="header" />
 		</header>
