@@ -101,9 +101,9 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			Enumeration enu = multipartRequest.getParameterNames();
 			while(enu.hasMoreElements()) {
 				String name=(String)enu.nextElement();
-//				System.out.println(name);
+				System.out.println(name);
 				String value=multipartRequest.getParameter(name);
-//				System.out.println(value);
+				System.out.println(value);
 				asformMap.put(name, value);
 			}
 			

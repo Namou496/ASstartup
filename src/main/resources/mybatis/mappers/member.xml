@@ -59,7 +59,7 @@
 <!-- 	제조사 회원가입 상세정보 -->
 	<insert id="insertManufacturer">
 		insert into manufacturer(cuId, manufacturerNo, name, addr, officer, tel) 
-		values( #{cuId}, #{manufacNo}, #{manufacName}, #{addr}, #{officer}, #{tel})
+		values( #{cuId}, #{manufacNo}, #{manufacName}, #{addr}, #{officer}, #{phone})
 	</insert>
 	
 	<insert id="insertManufacApply">
