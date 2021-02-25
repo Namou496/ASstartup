@@ -48,7 +48,7 @@
     <!--            사용자                -->
         <div class="row" id="body">
             <div id="title">
-                <h2><img src="../resources/img/guid.png" alt=""></h2>
+                <img src="../resources/img/guid.png" alt="">
             </div>
             <div id="member" class="user">
                <div id="member_title">
