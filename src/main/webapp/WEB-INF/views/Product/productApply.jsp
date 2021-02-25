@@ -44,8 +44,8 @@
             html += '<input type="hidden" name="componentPart" value='+b+'>';
             html += '<option>'+b+'</option>';
             html += '</select>';
-            html += '<input type="text" name="componentName" value='+c+' disabled>';
-            html += '<input type="hidden" name="componentName" value='+c+'>';
+            html += '<textarea name="componentName" value='+c+' readonly>'+c+'</textarea>';
+//             html += '<input type="hidden" name="componentName" value='+c+'>';
             html += '</td>'+'</tr>';
         $("#component").append(html);
         
@@ -131,15 +131,15 @@
 		                            <option>부품</option>
 		                            <option>소모품</option>
 		                    </select>
-		                    <input type="text" class="c3">
+		                    <textarea class="c3" name="componentName"></textarea>
 		                    <input type="button" onclick="addCompo()" value="+">
 	                        <input type="button" onclick="deleteCompo()" value="-">
 	                   </td>
 	                </tr>
                 </tbody>
                 <tr style="text-align: center">
-                    <td style="width: 100%" colspan=2>
-                   <input type="submit" value="승인요청">
+                   <td style="width: 100%" colspan=2>
+                   	<input type="submit" value="승인요청">
                    <button><a href="${contextPath }/Product/listProduct.do?pageNum=${pageMap.pageNum}&section=${pageMap.section}">이전화면</a></button>
                    </td>
                 </tr>
