@@ -10,7 +10,7 @@ function validate(){
 	if($("input[id=memberInfoYn]:radio:checked").length == 0){
 		alert("개인정보 동의를 체크해 주세요.");
 		return false;
-	};
+	}
 	
 	var id = document.getElementById("cuId");
 	if(id.value == ""){
@@ -22,7 +22,7 @@ function validate(){
 	if(hid != 1){
 		alert("아이디 중복검사를 해주세요");
 		return false;
-	} 
+	}
 	
 	var pw = document.getElementById("pw").value;
 	if(pw == ""){
@@ -52,7 +52,7 @@ function validate(){
 		return false;
 	}
 	//
-	var manufacName = document.getElementId("manufacName").value;
+	var manufacName = document.getElementById("manufacName").value;
 	if(manufacName == ""){
 	 	alert("제조사이름을 입력하세요.");
 	 	return false;
@@ -80,11 +80,10 @@ function validate(){
 	
 	if(!regExp.test(result)){
 		alert("잘못된 휴대폰 번호입니다.");
-		$("#phone").focus();
 		return false;
-	};
+	}
 	
-}    
+}
 
 //카카오지도 API
 var element_layer = document.getElementById('layer');
@@ -98,13 +97,14 @@ var element_layer = document.getElementById('layer');
             new daum.Postcode({
                 oncomplete: function(data) {
                     var addr = data.address; // 최종 주소 변수
-
+					console.log(addr);
                     // 주소 정보를 해당 필드에 넣는다.
                     document.getElementById("addr1").value = addr;
 					document.getElementById("postCode").value = data.zonecode;
                 }
             }).open();
         }
+
 	//아이디 중복검사
 	function overlap(){
 	var cuId = document.getElementById("cuId").value;

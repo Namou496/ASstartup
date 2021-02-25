@@ -1,48 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"
-    isELIgnored="false"
-    %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
+	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입</title>
-    <!-- css -->
-    <link type="text/css" rel="stylesheet" href="../resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-    <!-- JavaScript -->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-    <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" src="../resources/js/manufacJoin.js"></script>
-    <script>
-    $(function(){
-    	$("#img").css({display:"none"});
-    });
-    </script>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<!-- css -->
+<link type="text/css" rel="stylesheet"
+	href="../resources/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<!-- JavaScript -->
+<script type="text/javascript" src="../resources/js/manufacJoin.js"></script>
+<!-- 
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+	integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+-->
+<script
+	src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+	$(function() {
+		$("#img").css({
+			display : "none"
+		});
+	});
+</script>
 </head>
 
 <body>
-    <main>
-        <div class="container">
-        <div class="pageName">
+	<main>
+		<div class="container">
+			<div class="pageName">
 				<h1 style="text-align: center">회원가입</h1>
-			</div><br/><br/><br/>
-           <div class="form">
-            <form class="form-horizontal" role="form" method="post" onsubmit="return validate();" action="${contextPath}/member/addMember.do">
-                <div class="form-group">
-                    <h4><label for="provision" class="col-lg-2 control-label">회원가입약관</label></h4>
-                    <input type="hidden" name="uno" id="uno" value="3"/>
-                    <div class="col-lg-10" id="provision">
-                    
-                        <textarea class="form-control" rows="8" style="resize:none">제 1조 (목적)
+			</div>
+			<div class="form">
+				<form class="form-horizontal" role="form" method="post"
+					action="${contextPath}/member/addMember.do"><br /><br /><br />
+					<div class="form-group">
+						<h4>
+							<label for="provision" class="col-lg-2 control-label">회원가입약관</label>
+						</h4>
+						<div class="col-lg-10" id="provision">
+
+							<textarea class="form-control" rows="8" style="resize: none">제 1조 (목적)
     본 약관은 스타트업 AS(이하 "수리점"이라 합니다)에서 운영하는 인터넷 홈페이지ㄹ에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 합니다)의 이용에 관한 사항을 규정함을 목적으로 합니다.
 
 제 2조(정의)
@@ -171,19 +184,21 @@
 
 서비스와 관련하여 사이트와 회원간에 분쟁이 발생할 경우 사이트의 본사 소재지를 관할하는 법원을 관할법원으로 합니다.
                         </textarea>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" id="provisionYn" name="provisionYn" autofocus="autofocus">
-                                회원가입 약관에 동의합니다.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="form-group">
-                    <h4><label for="memberInfo" class="col-lg-2 control-label">개인정보취급방침</label></h4>
-                    <div class="col-lg-10" id="memberInfo">
-                        <textarea class="form-control" rows="8" style="resize:none">
+							<div class="radio">
+								<label> <input type="radio" id="provisionYn"
+									name="provisionYn" autofocus="autofocus"> 회원가입 약관에
+									동의합니다.
+								</label>
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<h4>
+							<label for="memberInfo" class="col-lg-2 control-label">개인정보취급방침</label>
+						</h4>
+						<div class="col-lg-10" id="memberInfo">
+							<textarea class="form-control" rows="8" style="resize: none">
 제1조 (개인정보의 처리 목적)
 ① 개인정보보호위원회는 개인정보를 다음의 목적을 위해 처리합니다. 처리한 개인정보는 다음의 목적이외의 용도로는 사용되지 않으며 이용 목적이 변경되는 경우에는 개인정보 보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
 가. 서비스 제공
@@ -270,44 +285,53 @@
 
 ☞ 중앙행정심판위원회(www.simpan.go.kr)의 전화번호 안내 참조
                         </textarea>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" id="memberInfoYn" name="memberInfoYn">
-                                	개인정보 취급 방침에 동의합니다.
-                            </label>
-                        </div>
-                        </div></div>
-                        <br />
-                        <div class="form-group">
-                        <div class="form-group" id="divId">
-                            <label for="inputId" class="col-lg-2 control-label">아이디*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyAlphabetAndNumber" id="cuId"  name="cuId" data-rule-required="true" placeholder="아이디를 입력하세요." maxlength="30">
-                                <input type="hidden" id="che" value="">
-                                <input type="button"
-										class="btn btn-primary marginLeft"
-										onclick="return overlap()" value="중복검사"> 
-                            </div>
-                        </div>
-                        <div class="form-group" id="divPassword">
-                            <label for="inputPassword" class="col-lg-2 control-label">비밀번호*</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="pw" name="pw" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
-                            </div>
-                        </div>
-                       	<div class="form-group" id="divPasswordCheck">
-                            <label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호 확인*</label>
-                            <div class="col-lg-10">
-                                <input type="password" class="form-control" id="pw_re" data-rule-required="true" placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
-                        </div>
-                        <div class="form-group" id="divName">
-                            <label for="inputName" class="col-lg-2 control-label">제조사명*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="manufacName" name="manufacName" placeholder="제조사명" maxlength="15">
-                            </div>
-                        </div>
+							<div class="radio">
+								<label> <input type="radio" id="memberInfoYn"
+									name="memberInfoYn"> 개인정보 취급 방침에 동의합니다.
+								</label>
+							</div>
+						</div>
 
-                        <div class="form-group col-lg-10" id="divNickname">
+					<br />
+					<div class="form-group">
+					<input type="hidden" name="uno" id="uno" value="3" />
+						<div class="form-group" id="divId">
+							<label for="inputId" class="col-lg-2 control-label">아이디*</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control onlyAlphabetAndNumber"
+									id="cuId" name="cuId" data-rule-required="true"
+									placeholder="아이디를 입력하세요." maxlength="30"> <input
+									type="hidden" id="che" value=""> <input type="button"
+									class="btn btn-primary marginLeft" onclick="return overlap()"
+									value="중복검사">
+							</div>
+						</div>
+						<div class="form-group" id="divPassword">
+							<label for="inputPassword" class="col-lg-2 control-label">비밀번호*</label>
+							<div class="col-lg-10">
+								<input type="password" class="form-control" id="pw" name="pw"
+									data-rule-required="true"
+									placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
+							</div>
+						</div>
+						<div class="form-group" id="divPasswordCheck">
+							<label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호
+								확인*</label>
+							<div class="col-lg-10">
+								<input type="password" class="form-control" id="pw_re"
+									data-rule-required="true"
+									placeholder="8~16이하의 영문 대 소문자, 숫자만 입력 가능합니다." maxlength="16">
+							</div>
+							<div class="form-group" id="divName">
+								<label for="inputName" class="col-lg-2 control-label">제조사명*</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control"
+										id="manufacName" name="manufacName" data-rule-required="true" placeholder="제조사명"
+										maxlength="15">
+								</div>
+							</div>
+
+							<div class="form-group col-lg-10" id="divNickname">
 								<label for="addr" class="col-lg-2 control-label">주소</label>
 								<div class="col-lg-12">
 									<input type="text" class="col-lg-4" id="postCode"
@@ -315,38 +339,45 @@
 										data-rule-required="true" placeholder="우편주소" maxlength="30"
 										disabled> <input type="button"
 										class="col-lg-2 btn btn-primary"
-										onclick="sample5_execDaumPostcode()" value="주소 검색"> 
-										<input type="text" class="form-control" id="addr 1" name="addr1"
+										onclick="sample5_execDaumPostcode()" value="주소 검색"> <input
+										type="text" class="form-control" id="addr1" name="addr1"
 										data-rule-required="true" placeholder="주소" maxlength="30"
-										readonly> 
-										<input type="text" class="form-control"
+										readonly> <input type="text" class="form-control"
 										id="addr2" name="addr2" data-rule-required="true"
 										placeholder="상세 주소" maxlength="30"> <br>
 								</div>
 							</div>
-                        
-                        <div class="form-group" id="divName">
-                            <label for="inputName" class="col-lg-2 control-label">담당자*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="officer" name="officer" data-rule-required="true" placeholder="담당자 이름을 입력해주세요." maxlength="15">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group" id="divName">
-                            <label for="inputName" class="col-lg-2 control-label">전화번호*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control onlyHangul" id="phone" name="phone" data-rule-required="true" placeholder="'-'빼고 입력해주세요." maxlength="11">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                        <button type="submit" class="btn btn-primary form-control" >회원가입</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div></main>
-</body></html>
+
+							<div class="form-group" id="divName">
+								<label for="inputName" class="col-lg-2 control-label">담당자*</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="officer"
+										name="officer" data-rule-required="true"
+										placeholder="담당자 이름을 입력해주세요." maxlength="15">
+								</div>
+							</div>
+
+							<div class="form-group" id="divName">
+								<label for="inputName" class="col-lg-2 control-label">전화번호*</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="phone"
+										name="phone" data-rule-required="true"
+										placeholder="'-'빼고 입력해주세요." maxlength="11">
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					<br>
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button type="submit" class="btn btn-primary form-control"
+								onclick="return validate();">회원가입</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
