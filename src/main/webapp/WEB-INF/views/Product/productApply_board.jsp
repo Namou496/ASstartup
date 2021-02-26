@@ -13,9 +13,6 @@
 	<!-- 페이징 -->
 	<c:set var="section"  value="${productMap.section}" /> 
 	<c:set var="pageNum"  value="${productMap.pageNum}" />
-	
-		
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +46,6 @@
 	float:left;
 	}
 	a{text-decoration: none; color:black;}
-
 </style>
 </head>
 <body>
@@ -64,8 +60,6 @@
         		<option value="${manufacSearch}">${manufacSearch}</option>
         	</c:forEach>
 	    </select>
-	    
-	    
 	    <select id="productGroup" name="productGroup">
 	    	<option value="">제품</option>
 	    </select>
@@ -76,13 +70,15 @@
         <button style="float: right;"><a href="${contextPath }/Product/applyProductView.do?manufacName=${pageMap.manufacName}&pageNum=${pageNum}&section=${section}">제품등록</a></button>
         <table class="table" id="list_view">
             <thead>
-                <tr>
-
-                    <th scope="col" style="border-right: 1px solid #eee; width: 45%">제품</th>
-                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">분류</th>
-                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">제조사</th>
-                    <th scope="col" style="border-right: 1px solid #eee; width: 10%">승인</th>
-
+                <tr>	
+                		<!-- 등록된 제품이 없을 때 -->
+						<c:if test="${totProduct==0}"><th scope="col" style="width: 100%"></th></c:if> 
+						<c:if test="${totProduct!=0 }">
+							<th scope="col" style="border-right: 1px solid #eee; border-top: 1px solid #eee; width: 45%">제품</th>
+		                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">분류</th>
+		                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">제조사</th>
+		                    <th scope="col" style="border-right: 1px solid #eee; width: 10%">승인</th>
+	                    </c:if>
                 </tr>
             </thead>
             <tbody>
@@ -90,36 +86,35 @@
             <c:choose>
             <c:when test="${totProduct==0}">
             <tr>
-                    <td scope="row">
+                    <th scope="row" style="width: 100%;">
 	                    <p align="center">
 	                    	<b>등록된 제품이 없습니다.</b>
 	                    </p>
-                    </td>
-                    
+                    </th>
             </tr> 
             </c:when>
             <c:when test="${productMap != null }">
             
             
 	            <c:forEach var="productMap" items="${productMap.productList}">
-	                <tr>
-	                    <th scope="row"><a href="${contextPath }/Product/ProductDetail.do?productNo=${productMap.productNo}&pageNum=${pageNum}&section=${section}">
-	                    ${productMap.productName }</a></th>
-	                    <td>${productMap.productGroup}</td>
-	                    <td>${productMap.manufacName}</td>
-	                    <c:choose>
-		                    <c:when test="${productMap.approvalStatus == 1}">
-		                    	<td>승인</td>
-		                    </c:when>
-		                    <c:when test="${productMap.approvalStatus == 2}">
-		                    	<td>승인불가</td>
-		                    </c:when>
-		                    <c:when test="${productMap.approvalStatus == 3}">
-	                    		<td>승인대기</td>
-	                    	</c:when>
-	                    </c:choose>
-	                </tr>
-				</c:forEach>	
+		                <tr>
+		                    <th scope="row"><a href="${contextPath }/Product/ProductDetail.do?productNo=${productMap.productNo}&pageNum=${pageNum}&section=${section}">
+		                    ${productMap.productName }</a></th>
+		                    <td>${productMap.productGroup}</td>
+		                    <td>${productMap.manufacName}</td>
+		                    <c:choose>
+			                    <c:when test="${productMap.approvalStatus == 1}">
+			                    	<td>승인</td>
+			                    </c:when>
+			                    <c:when test="${productMap.approvalStatus == 2}">
+			                    	<td>승인불가</td>
+			                    </c:when>
+			                    <c:when test="${productMap.approvalStatus == 3}">
+		                    		<td>승인대기</td>
+		                    	</c:when>
+		                    </c:choose>
+		                </tr>
+				</c:forEach>
 			</c:when>
 			</c:choose>
 			 <!-- 제품리스트 -->

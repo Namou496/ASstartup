@@ -201,7 +201,6 @@ public class ProductControllerImpl implements ProductController{
 			+ "</script>");
 		}
 		return mav;
-		
 	}
 //	4) 제품등록
 	// 제품등록페이지
@@ -380,7 +379,6 @@ public class ProductControllerImpl implements ProductController{
 					}
 				
 				}
-				
 				
 			}
 			
