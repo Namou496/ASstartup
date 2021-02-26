@@ -108,7 +108,7 @@
 
 		<![CDATA[
 		select
-		product.productno,component.name as componentname,component.price,component.part
+		product.productno,component.name as componentname,component.price,component.part,component.componentNO
 		from
 		component,product
 		where component.productno=product.productno and product.productno=#{product.productNO}
@@ -145,5 +145,21 @@
 		]]>
 
 	</update>
+	
+<!-- 	 부품가격 업데이트  -->
+	<update id="updateProductComponentPrice"
+		parameterType="AdminProductVO">
+
+		<![CDATA[
+		
+		update component
+		set price=#{price}
+		where
+		componentno=#{componentNO}
+		
+		]]>
+
+	</update>
+	
 
 </mapper>

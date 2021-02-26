@@ -19,9 +19,12 @@ public interface AdminProductDAO {
 	//제품검색
 	public List<AdminProductVO> selectByProduct(String name) throws DataAccessException;
 	//제품승인거절
-	void updateProductApprovalStatus(AdminProductVO adminProductVO) throws DataAccessException;
-//	부품목록
+	public void updateProductApprovalStatus(AdminProductVO adminProductVO) throws DataAccessException;
+	//부품목록
 	public ArrayList selectProductComponent(int productNO) throws DataAccessException;
+	//부품가격설정
+	public void updateProductComponentPrice(AdminProductVO adminProductVO) throws DataAccessException;
+	
 
 
 

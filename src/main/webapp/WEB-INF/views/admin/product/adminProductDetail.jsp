@@ -47,9 +47,11 @@
 <script>
 	$(function() {
 		var productNO = $("#productNO").text();
+		var componentNO = $("#componentNO").text();
 
 		$("#approvalNo").click(function() {
 			var rejectionReason = $("#rejectionReason").val();
+
 			$("#status").val(2);
 			$("#reason").val(rejectionReason);
 			$("#no").val(productNO);
@@ -63,6 +65,15 @@
 			$("#no").val(productNO);
 			$("#frmApproval").submit();
 			alert('승인이 완료되었습니다.')
+		});
+
+		$("#modPrice").click(function() {
+			var price = $("#price").val();
+			$("#no2").val(productNO);
+			$("#comNO").val(componentNO);
+			$("#comPrice").val(price);
+			$("#frmMod").submit();
+			alert('부품 가격이 수정되었습니다.')
 		});
 
 	});
@@ -147,9 +158,9 @@
 							<td id="td2" scope="row" name="asManual">${productDetail.ASManual }</td>
 						</tr>
 
-						<tr >
+						<tr>
 							<td id="td1" scope="col">부품목록</td>
-						
+
 						</tr>
 
 					</c:when>
@@ -158,21 +169,33 @@
 		</table>
 
 
-		<table style="text-align:center; margin:0 auto;">
+		<table style="text-align: center; margin: 0 auto; width: 60%">
 			<tr>
+				<td style="border-right: 1px solid #eee; width: 15%">부품번호</td>
 				<td style="border-right: 1px solid #eee; width: 15%">부품명</td>
-				<td style="border-right: 1px solid #eee; width: 15%">가격</td>
 				<td style="border-right: 1px solid #eee; width: 15%">분류</td>
+				<td style="border-right: 1px solid #eee; width: 15%">가격</td>
+
 			</tr>
 			<c:forEach var="com" items="${componentList}">
 				<tr>
+					<td id="componentNO">${com.componentNO}</td>
 					<td>${com.componentName}</td>
-					<td>${com.price}</td>
 					<td>${com.part}</td>
+
+					<td><input id="price" type="text" class="form-control"
+						value="${com.price}"></td>
+					<td>
+
+						<button class="btn btn-outline-primary" id="modPrice"
+						>수정</button>
+
+					</td>
+
 				</tr>
 			</c:forEach>
 		</table>
-		
+
 		<p></p>
 
 		<div class="input-group"
@@ -193,10 +216,18 @@
 	</div>
 	<form id="frmApproval"
 		action="${contextPath }/admin/product/adminProductApproval.do">
-		<input type="hidden" id="status" name="approvalStatus"> <input
-			type="hidden" id="no" name="productNO"> <input type="hidden"
-			id="reason" name="rejectionReason">
+		<input type="hidden" id="status" name="approvalStatus">
+		<input type="hidden" id="no" name="productNO">
+		<input type="hidden" id="reason" name="rejectionReason">
+			
 	</form>
+	<form id="frmMod" action="${contextPath }/admin/product/adminProductComponentPrice.do">
+		<input type="hidden" id="no2" name="productNO">
+		<input type="hidden" id="comPrice" name="price">
+		<input type="hidden" id="comNO" name="componentNO">
+	</form>
+
+
 </body>
 
 </html>

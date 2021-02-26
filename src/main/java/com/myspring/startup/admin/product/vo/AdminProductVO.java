@@ -15,6 +15,8 @@ public class AdminProductVO {
 	private String ASManual;
 	private String productImage;
 
+//	부품
+	private int componentNO;
 	private String componentName;
 	private int price;
 	private int part;
@@ -103,6 +105,12 @@ public class AdminProductVO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getComponentNO() {
+		return componentNO;
+	}
+	public void setComponentNO(int componentNO) {
+		this.componentNO = componentNO;
 	}
 
 }
