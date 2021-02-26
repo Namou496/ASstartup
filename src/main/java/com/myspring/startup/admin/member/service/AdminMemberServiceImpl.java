@@ -51,11 +51,11 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	}
 	
 //	멤버수정
-//	@Override
-//	public void AdminMemberModify(MemberVO memberVO) {
-//		adminMemberDAO.modifyMember(memberVO);
-//		
-//	}
+	@Override
+	public void AdminMemberModify(MemberVO memberVO) {
+		adminMemberDAO.modifyMember(memberVO);
+		
+	}
 	
 //	멤버수정상세페이지
 	@Override

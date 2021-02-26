@@ -21,9 +21,8 @@ public interface AdminMemberDAO {
 	public void deleteMember(String cuId) throws DataAccessException;
 
 //	멤버수정
-//	public void modifyMember(String cuId) throws DataAccessException;
+	public void modifyMember(MemberVO memberVO) throws DataAccessException;
 
-//	멤버수정페이지
 
 	
 }

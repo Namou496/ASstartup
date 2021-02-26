@@ -94,7 +94,7 @@
 
 <body>
 <p></p>
-<h3 style="text-align:center">제조사 승인 상세</h3>
+<h3 style="text-align:center">제조사 상세 정보</h3>
 <p></p>
 	<div class="container">
 		<table class="table">

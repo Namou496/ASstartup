@@ -52,7 +52,6 @@
 			$("#id2").val(cuId);
 			console.log(cuId);
 			$("#frmModify").submit();
-			alert('수정 페이지로 이동')
 
 		});
 
@@ -96,7 +95,7 @@
 
 <body>
 	<p></p>
-	<h3 style="text-align: center">멤버 상세정보</h3>
+	<h3 style="text-align: center">회원 상세 정보</h3>
 	<p></p>
 	<div class="container">
 		<table class="table">
@@ -128,14 +127,6 @@
 						<tr>
 							<td id="td1" scope="row">이메일:</td>
 							<td id="td2" scope="row" name="useManual">${memberDetail.email }</td>
-						</tr>
-
-						<tr>
-							<td id="td1" scope="row">이메일:</td>
-							<td id="td2" scope="row" name="email">
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" value="${memberDetail.email }">
-							</div></td>
 						</tr>
 
 
