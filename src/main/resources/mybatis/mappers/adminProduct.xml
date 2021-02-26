@@ -90,13 +90,33 @@
 
 		<![CDATA[
 		select
-		productNO,name,prodGroup,useManual,ASManual,productImage
-		from
-		product where
-		productNo=#{productNO}
+		product.productno,product.name,manufacturer.name as manufacturername, product.prodgroup,product.usemanual,asmanual,productimage
+        from
+ 		manufacturer,product
+ 		where
+ 		product.cuid=manufacturer.cuid
+ 		and
+		product.productNO=#{product.productNO}
+
 		]]>
 
 	</select>
+
+<!--   	부품목록 -->
+	<select id="selectProductComponent"
+		resultType="AdminProductVO" parameterType="int">
+
+		<![CDATA[
+		select
+		product.productno,component.name as componentname,component.price,component.part
+		from
+		component,product
+		where component.productno=product.productno and product.productno=#{product.productNO}
+		]]>
+
+	</select>
+
+
 
 	<!-- 제품명검색 -->
 	<select id="selectByProduct" resultType="AdminProductVO"
