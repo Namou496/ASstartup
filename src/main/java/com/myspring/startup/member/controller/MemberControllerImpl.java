@@ -45,6 +45,7 @@ public class MemberControllerImpl implements MemberController{
 		try {
 			HttpSession session = request.getSession();
 			memberVO = memberService.login(member);
+			System.out.println("cuId : " + memberVO.getCuId() + "app" + memberVO.getApprovalstatus());
 			if(memberVO != null) {
 				session.setAttribute("member",  memberVO);
 				session.setAttribute("isLogOn", true);

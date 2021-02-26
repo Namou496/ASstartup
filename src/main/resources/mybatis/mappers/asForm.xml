@@ -41,12 +41,14 @@
 				where m2.cuid=m.cuid
 			]]>
 		</select>
-		
+	<!-- 	제품명 가져오기 -->
 	<select id="productName" parameterType="java.util.Map" resultType="java.util.Map">
 			<![CDATA[
 				select p.productno productNo, p.name productName
-				from product p, manufacturer m
-				where p.prodgroup=#{productGroup} and m.name=#{manufacName} and m.cuid=p.cuid
+				from manufacturer m, (select p.productno, p.name, p.cuid, p.prodgroup
+                      				  from product p, productapproval pro
+                     				  where p.productno=pro.productno and pro.approvalstatus=1) p
+				where m.cuid=p.cuid and p.prodgroup=#{productGroup} and m.name=#{manufacName}
 			]]>
 		</select>
 </mapper>
