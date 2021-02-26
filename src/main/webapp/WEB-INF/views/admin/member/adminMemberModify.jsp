@@ -8,6 +8,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <c:set var="memberList" value="${memberList}" />
 <c:set var="memberDetail" value="${memberDetail}" />
+<c:set var="memberModifyPage" value="${memberModifyPage}" />
 <c:set var="memberDelete" value="${memberDelete}" />
 
 
@@ -42,7 +43,7 @@
 </head>
 <body>
 
-<p>아이디 : ${memberDetail.cuId}</p>
+<p>아이디 : ${memberModifyPage.cuId}</p>
 
 
 </body>

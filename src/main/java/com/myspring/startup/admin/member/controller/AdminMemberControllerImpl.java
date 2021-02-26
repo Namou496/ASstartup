@@ -111,9 +111,9 @@ public class AdminMemberControllerImpl implements AdminMemberController{
 			@RequestMapping(value = "/admin/member/adminMemberModifyPage.do", method = {RequestMethod.GET, RequestMethod.POST })
 			public ModelAndView adminMemberModifyPage(@RequestParam("cuId") String cuId, HttpServletRequest request, HttpServletResponse response) throws Exception {
 				
-				memberVO=adminMemberService.AdminMemberDetail(cuId);
+				memberVO=adminMemberService.AdminMemberModifyPage(cuId);
 				ModelAndView mav = new ModelAndView("/member/adminMemberModifyPage");
-				mav.addObject("memberDetail", memberVO);
+				mav.addObject("memberModifyPage", memberVO);
 				return mav;
 			}
 //			

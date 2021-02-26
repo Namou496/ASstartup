@@ -94,7 +94,7 @@ request.setCharacterEncoding("utf-8");
 								<td>${adminPro.prodGroup}</td>
 								
 								<td>${adminPro.approvalStatus}</td>
-								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${adminPro.productNO}">상세보기</a></td>
+								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNO=${adminPro.productNO}">상세보기</a></td>
 							</tr>
 						</c:forEach>
 

@@ -47,14 +47,12 @@
 <script>
 	$(function() {
 		var cuId = $("#cuId").text();
-		var email = $("#email").text();
-
+		
 		$("#mod").click(function() {
-			$("#id").val(cuId);
-			
+			$("#id2").val(cuId);
 			console.log(cuId);
-			
 			$("#frmModify").submit();
+			alert('수정 페이지로 이동')
 
 		});
 
@@ -162,10 +160,9 @@
 
 	</form>
 
-	<form id="frmModify">
+	<form id="frmModify" action="${contextPath }/admin/member/adminMemberModifyPage.do">
 
-		<input type="hidden" id="id" name="cuId">
-		<input type="hidden" id="mail" name="email">
+		<input type="hidden" id="id2" name="cuId">
 
 	</form>
 </body>

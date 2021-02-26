@@ -95,7 +95,7 @@ request.setCharacterEncoding("utf-8");
 							<tr >
 								<th scope="row">${search.productNO}</th>
 
-								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNo=${search.productNO}">${search.name}</a></td>
+								<td><a href="${contextPath }/admin/product/adminProductDetail.do?productNO=${search.productNO}">${search.name}</a></td>
 								<td>${search.prodGroup}</td>
 								<td>${search.approvalNum}</td>
 								<td>${search.approvalStatus}</td>

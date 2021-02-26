@@ -16,6 +16,7 @@
 <!-- 		운영사 -->
 		<typeAlias type="com.myspring.startup.admin.product.vo.AdminProductVO" alias="AdminProductVO"/>
 		<typeAlias type="com.myspring.startup.admin.manufac.vo.AdminManufacVO" alias="AdminManufacVO"/>
+		
 <!-- 		별점  -->
 		<typeAlias type="com.myspring.startup.Asstarrate.vo.AsstarrateVO" alias="AsstarrateVO"/>
 		

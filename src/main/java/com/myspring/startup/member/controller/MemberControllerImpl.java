@@ -251,4 +251,5 @@ public class MemberControllerImpl implements MemberController{
 		mav.setViewName("/member/selectMember");
 		return mav;
 	}
+	
 }

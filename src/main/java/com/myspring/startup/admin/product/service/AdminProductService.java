@@ -16,5 +16,9 @@ public interface AdminProductService {
 	public List<AdminProductVO> AdminProductSearch(String name);
 //	제품승인
 	public void AdminProductApproval(AdminProductVO adminProductVO);
+//	부품목록
+	public List<AdminProductVO> AdminProductComponent(int productNO);
+
+
 
 }

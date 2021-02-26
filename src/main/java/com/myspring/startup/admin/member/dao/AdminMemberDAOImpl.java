@@ -52,6 +52,12 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
 //	}
 	
 //	멤버수정페이지
+//	@Override
+//	public MemberVO selectMemberModifyPage(String cuId) throws DataAccessException {
+//		return sqlSession.selectOne("mapper.adminMember.selectMemberDetail",cuId);
+//		
+//	}
+
 
 
 }

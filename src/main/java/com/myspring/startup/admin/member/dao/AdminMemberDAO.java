@@ -24,5 +24,6 @@ public interface AdminMemberDAO {
 //	public void modifyMember(String cuId) throws DataAccessException;
 
 //	멤버수정페이지
+
 	
 }
