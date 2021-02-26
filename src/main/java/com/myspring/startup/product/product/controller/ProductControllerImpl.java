@@ -52,7 +52,7 @@ public class ProductControllerImpl implements ProductController{
 		response.setContentType("text/html;charset=UTF-8");
 		ModelAndView mav = new ModelAndView();
 		PrintWriter pw = response.getWriter();
-		
+		//ㅁ
 		try {		
 			HttpSession session = request.getSession();
 			MemberVO memberId = (MemberVO) session.getAttribute("member");
