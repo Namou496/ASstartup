@@ -50,4 +50,10 @@ public class MemberServiceImpl implements MemberService{
 		
 		memberDAO.applyManufac(memberJoinMap);
 	}
+
+	@Override
+	public String overlapId(String cuId) throws Exception {
+		String i = memberDAO.overlapId(cuId);
+		return i;
+	}
 }

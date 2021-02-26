@@ -15,5 +15,5 @@ public interface MemberDAO {
 	public int RecentManufacApply() throws DataAccessException;
 	public void applyManufac(Map<String, Object> memberJoinMap) throws DataAccessException;
 	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException;
-	
+	public String overlapId(String cuId) throws DataAccessException;	
 }

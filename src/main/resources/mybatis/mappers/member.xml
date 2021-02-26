@@ -17,12 +17,22 @@
 		<result property="tel" column="tel" />
 		<result property="manufacNo" column="manufacNo" />
 		<result property="approvalNum" column="approvalNum" />
+		<result property="approvalstatus" column="approvalstatus" />
 	</resultMap>
-<!-- 	로그인 select -->
+<!-- 	로그인 select + session정보 -->
 	<select id="loginById" resultType="MemberVO" parameterType="MemberVO">
 		<![CDATA[
-			select * from member
-			where cuid = #{cuId} and pw = #{pw} 
+			select *
+			from member
+			where cuid = #{cuId} and pw = #{pw}
+		]]>
+	</select>
+	
+	<select id="appStatus" resultType="int" parameterType="String">
+		<![CDATA[
+			select man.approvalstatus
+			from member m, manufacturerapproval man
+			where m.cuid = #{cuId} and man.cuid=m.cuid
 		]]>
 	</select>
 <!-- 	회원가입 멤버테이블 insert -->
@@ -59,7 +69,7 @@
 <!-- 	제조사 회원가입 상세정보 -->
 	<insert id="insertManufacturer">
 		insert into manufacturer(cuId, manufacturerNo, name, addr, officer, tel) 
-		values( #{cuId}, #{manufacNo}, #{manufacName}, #{addr}, #{officer}, #{tel})
+		values( #{cuId}, #{manufacNo}, #{manufacName}, #{addr}, #{officer}, #{phone})
 	</insert>
 	
 	<insert id="insertManufacApply">
@@ -71,4 +81,13 @@
 		insert into customer(cuId, name, addr, email) 
 		values( #{cuId}, #{name}, #{addr}, #{email})
 	</insert>
+	
+<!-- 	회원가입시 아이디 중복검사 -->
+	<select id="overlapId" resultType="String" parameterType="String">
+		<![CDATA[
+			select cuId
+			from member
+			where cuid=#{cuId}
+		]]>
+	</select>
 </mapper>

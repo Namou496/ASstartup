@@ -1,6 +1,5 @@
 package com.myspring.startup.ASForm.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +30,8 @@ public class ASFormServiceImpl implements ASFormService{
 
 	@Override
 	public List productName(Map searchProductNameMap) {
-		List productNameList = asformDAO.selectProductName(searchProductNameMap);
-		return productNameList;
+		return asformDAO.selectProductName(searchProductNameMap);
+
 	}
 
 }

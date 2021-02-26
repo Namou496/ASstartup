@@ -1,5 +1,6 @@
 package com.myspring.startup.member.controller;
 
+import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myspring.startup.member.service.MemberService;
 import com.myspring.startup.member.vo.MemberVO;
 
+import net.sf.json.JSONArray;
+
 @Controller("memberController")
 @RequestMapping(value="/member/*")
 @EnableAspectJAutoProxy
@@ -40,9 +43,10 @@ public class MemberControllerImpl implements MemberController{
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		try {
+			HttpSession session = request.getSession();
 			memberVO = memberService.login(member);
+			System.out.println("cuId : " + memberVO.getCuId() + "app" + memberVO.getApprovalstatus());
 			if(memberVO != null) {
-				HttpSession session = request.getSession();
 				session.setAttribute("member",  memberVO);
 				session.setAttribute("isLogOn", true);
 				mav.setViewName("redirect:/main/main.do");
@@ -81,7 +85,6 @@ public class MemberControllerImpl implements MemberController{
 		Map<String, Object> memberJoinMap = new HashMap<String, Object>();
 		Enumeration enu = request.getParameterNames();
 		while(enu.hasMoreElements()) {
-			System.out.println("11111111");
 			String name=(String)enu.nextElement();
 			String value=request.getParameter(name);		
 			memberJoinMap.put(name, value);
@@ -113,7 +116,7 @@ public class MemberControllerImpl implements MemberController{
 		try {
 			if(uno == 3) {
 				memberService.addManufac(memberJoinMap);
-			}else if(uno == 1) {
+			}else if(uno == 1 || uno == 2) {
 				System.out.println("되냐?");
 				memberService.addMember(memberJoinMap);
 			}
@@ -125,13 +128,13 @@ public class MemberControllerImpl implements MemberController{
 		}catch(Exception e) {
 			if(uno==1) {
 				message = "<script>";
-				message += "alert('회원가입이 실패헀습니다. 다시 시도해 주세요.');";
+				message += "alert('회원가입이 실패했습니다. 다시 시도해 주세요.');";
 				message += " location.href='"+request.getContextPath()+"/member/join.do';";
 				message += " </script>";
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}else if(uno==3) {
 				message = "<script>";
-				message += "alert('회원가입이 실패헀습니다. 다시 시도해 주세요.');";
+				message += "alert('회원가입이 실패했습니다. 다시 시도해 주세요.');";
 				message += " location.href='"+request.getContextPath()+"/member/manufacJoinView.do';";
 				message += " </script>";
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
@@ -252,4 +255,53 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
+	//회원가입 아이디 중복검사
+	@Override
+	@RequestMapping(value="/overlapId.do", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public void overlapId(HttpServletRequest request, HttpServletResponse response, String param) throws Exception {
+		response.setCharacterEncoding("UTF-8");
+
+		String _cuId = param;
+		System.out.println(_cuId);
+		String message;
+		ResponseEntity resEntity = null;
+		HttpHeaders resHeaders = new HttpHeaders();
+		resHeaders.add("Content-Type", "text/html; charset=utf-8");
+		String i = memberService.overlapId(_cuId);
+		JSONArray jsonArray = new JSONArray();
+		   
+		jsonArray.add(i);
+
+		 
+		   // jsonArray 넘김
+		   PrintWriter pw = response.getWriter();
+		   pw.print(jsonArray.toString());
+		   pw.flush();
+		   pw.close();
+//		try {
+//			
+//			if(i==null) {
+//				message = "<script>";
+//				message += "alert('사용가능한 아이디 입니다.');";
+//				message += "window.history.back();";
+//				message += " </script>";
+//				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+//			}else {
+//				message = "<script>";
+//				message += "alert('이미 사용중인 아이디 입니다.');";
+//				message += "window.history.back();";
+//				message += " </script>";
+//				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+//			}
+//		}catch(Exception e) {
+//			message = "<script>";
+//			message += "alert('알수 없는 에러 입니다. 죄송합니다.');";
+//			message += " location.href='"+request.getContextPath()+"/member/selectMember.do';";
+//			message += " </script>";
+//			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+//			e.printStackTrace();
+//			}
+//		return resEntity;	
+	}
 }

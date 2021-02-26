@@ -17,6 +17,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException{
 		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", memberVO);
+		System.out.println(vo.getCuId());
+		if(vo.getuNo()==3) {
+			int appStatus = sqlSession.selectOne("mapper.member.appStatus", memberVO.getCuId());
+			vo.setApprovalstatus(appStatus);
+		}
 		return vo;
 	}
 	
@@ -58,5 +63,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void insertNewCustomer(Map<String, Object> memberJoinMap) throws DataAccessException{
 		sqlSession.insert("mapper.member.insertCustomer", memberJoinMap);
+	}
+
+	@Override
+	public String overlapId(String cuId) throws DataAccessException {
+		String i = sqlSession.selectOne("mapper.member.overlapId", cuId);
+		return i;
 	}
 }

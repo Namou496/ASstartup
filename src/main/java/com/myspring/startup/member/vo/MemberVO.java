@@ -15,7 +15,14 @@ public class MemberVO {
 	private String tel;
 	private int manufacNo;
 	private int approvalNum;
+	private int approvalstatus;		//제조사 승인 여부
 	
+	public int getApprovalstatus() {
+		return approvalstatus;
+	}
+	public void setApprovalstatus(int approvalstatus) {
+		this.approvalstatus = approvalstatus;
+	}
 	public int getManufacNo() {
 		return manufacNo;
 	}

@@ -130,8 +130,6 @@ $(function(){
 });
 	function manufacSelectGroup(productGroup, manufacName){
 	var manufacName = $("#manufacName option:selected").val();
-	console.log(manufacName);
-	console.log(productGroup);
 	$.ajax({
     type: "POST",
     async: "true",
@@ -139,10 +137,16 @@ $(function(){
 	dataType: "json",
 	data: {param1:productGroup, param2:manufacName},
 	success: function(result){
-				$("#productName").find("option").remove().end().append("<option value=''>제품</option>");
-				$.each(result, function(i){
-					$("#productName").append("<option value='" + result[i] + "'>" + result[i] + "</option>");
-				});
+			$("#productName").find("option").remove().end().append("<option value=''>제품명</option>");
+			result.forEach(function(data, index) {
+				console.log(data.PRODUCTNO);
+				$("#productName").append("<option value='" + data.PRODUCTNO + "'>" + data.PRODUCTNAME + "</option>");
+			});
+//				$.each(result, function(i){
+//						console.log(result.PRODUCTNAME);
+//						$("#productName").append("<option value='" + result.PRODUCTNO + "'>" + result.PRODUCTNAME + "</option>");
+//					
+//				});
 			},
     error: function(jqXHR, textStatus, errorThrown){
 	alert("오류가 발생하였습니다.");
