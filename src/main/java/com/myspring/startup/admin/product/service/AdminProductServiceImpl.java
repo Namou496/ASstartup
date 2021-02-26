@@ -45,6 +45,13 @@ public class AdminProductServiceImpl implements AdminProductService{
 		return adminProductVO;
 	}
 	
+//	부품목록
+	@Override
+	public List<AdminProductVO> AdminProductComponent(int productNO) {
+		List componentList = adminProductDAO.selectProductComponent(productNO);
+		return componentList;
+	}
+	
 //	제품검색
 	@Override
 	public List<AdminProductVO> AdminProductSearch(String name)  {
@@ -59,4 +66,5 @@ public class AdminProductServiceImpl implements AdminProductService{
 		
 	}
 	
+
 }

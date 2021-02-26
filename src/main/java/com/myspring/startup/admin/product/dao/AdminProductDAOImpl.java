@@ -38,6 +38,14 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 		
 	}
 	
+//	부품목록
+	@Override
+	public ArrayList selectProductComponent(int productNO) throws DataAccessException {
+		ArrayList List=(ArrayList)sqlSession.selectList("mapper.adminProduct.selectProductComponent",productNO);
+		return List;
+		
+	}
+	
 //	제품검색
 	@Override
 	public ArrayList selectByProduct(String name) throws DataAccessException {

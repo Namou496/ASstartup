@@ -1,7 +1,6 @@
 package com.myspring.startup.admin.product.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,9 @@ public interface AdminProductDAO {
 	public List<AdminProductVO> selectByProduct(String name) throws DataAccessException;
 	//제품승인거절
 	void updateProductApprovalStatus(AdminProductVO adminProductVO) throws DataAccessException;
+//	부품목록
+	public ArrayList selectProductComponent(int productNO) throws DataAccessException;
+
 
 
 

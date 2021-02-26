@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class AdminProductVO {
 	
 	private int productNO;
+	private String manufacturerName;
 	private String name;
 	private int approvalNum;
 	private int approvalStatus;
@@ -13,7 +14,40 @@ public class AdminProductVO {
 	private String useManual;
 	private String ASManual;
 	private String productImage;
+
+	private String componentName;
+	private int price;
+	private int part;
 	
+	public String getComponentName() {
+		return componentName;
+	}
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getPart() {
+		return part;
+	}
+	public void setPart(int part) {
+		this.part = part;
+	}
+
+	
+	
+	
+
+	public String getManufacturerName() {
+		return manufacturerName;
+	}
+	public void setManufacturerName(String manufacturerName) {
+		this.manufacturerName = manufacturerName;
+	}
 	public String getUseManual() {
 		return useManual;
 	}

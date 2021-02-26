@@ -11,19 +11,19 @@ import org.springframework.web.servlet.ModelAndView;
 public interface AdminProductController {
 
 
-//	제품승인요청리스트
+	//제품승인요청리스트
 	public ModelAndView adminProductList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-//	제품상세
+	//제품상세
 	public ModelAndView adminProductDetail(int productNO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
-//제품검색
+	//제품검색
 	public ModelAndView adminProductSearch(String name, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
 
 	//제품승인거절
-	
 	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 
 	
 
