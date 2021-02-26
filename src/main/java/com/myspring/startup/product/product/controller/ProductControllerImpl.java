@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,7 @@ public class ProductControllerImpl implements ProductController{
 		response.setContentType("text/html;charset=UTF-8");
 		ModelAndView mav = new ModelAndView();
 		PrintWriter pw = response.getWriter();
-		
+		//ㅁ
 		try {		
 			HttpSession session = request.getSession();
 			MemberVO memberId = (MemberVO) session.getAttribute("member");
@@ -200,7 +201,6 @@ public class ProductControllerImpl implements ProductController{
 			+ "</script>");
 		}
 		return mav;
-		
 	}
 //	4) 제품등록
 	// 제품등록페이지
@@ -210,27 +210,46 @@ public class ProductControllerImpl implements ProductController{
 			 						HttpServletResponse response,
 									 @RequestParam(value="section", required=false, defaultValue="1") int section,
 									 @RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-									 @RequestParam(value="manufacName", required=false, defaultValue="") String manufacName
+									 @RequestParam(value="manufacName", required=false, defaultValue="") String manufacName,
+									 @ModelAttribute("member") MemberVO member
 									 ) throws Exception{
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		ModelAndView mav = new ModelAndView();
 		PrintWriter pw = response.getWriter();
+		
+		HttpSession session = request.getSession();
+		member = (MemberVO) session.getAttribute("member");
+		
+		int approvalStatus = member.getApprovalstatus();
+		System.out.println("approvalStatus"+approvalStatus);
+		
+		
+
 		try {
-			List GroupList = ProductService.productGroup(manufacName);
-			Map pageMap = new HashMap();
-			pageMap.put("section", section);
-			pageMap.put("pageNum", pageNum);
-			pageMap.put("manufacName", manufacName);
-			pageMap.put("GroupList", GroupList);
+			if(approvalStatus!=1) {
+				pw.print("<script>"+"alert('죄송합니다. 비승인 회원은 이용하실 수 없습니다.');"+"location.href='"+request.getContextPath()
+				+ "/Product/listProduct.do';"
+				+ "</script>");
+			}else{
+				List GroupList = ProductService.productGroup(manufacName);
+				Map pageMap = new HashMap();
+				pageMap.put("section", section);
+				pageMap.put("pageNum", pageNum);
+				pageMap.put("manufacName", manufacName);
+				pageMap.put("GroupList", GroupList);
+				pageMap.put("approvalStatus", approvalStatus);
+				mav.addObject("pageMap", pageMap);
+				mav.setViewName("/product/productApplyView");
+			}
 			
-			mav.addObject("pageMap", pageMap);
-			mav.setViewName("/product/productApplyView");
 		} catch(Exception e) {
 			pw.print("<script>"+"alert('죄송합니다. 잘못된 접근입니다. 다시 로그인 하세요.');"+"location.href='"+request.getContextPath()
 			+ "/main/main.do';"
 			+ "</script>");
 		}
+		
+
 		return mav;
 	}
 	// 제품등록
@@ -360,7 +379,6 @@ public class ProductControllerImpl implements ProductController{
 					}
 				
 				}
-				
 				
 			}
 			

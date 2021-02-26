@@ -74,24 +74,28 @@
 
         <table class="table" id="list_view">
             <thead>
-                <tr>
-                    <th scope="col" style="border-right: 1px solid #eee; width: 45%">제품</th>
-                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">분류</th>
-                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">제조사</th>
-				</tr>
+                <!-- 등록된 제품이 없을 때 -->
+	                <tr>
+						<c:if test="${totProduct==0}"><th scope="col" style="width: 100%"></th></c:if> 
+						<c:if test="${totProduct!=0 }">
+		                    <th scope="col" style="border-right: 1px solid #eee; width: 45%">제품</th>
+		                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">분류</th>
+		                    <th scope="col" style="border-right: 1px solid #eee; width: 20%">제조사</th>
+	                    </c:if>
+					</tr>
             </thead>
             <tbody>
             <!-- 제품리스트 -->
             <c:choose>
-            <c:when test="${productMap == null }">
-            <tr>
-                    <td scope="row">
-	                    <p align="center">
-	                    	<b>등록된 제품이 없습니다.</b>
-	                    </p>
-                    </td>
-                    
-            </tr> 
+            <c:when test="${totProduct==0}">
+	            <tr>
+	                    <th scope="row">
+		                    <p align="center">
+		                    	<b>등록된 제품이 없습니다.</b>
+		                    </p>
+	                    </th>
+	                    
+	            </tr> 
             </c:when>
             <c:when test="${productMap != null }">
             
