@@ -63,24 +63,16 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 				   response.setCharacterEncoding("UTF-8");
 				   String manufacName = param2;
 				   String productGroup = param1;
-//				   if(!(productGroup.length()>0)) {
-//					   productGroup = null;
-//				   }
-//				   if(!(manufacName.length()>0)) {
-//					   manufacName = null;
-//				   }
-				   System.out.println("p" + productGroup + "m" + manufacName);
+				   
 				   Map<String, Object> searchProductNameMap = new HashMap<String, Object>();
 				   searchProductNameMap.put("productGroup", productGroup);
 				   searchProductNameMap.put("manufacName", manufacName);
 				   
 				   List productNameMap = asformService.productName(searchProductNameMap);
 				   // jsonArray에 추가
-				   System.out.println("이름: " + productNameMap);
 				   JSONArray jsonArray = new JSONArray();
 				   for (int i = 0; i < productNameMap.size(); i++) {
 				      jsonArray.add(productNameMap.get(i));
-				      System.out.println(jsonArray);
 				   }
 				 
 				   // jsonArray 넘김
@@ -88,7 +80,6 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 				   pw.print(jsonArray.toString());
 				   pw.flush();
 				   pw.close();
-
 		}
 	
 	//신청서 접수 버튼 누른뒤 작업
@@ -101,9 +92,7 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			Enumeration enu = multipartRequest.getParameterNames();
 			while(enu.hasMoreElements()) {
 				String name=(String)enu.nextElement();
-				System.out.println(name);
 				String value=multipartRequest.getParameter(name);
-				System.out.println(value);
 				asformMap.put(name, value);
 			}
 			
@@ -113,10 +102,8 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			for(String mapkey : asformMap.keySet()) {
 				if(mapkey.equals("addr1")) {
 					addr1 = (String) asformMap.get(mapkey);
-//					System.out.println(addr1);
 				}else if(mapkey.equals("addr2")) {
 					addr2 = (String) asformMap.get(mapkey);
-//					System.out.println(addr2);
 				}
 			}			
 			String addr = addr1 + " " + addr2;			
@@ -125,7 +112,6 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			String imageFileName = upload(multipartRequest);
 			HttpSession session = multipartRequest.getSession();
 			MemberVO memberVO = (MemberVO) session.getAttribute("member");
-//			memberVO.setCuId("hong");
 			String id = memberVO.getCuId();
 			asformMap.put("cuId", id);
 			asformMap.put("fileimg", imageFileName);
@@ -133,10 +119,6 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			int asNo = (int)(Math.random()*5000);
 			asformMap.put("asNo", asNo);
 			
-//			System.out.println("여기로 오냐");
-//			System.out.println(memberVO.getCuId());
-//			System.out.println(multipartRequest.getParameter(imageFileName));
-			System.out.println(asformMap);
 			String message;
 			ResponseEntity resEntity = null;
 			HttpHeaders resHeaders = new HttpHeaders();
@@ -147,7 +129,6 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 					File srcFile = new File(IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 					File destDir = new File(IMAGE_REPO + "\\" + id);
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
-//					System.out.println("성공");
 				}
 				message = "<script>";
 				message += "alert('AS신청서 접수가 완료 되었습니다.');";
@@ -159,9 +140,7 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 				message += "alert('접수 중 오류가 발생했습니다. 다시 시도해 주세요. Try 1) 첨부파일 명을 바꿔 주세요. 2) 중복된 신청이 있습니다.');";
 				message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
 				message += " </script>";
-//				System.out.println("실패");
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-				e.printStackTrace();
 			}	
 			return resEntity;
 		}

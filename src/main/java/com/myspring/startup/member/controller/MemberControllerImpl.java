@@ -38,6 +38,7 @@ public class MemberControllerImpl implements MemberController{
 	
 	String _cuId;
 	
+	//로그인 페이지 실행
 	@Override
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -45,7 +46,6 @@ public class MemberControllerImpl implements MemberController{
 		try {
 			HttpSession session = request.getSession();
 			memberVO = memberService.login(member);
-			System.out.println("cuId : " + memberVO.getCuId() + "app" + memberVO.getApprovalstatus());
 			if(memberVO != null) {
 				session.setAttribute("member",  memberVO);
 				session.setAttribute("isLogOn", true);
@@ -60,6 +60,7 @@ public class MemberControllerImpl implements MemberController{
 		return mav;			
 	}
 
+	//로그아웃
 	@Override
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -70,13 +71,8 @@ public class MemberControllerImpl implements MemberController{
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
-	
-	@Override
-	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	//회원가입 후 처리
 	@Override
 	@RequestMapping(value="/addMember.do", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -117,7 +113,6 @@ public class MemberControllerImpl implements MemberController{
 			if(uno == 3) {
 				memberService.addManufac(memberJoinMap);
 			}else if(uno == 1 || uno == 2) {
-				System.out.println("되냐?");
 				memberService.addMember(memberJoinMap);
 			}
 			message = "<script>";
@@ -139,13 +134,11 @@ public class MemberControllerImpl implements MemberController{
 				message += " </script>";
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}
-			
 		}
-		
 		return resEntity;
-		
 	}
 
+	//회원가입 페이지 실행
 	@Override
 	@RequestMapping(value="/join.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView joinPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -154,6 +147,7 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
+	//비밀번호 찾기 페이지 실행
 	@Override
 	@RequestMapping(value="/pw.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView pagepw(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -162,6 +156,7 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
+	//아이디 찾기 페이지 실행
 	@Override
 	@RequestMapping(value="/id.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView pageid(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -170,6 +165,7 @@ public class MemberControllerImpl implements MemberController{
 		return mav;
 	}
 	
+	//비밀번호 찾기 실행 후 페이지
 	@Override
 	@RequestMapping(value="/lostPw.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity lostPw(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -187,7 +183,6 @@ public class MemberControllerImpl implements MemberController{
 		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			String pw = memberService.searchLostPw(lostPwMap);
-			System.out.println(pw);
 			message = "<script>";
 			message += "alert('비밀번호를 입력하신 이메일로 보냈습니다. ');";
 			message += " location.href='"+request.getContextPath()+"/member/login.do';";
@@ -199,11 +194,11 @@ public class MemberControllerImpl implements MemberController{
 			message += " location.href='"+request.getContextPath()+"/member/pw.do';";
 			message += " </script>";
 			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-			e.printStackTrace();
 		}
 		return resEntity;
 	}
 	
+	//아이디 찾기 실행 후 페이지
 	@Override
 	@RequestMapping(value="/lostId.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity lostId(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -221,7 +216,6 @@ public class MemberControllerImpl implements MemberController{
 		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			_cuId = memberService.searchLostId(lostIdMap);
-			System.out.println("c" + _cuId);
 			message = "<script>";
 			message += " location.href='"+request.getContextPath()+"/member/newId.do';";
 			message += " </script>";
@@ -232,21 +226,21 @@ public class MemberControllerImpl implements MemberController{
 			message += " location.href='"+request.getContextPath()+"/member/id.do';";
 			message += " </script>";
 			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-			e.printStackTrace();
 		}
 		return resEntity;
 	}
 	
+	//찾은 아이디 출력
 	@Override
 	@RequestMapping(value="/newId.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView newId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(_cuId);
 		mav.addObject("_cuId", _cuId);
 		mav.setViewName("/member/newId");
 		return mav;
 	}
 	
+	//회원가입 종류(멤버) 선택
 	@Override
 	@RequestMapping(value="/selectMember.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView selectMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -263,45 +257,19 @@ public class MemberControllerImpl implements MemberController{
 		response.setCharacterEncoding("UTF-8");
 
 		String _cuId = param;
-		System.out.println(_cuId);
 		String message;
 		ResponseEntity resEntity = null;
 		HttpHeaders resHeaders = new HttpHeaders();
 		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		String i = memberService.overlapId(_cuId);
 		JSONArray jsonArray = new JSONArray();
-		   
-		jsonArray.add(i);
 
-		 
+		jsonArray.add(i);
+	 
 		   // jsonArray 넘김
 		   PrintWriter pw = response.getWriter();
 		   pw.print(jsonArray.toString());
 		   pw.flush();
-		   pw.close();
-//		try {
-//			
-//			if(i==null) {
-//				message = "<script>";
-//				message += "alert('사용가능한 아이디 입니다.');";
-//				message += "window.history.back();";
-//				message += " </script>";
-//				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-//			}else {
-//				message = "<script>";
-//				message += "alert('이미 사용중인 아이디 입니다.');";
-//				message += "window.history.back();";
-//				message += " </script>";
-//				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-//			}
-//		}catch(Exception e) {
-//			message = "<script>";
-//			message += "alert('알수 없는 에러 입니다. 죄송합니다.');";
-//			message += " location.href='"+request.getContextPath()+"/member/selectMember.do';";
-//			message += " </script>";
-//			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-//			e.printStackTrace();
-//			}
-//		return resEntity;	
+		   pw.close();	
 	}
 }
