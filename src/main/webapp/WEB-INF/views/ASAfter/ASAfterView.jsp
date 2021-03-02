@@ -193,7 +193,15 @@ h1 {
 				</c:forEach>
 			</div>
 			<div class="rightmenu">
-				<span>방문예정일자</span><br> <input type="date" name="respDate"><br>
+				<span>방문예정일자</span><br>
+				<c:choose>
+					<c:when test="${uNo == 1 or uNo == 3}">
+						<input type="date" name="respDate" disabled="disabled"><br>					
+					</c:when>
+					<c:otherwise>
+						<input type="date" name="respDate"><br>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="sysptom">
 				<c:forEach items="${ASAfterView}" var="view">
