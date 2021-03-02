@@ -28,7 +28,7 @@
 <body>
 	<div class="container-fluid headerBody" style="padding: 0;">
 		<!--navbar-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 8.1%">
 			<div class="container-fluid navbark" style="padding: 0;">
 
 				<a class="navbar-brand" href="${contextPath}/main/main.do"

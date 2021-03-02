@@ -121,8 +121,7 @@ public class ProductServiceImpl implements ProductService{
 				
 				
 				int totProduct = productList.size();
-				System.out.println("totProduct" + totProduct);
-				
+
 				Map productMap = new HashMap();
 				productMap.put("uno", uno);
 				productMap.put("productList", productList);
@@ -150,7 +149,6 @@ public class ProductServiceImpl implements ProductService{
 				for(int i=0; i<componentName.length; i++) {
 					ProductVO proVO = new ProductVO();
 					int cnt = 1+i;
-					System.out.println("cnt:" + cnt);
 					if(_componentPart[i].equals("부품")) {
 						componentPart=1;
 					}else{
@@ -166,7 +164,6 @@ public class ProductServiceImpl implements ProductService{
 				
 				product.put("productNo", RecentProd+1);
 				product.put("approvalNum", RecentApprNum+1);
-				
 				proDAO.insertProduct(product);
 				proDAO.insertComponent(componentList);
 				proDAO.insertProductApply(product);
