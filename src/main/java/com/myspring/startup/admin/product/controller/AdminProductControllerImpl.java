@@ -1,6 +1,7 @@
 package com.myspring.startup.admin.product.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -121,31 +122,37 @@ public class AdminProductControllerImpl implements AdminProductController {
 	@Override
 	@RequestMapping(value = "/admin/product/adminProductComponentPrice.do", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public void adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		PrintWriter pw = response.getWriter();
+//			int productNO = Integer.parseInt(request.getParameter("productNO"));
+//			int componentNO = Integer.parseInt(request.getParameter("componentNO"));
+//			int price = Integer.parseInt(request.getParameter("price"));
 
-		try {
-			int productNO = Integer.parseInt(request.getParameter("productNO"));
-			int componentNO = Integer.parseInt(request.getParameter("componentNO"));
-			int price = Integer.parseInt(request.getParameter("price"));
+		int productNO=Integer.parseInt(request.getParameter("productNO"));
+		String[] prices = request.getParameterValues("price");
+		String[] componentNO = request.getParameterValues("componentNO");
+		List<AdminProductVO> adminProductVOList = new ArrayList<AdminProductVO>();
 
+		for (int i = 0; i < componentNO.length; i++) {
 			AdminProductVO adminProductVO = new AdminProductVO();
-
 			adminProductVO.setProductNO(productNO);
-			adminProductVO.setComponentNO(componentNO);
-			adminProductVO.setPrice(price);
-
-			adminProductService.AdminProductComponentPrice(adminProductVO);
-
-//			ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
-
-			return;
-
-		} catch (Exception e) {
-			pw.print("<script>" + "alert('부품 가격을 수정할 수 없습니다.');" + "</script>");
+			adminProductVO.setPrice(Integer.parseInt(prices[i]));
+			adminProductVO.setComponentNO(Integer.parseInt(componentNO[i]));
+			adminProductVOList.add(adminProductVO);
 		}
+
+//			AdminProductVO adminProductVO = new AdminProductVO();
+//
+//			adminProductVO.setProductNO(productNO);
+//			adminProductVO.setComponentNO(componentNO);
+//			adminProductVO.setPrice(price);
+
+		adminProductService.AdminProductComponentPrice(adminProductVOList);
+
+		ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
+
+		return mav;
 
 	}
 

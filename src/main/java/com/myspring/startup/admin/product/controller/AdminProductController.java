@@ -25,7 +25,7 @@ public interface AdminProductController {
 	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 //	제품가격설정
-	public void adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 
 	

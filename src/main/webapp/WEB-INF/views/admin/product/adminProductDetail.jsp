@@ -67,34 +67,16 @@
 			alert('승인이 완료되었습니다.')
 		});
 
-// 		$("#modPrice").click(function() {
-// 			var price = $("#price").val();
-// 			$("#no2").val(productNO);
-// 			$("#comNO").val(componentNO);
-// 			$("#comPrice").val(price);
-// 			$("#frmMod").submit();
-// 			alert('부품 가격이 수정되었습니다.')
-// 		});
+		$("#modPrice").click(function() {
+			var price = $("#price").val();
+			$("#no2").val(productNO);
+			$("#comNO").val(componentNO);
+			$("#comPrice").val(price);
+			$("#frmMod").submit();
+			alert('부품 가격이 수정되었습니다.')
+		});
 
 	});
-	
-	function componentPrice(componentNO){
-		$.ajax({
-		    type: "POST",
-		    async: "true",
-			url: "${contextPath}/admin/product/adminProductComponentPrice.do",
-			dataType: "json",
-			data: {param:componentNO},
-			success:function(mod) {
-				
-				
-				
-				}
-			error: function(jqXHR, textStatus, errorThrown){
-				alert("오류가 발생하였습니다.");
-			
-			});
-	}
 	
 	
 </script>
@@ -209,14 +191,16 @@
 
 						<td><input id="price" type="text" class="form-control"
 							value="${com.price}" name="price"></td>
-						<td><input type="hidden" name="componentNO" value="${com.componentNO}"></td>
+						<td><input type="hidden" name="componentNO" value="${com.componentNO}">
+						<input type="hidden" name="productNO" id="no2" value="${productDetail.productNO}"><button style="margin:0 auto;" class="btn btn-outline-primary" id="modPrice">수정</button></td>
 
 					</tr>
 
 				</c:forEach>
 
-				<button class="btn btn-outline-primary" id="modPrice">수정</button>
+				
 			</table>
+			
 		</form>
 		<p></p>
 
@@ -238,9 +222,9 @@
 	</div>
 	<form id="frmApproval"
 		action="${contextPath }/admin/product/adminProductApproval.do">
-		<input type="hidden" id="status" name="approvalStatus"> <input
-			type="hidden" id="no" name="productNO"> <input type="hidden"
-			id="reason" name="rejectionReason">
+		<input type="hidden" id="status" name="approvalStatus">
+		<input type="hidden" id="no" name="productNO">
+		<input type="hidden" id="reason" name="rejectionReason">
 
 	</form>
 
