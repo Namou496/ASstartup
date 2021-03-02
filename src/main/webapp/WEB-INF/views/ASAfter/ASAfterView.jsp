@@ -234,7 +234,7 @@ h1 {
 			<div class="submit">
 				<c:if test="${uNo == 2}">
 					<input id="submitbtn" type="submit" value="승인">
-				</c:if>
+				</c:if> 
 				<input type="hidden" name="asno" value="${asno}"> 
 				<input type="hidden" name="cuId" value="${sessionScope.member.cuId}">
 			</div>
