@@ -25,5 +25,4 @@ public class ASrespondVO {
 	public void setCuId(String cuId) {
 		this.cuId = cuId;
 	}
-	
 }

@@ -16,7 +16,5 @@ public class TestMemberVO {
 	}
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
-	}
-	
-	
+	}	
 }
