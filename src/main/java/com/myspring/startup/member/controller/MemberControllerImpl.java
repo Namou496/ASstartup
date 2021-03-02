@@ -182,12 +182,19 @@ public class MemberControllerImpl implements MemberController{
 		HttpHeaders resHeaders = new HttpHeaders();
 		resHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			String pw = memberService.searchLostPw(lostPwMap);
-			message = "<script>";
-			message += "alert('비밀번호를 입력하신 이메일로 보냈습니다. ');";
-			message += " location.href='"+request.getContextPath()+"/member/login.do';";
-			message += " </script>";
-			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+			int i = memberService.searchLostPw(lostPwMap);
+			if(i==1) {
+				message = "<script>";
+				message += " location.href='"+request.getContextPath()+"/member/repw.do';";
+				message += " </script>";
+				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+			}else {
+				message = "<script>";
+				message += "alert('사용자 정보를 찾지 못하였습니다.');";
+				message += " location.href='"+request.getContextPath()+"/member/pw.do';";
+				message += " </script>";
+				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+			}
 		}catch(Exception e) {
 			message = "<script>";
 			message += "alert('없는 사용자 입니다. 다시한번 확인해 주세요');";
@@ -197,6 +204,47 @@ public class MemberControllerImpl implements MemberController{
 		}
 		return resEntity;
 	}
+	
+	//비밀번호 변경 페이지
+	@Override
+	@RequestMapping(value="/repw.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView pw_re(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/repw");
+		return mav;
+	}
+	//비밀번호 변경 페이지 실행
+	@Override
+	@RequestMapping(value="/updatePw.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		Map<String, Object> updatePwMap = new HashMap<String, Object>();	
+
+		String cuId = request.getParameter("cuId");
+		String pw = request.getParameter("pw");
+		
+		updatePwMap.put("cuId", cuId);
+		updatePwMap.put("pw", pw);
+		
+		String message;
+		ResponseEntity resEntity = null;
+		HttpHeaders resHeaders = new HttpHeaders();
+		resHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			memberService.updatePw(updatePwMap);
+			message = "<script>";
+			message += "alert('비밀번호가 변경되었습니다. ');";
+			message += " location.href='"+request.getContextPath()+"/member/login.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+		}catch(Exception e) {
+			message = "<script>";
+			message += "alert('알 수 없는 오류가 발생하였습니다.');";
+			message += " location.href='"+request.getContextPath()+"/main/main.do';";
+			message += " </script>";
+			resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
+		}
+		return resEntity;
+	}	
 	
 	//아이디 찾기 실행 후 페이지
 	@Override

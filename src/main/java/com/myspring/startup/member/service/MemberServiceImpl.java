@@ -27,9 +27,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String searchLostPw(Map<String, Object> lostPwMap) throws Exception {
-		String pw = memberDAO.searchLostPw(lostPwMap);
-		return pw;
+	public int searchLostPw(Map<String, Object> lostPwMap) throws Exception {
+		int i = memberDAO.searchLostPw(lostPwMap);
+		return i;
 		
 	}
 
@@ -55,5 +55,11 @@ public class MemberServiceImpl implements MemberService{
 	public String overlapId(String cuId) throws Exception {
 		String i = memberDAO.overlapId(cuId);
 		return i;
+	}
+
+	@Override
+	public void updatePw(Map<String, Object> updatePwMap) throws Exception {
+		memberDAO.updatePw(updatePwMap);
+		
 	}
 }
