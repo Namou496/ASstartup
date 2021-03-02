@@ -235,8 +235,8 @@ h1 {
 				<c:if test="${uNo == 2}">
 					<input id="submitbtn" type="submit" value="승인">
 				</c:if>
-				<input type="hidden" name="asno" value="${asno}"> <input
-					type="hidden" name="cuId" value="${sessionScope.member.cuId}">
+				<input type="hidden" name="asno" value="${asno}"> 
+				<input type="hidden" name="cuId" value="${sessionScope.member.cuId}">
 			</div>
 		</form>
 	</div>
