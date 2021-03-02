@@ -13,20 +13,19 @@ function addinput(result){
         var a = $('.c1').val();
         var b = $('.c2').val();
         var c = $('.c3').val();
-        var b1 = $('.c2').text();
-        console.log(c);
-        
-        if(b1.search(/\s/) != -1){
-	  		alert("공백 없이 입력해주세요.");
-	  		$('.c2').val('분류');
-	  		$('.c3').val('');
-	  		return false;
-	  	}
+        var b1 = $('.c3').val();
+
 	        if(b=='분류'){
 	           alert('부품분류를 선택해주세요.');
 	        } else if(c==''){
 	           alert('부품이름을 입력하세요.');
 	        } else{
+	        	if(b1.search(/\s/) != -1){
+			  		alert("공백 없이 입력해주세요.");
+			  		$('.c2').val('분류');
+			  		$('.c3').val('');
+			  		return false;
+	  			}
 	        var html = '';
 	            html += '<tr>';
 	            html += '<td id="td1" scope="row">'+a+'</td>';
