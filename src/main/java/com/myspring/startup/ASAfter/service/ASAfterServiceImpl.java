@@ -12,6 +12,7 @@ import com.myspring.startup.ASAfter.dao.ASAfterDAO;
 import com.myspring.startup.ASAfter.vo.ASAfterDetailVO;
 import com.myspring.startup.ASAfter.vo.ASAfterVO;
 import com.myspring.startup.ASAfter.vo.ASrespondVO;
+import com.myspring.startup.ASAfter.vo.Criteria;
 
 @Service("ASAfterService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -22,20 +23,20 @@ public class ASAfterServiceImpl implements ASAfterService {
 	private ASAfterDAO ASAfterdao;
 
 	@Override
-	public List<ASAfterVO> selectASAfterList() throws Exception {
-		List<ASAfterVO> alllist = ASAfterdao.selectASAfterList();
+	public List<ASAfterVO> selectASAfterList(Criteria cri) throws Exception {
+		List<ASAfterVO> alllist = ASAfterdao.selectASAfterList(cri);
 		return alllist;
 	}
 
 	@Override
-	public List<ASAfterVO> selectUserASAfterList(String ucuid) throws Exception {
-		List<ASAfterVO> userlist = ASAfterdao.selectUserASAfterList(ucuid);
+	public List<ASAfterVO> selectUserASAfterList(Map<String, Object> userpaging) throws Exception {
+		List<ASAfterVO> userlist = ASAfterdao.selectUserASAfterList(userpaging);
 		return userlist;
 	}
 
 	@Override
-	public List<ASAfterVO> selectMfrASAfterList(String mcuid) throws Exception {
-		List<ASAfterVO> mfrlist = ASAfterdao.selectMfrASAfterList(mcuid);
+	public List<ASAfterVO> selectMfrASAfterList(Map<String, Object> mfrpaging) throws Exception {
+		List<ASAfterVO> mfrlist = ASAfterdao.selectMfrASAfterList(mfrpaging);
 		return mfrlist;
 	}
 
@@ -56,4 +57,14 @@ public class ASAfterServiceImpl implements ASAfterService {
 		List<ASAfterVO> searchlist = ASAfterdao.searchASAfterList(search);
 		return searchlist;
 	}
+	
+	@Override
+	public int countASAfterList(Map<String, Object> searchcount) throws Exception {
+		return ASAfterdao.countASAfterList(searchcount);
+	}
+//	@Override
+//	public List<ASAfterVO> pagingList(Criteria cri) throws Exception {
+//		List<ASAfterVO> paginglist = ASAfterdao.pagingList(cri);
+//		return paginglist;
+//	}
 }

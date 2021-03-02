@@ -7,6 +7,10 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="uNo" value="${sessionScope.member.uNo}" />
+<c:set var="userList" value="${pageMap.userlist}" />
+<c:set var="mfrList" value="${pageMap.mfrlist}" />
+<c:set var="allList" value="${pageMap.paginglist}" />
+<c:set var="pageMaker" value="${pageMap.pageMaker}" />
 
 <head>
 <meta charset="UTF-8">
@@ -111,13 +115,13 @@ input[type="checkbox"] {
 		<form action="${contextPath}/ASAfter/searchASAfterList.do"
 			method="get">
 			<div class="select">
-<!-- 				<div class="selectbox"> -->
-<!-- 					<label> <input type="checkbox" name="sort" value="1">TV</label>  -->
-<!-- 					<label> <input type="checkbox" name="sort" value="2">컴퓨터</label>  -->
-<!-- 					<label> <input type="checkbox" name="sort" value="3">세탁기</label>  -->
-<!-- 					<label> <input type="checkbox" name="sort" value="4">라디오</label>  -->
-<!-- 					<label> <input type="checkbox" name="sort" value="5">전자레인지</label> -->
-<!-- 				</div> -->
+				<!-- 				<div class="selectbox"> -->
+				<!-- 					<label> <input type="checkbox" name="sort" value="1">TV</label>  -->
+				<!-- 					<label> <input type="checkbox" name="sort" value="2">컴퓨터</label>  -->
+				<!-- 					<label> <input type="checkbox" name="sort" value="3">세탁기</label>  -->
+				<!-- 					<label> <input type="checkbox" name="sort" value="4">라디오</label>  -->
+				<!-- 					<label> <input type="checkbox" name="sort" value="5">전자레인지</label> -->
+				<!-- 				</div> -->
 			</div>
 
 			<c:if test="${uNo == 2 || uNo == 4}">
@@ -146,40 +150,131 @@ input[type="checkbox"] {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="ASAfter" items="${ASAfterList}">
-					<form action="${contextPath}/ASAfter/ASAfterListDetail.do">
-						<tr class=content>
-							<th scope="row">${ASAfter.asNo}</th>
-							<td>${ASAfter.meetDate}</td>
-							<td>${ASAfter.pname}</td>
-							<td>${ASAfter.prodGroup}</td>
-							<td>${ASAfter.addr}</td>
-							<td>${ASAfter.uname}</td>
-							<c:if test="${ASAfter.sta == 1}">
-								<td>처리전</td>
-							</c:if>
-							<c:if test="${ASAfter.sta == 2}">
-								<td>처리중</td>
-							</c:if>
-							<c:if test="${ASAfter.sta == 3}">
-								<td>처리완료</td>
-							</c:if>
-							<input type="hidden" name="asno" value="${ASAfter.asNo}">
-							<td><input type="submit" value="상세정보"></td>
-						</tr>
-					</form>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${uNo == 1}">
+						<c:forEach var="ASAfter" items="${userList}">
+							<form action="${contextPath}/ASAfter/ASAfterListDetail.do">
+								<tr class=content>
+									<th scope="row">${ASAfter.asNo}</th>
+									<td>${ASAfter.meetDate}</td>
+									<td>${ASAfter.pname}</td>
+									<td>${ASAfter.prodGroup}</td>
+									<td>${ASAfter.addr}</td>
+									<td>${ASAfter.uname}</td>
+									<c:if test="${ASAfter.sta == 1}">
+										<td>처리전</td>
+									</c:if>
+									<input type="hidden" name="asno" value="${ASAfter.asNo}">
+									<td><input type="submit" value="상세정보"></td>
+								</tr>
+							</form>
+						</c:forEach>
+					</c:when>
+					<c:when test="${uNo == 3}">
+						<c:forEach var="ASAfter" items="${mfrList}">
+							<form action="${contextPath}/ASAfter/ASAfterListDetail.do">
+								<tr class=content>
+									<th scope="row">${ASAfter.asNo}</th>
+									<td>${ASAfter.meetDate}</td>
+									<td>${ASAfter.pname}</td>
+									<td>${ASAfter.prodGroup}</td>
+									<td>${ASAfter.addr}</td>
+									<td>${ASAfter.uname}</td>
+									<c:if test="${ASAfter.sta == 1}">
+										<td>처리전</td>
+									</c:if>
+									<input type="hidden" name="asno" value="${ASAfter.asNo}">
+									<td><input type="submit" value="상세정보"></td>
+								</tr>
+							</form>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="ASAfter" items="${allList}">
+							<form action="${contextPath}/ASAfter/ASAfterListDetail.do">
+								<tr class=content>
+									<th scope="row">${ASAfter.asNo}</th>
+									<td>${ASAfter.meetDate}</td>
+									<td>${ASAfter.pname}</td>
+									<td>${ASAfter.prodGroup}</td>
+									<td>${ASAfter.addr}</td>
+									<td>${ASAfter.uname}</td>
+									<c:if test="${ASAfter.sta == 1}">
+										<td>처리전</td>
+									</c:if>
+									<input type="hidden" name="asno" value="${ASAfter.asNo}">
+									<td><input type="submit" value="상세정보"></td>
+								</tr>
+							</form>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+
 			</tbody>
 		</table>
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#"
-					tabindex="-1" aria-disabled="true">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<c:choose>
+					<c:when test="${uNo == 1}">
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectUserASAfterList.do?page=${pageMaker.startPage-1}'/>">Prev</a></li>
+						</c:if>
+						<c:forEach begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}" var="pageNum">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectUserASAfterList.do?page=${pageNum}'/>">${pageNum}</a></li>
+						</c:forEach>
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectUserASAfterList.do?page=${pageMaker.endPage+1}'/>">Next</a></li>
+						</c:if>
+					</c:when>
+					<c:when test="${uNo == 3}">
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectMfrASAfterList.do?page=${pageMaker.startPage-1}'/>">Prev</a></li>
+						</c:if>
+						<c:forEach begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}" var="pageNum">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectMfrASAfterList.do?page=${pageNum}'/>">${pageNum}</a></li>
+						</c:forEach>
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectMfrASAfterList.do?page=${pageMaker.endPage+1}'/>">Next</a></li>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectASAfterList.do?page=${pageMaker.startPage-1}'/>">Prev</a></li>
+						</c:if>
+						<c:forEach begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}" var="pageNum">
+							<c:choose>
+								<c:when test="${condition == 1 or condition == null}">
+									<li class="page-item"><a class="page-link"
+										href="<c:url value='/ASAfter/searchASAfterList.do?page=${pageNum}&condition=1&keyword=${keyword}'/>">${pageNum}</a></li>
+								</c:when>
+								<c:when test="${condition == 2 or condition == null}">
+									<li class="page-item"><a class="page-link"
+										href="<c:url value='/ASAfter/searchASAfterList.do?page=${pageNum}&condition=2&keyword=${keyword}'/>">${pageNum}</a></li>
+								</c:when>
+								<c:when test="${condition == 3 or condition == null}">
+									<li class="page-item"><a class="page-link"
+										href="<c:url value='/ASAfter/searchASAfterList.do?page=${pageNum}&condition=3&keyword=${keyword}'/>">${pageNum}</a></li>
+								</c:when>
+							</c:choose>
+
+						</c:forEach>
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li class="page-item"><a class="page-link"
+								href="<c:url value='/ASAfter/selectASAfterList.do?page=${pageMaker.endPage+1}'/>">Next</a></li>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</nav>
 	</div>

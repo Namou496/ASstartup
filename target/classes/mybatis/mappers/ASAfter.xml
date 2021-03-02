@@ -26,28 +26,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<!-- AS현황 리스트 출력 -->
-	<select id="selectASAfterList" resultMap="resultASAfterList">
+	<select id="selectASAfterList" resultMap="resultASAfterList"
+		parameterType="Criteria">
 		<![CDATA[
-			select * from ASAfter
-			where sta = 1
+			select rownum rnum, asno, meetdate, pname, prodgroup, addr, uname, sta
+			from(select rownum rnum, asno, meetdate, pname, prodgroup, addr, uname, sta
+     			 from asafter
+     			 where sta = 1)
+			where rnum between #{pageStart} and #{pageEnd}
 		]]>
 	</select>
 
 	<select id="selectUserASAfterList" resultMap="resultASAfterList"
-		parameterType="String">
+		parameterType="java.util.Map">
 		<![CDATA[
-			select f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
-			from asform f, product p, customer c
-			where c.cuid = f.cuid and p.productno = f.productno and c.cuid=#{cuid} and sta = 1
+			select *
+			from(select rownum as rnum, f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
+     			 from asform f, product p, customer c
+     			 where c.cuid = f.cuid and p.productno = f.productno and sta = 1 and c.cuid=#{cuid})
+			where rnum between #{pageStart} and #{pageEnd}
 		]]>
 	</select>
 
 	<select id="selectMfrASAfterList" resultMap="resultASAfterList"
-		parameterType="String">
+		parameterType="java.util.Map">
 		<![CDATA[
-			select f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
-			from asform f, product p, customer c
-			where c.cuid = f.cuid and p.productno = f.productno and p.cuid=#{cuid} and sta = 1
+			select *
+			from(select rownum as rnum, f.asno, f.meetdate, p.name pname, p.prodgroup, f.addr, c.name uname, f.sta
+     			 from asform f, product p, customer c
+     			 where c.cuid = f.cuid and p.productno = f.productno and sta = 1 and p.cuid=#{cuid})
+			where rnum between #{pageStart} and #{pageEnd}
 		]]>
 	</select>
 
@@ -79,27 +87,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchASAfterList" resultMap="resultASAfterList"
 		parameterType="java.util.Map">
 	  	<![CDATA[
-	  		select * from ASAfter
+	  		select rownum rnum, asno, meetdate, pname, prodgroup, addr, uname, sta
+	  		from(select rownum rnum, asno, meetdate, pname, prodgroup, addr, uname, sta
+				 from asafter
 	  	]]>
-		<where>
+		<choose>
+			<when test="condition == 1 and keyword != ''">
+				 where sta = 1 and (pname LIKE '%' || #{keyword} || '%' or uname LIKE '%' || #{keyword} || '%'))
+			where rnum between #{pageStart} and #{pageEnd}
+			</when>
+
+			<when test="condition == 2 and keyword != ''">
+				where sta = 1 and pname LIKE '%' || #{keyword} || '%')
+			where rnum between #{pageStart} and #{pageEnd}
+			</when>
+
+			<when test="condition == 3 and keyword != ''">
+				where sta = 1 and uname LIKE '%' || #{keyword} || '%')
+			where rnum between #{pageStart} and #{pageEnd}
+			</when>
+
+			<when test="keyword == ''">
+				where sta = 1)
+				where rnum between #{pageStart} and
+				#{pageEnd}
+			</when>
+		</choose>
+	</select>
+	
+	<select id="countASAfterList" resultType="int"
+		parameterType="java.util.Map">
+		<![CDATA[
+			select count(*)
+		]]>
+		<if test="uNo == 2 or uNo == 4">
 			<choose>
 				<when test="condition == 1 and keyword != ''">
-					sta = 1 and (pname LIKE '%' || #{keyword} || '%' or uname LIKE '%' ||
-					#{keyword} || '%')
+					from asafter
+					where sta = 1 and (pname LIKE '%' || #{keyword} || '%' or uname LIKE '%' || #{keyword} || '%')
 				</when>
 
 				<when test="condition == 2 and keyword != ''">
-					sta = 1 and pname LIKE '%' || #{keyword} || '%'
+					from asafter
+					where sta = 1 and pname LIKE '%' || #{keyword} || '%'
 				</when>
 
 				<when test="condition == 3 and keyword != ''">
-					sta = 1 and uname LIKE '%' || #{keyword} || '%'
+					from asafter
+					where sta = 1 and uname LIKE '%' || #{keyword} || '%'
 				</when>
 
-				<when test="keyword == ''">
-					sta = 1
+				<when test="keyword == '' or keyword == null">
+					from asafter
+					where sta = 1 and 1=1
 				</when>
 			</choose>
-		</where>
+		</if>
+		<if test="uNo == 1">
+			from asform f, product p, customer c
+			where c.cuid = f.cuid and p.productno = f.productno and sta = 1 and c.cuid=#{cuid}
+		</if>
+		<if test="uNo == 3">
+			from asform f, product p, customer c
+			where c.cuid = f.cuid and p.productno = f.productno and sta = 1 and p.cuid=#{cuid}
+		</if>
 	</select>
 </mapper>
