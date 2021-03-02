@@ -240,6 +240,5 @@ h1 {
 			</div>
 		</form>
 	</div>
-	<input type="button" id="test" value="test">
 </body>
 </html>
