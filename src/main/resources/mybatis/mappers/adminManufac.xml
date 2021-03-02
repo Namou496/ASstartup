@@ -3,92 +3,102 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 제조사승인 -->
-
 <mapper namespace="mapper.adminManufac">
 
-<!-- 승인요청리스트에 페이징기능 추가해야됨 -->
+	<!-- 제조사승인vo -->
 
-	<!-- 제조사vo -->
-<!-- 	<resultMap type="ManuMemberVO" id="manufacResult"> -->
-<!-- 		<result property="cuId" column="cuId" /> -->
-<!-- 		<result property="manufacturerNo" column="manufacturerNo" /> -->
-<!-- 		<result property="name" column="name" /> -->
-<!-- 		<result property="addr" column="addr" /> -->
-<!-- 		<result property="officer" column="officer" /> -->
-<!-- 		<result property="tel" column="tel" /> -->
-<!-- 	</resultMap> -->
+	<resultMap type="AdminManufacVO" id="manufacApprovalResult">
+		<result property="cuId" column="cuId" />
+		<result property="name" column="name" />
+		<result property="addr" column="addr" />
+		<result property="officer" column="officer" />
+		<result property="tel" column="tel" />
+		<result property="approvalNum" column="approvalNum" />
+		<result property="approvalStatus" column="approvalStatus" />
+		<result property="rejectionReason" column="rejectionReason" />
+	</resultMap>
 
-	<!-- 제조사승인 vo -->
-<!-- 	<resultMap type="AdminManufacVO" id="manufacApprovalResult"> -->
-<!-- 		<result property="approvalNum" column="approvalNum" /> -->
-<!-- 		<result property="approvalStatus" column="approvalStatus" /> -->
-<!-- 		<result property="rejectionReason" column="rejectionReason" /> -->
-<!-- 	</resultMap> -->
+<!-- 제조사승인요청리스트 -->
 
-	<!-- 승인요청리스트 (페이징 추가해야됨) -->
-<!-- 	<select id="selectManufacApprovalList" resultMap="manufacApprovalResult" -->
-<!-- 		parameterType="java.util.Map"> -->
-<!-- 
-  <![CDATA[
-		select
+<!-- 승인요청리스트 -->
+	<select id="selectManufacApprovalList"
+		resultMap="manufacApprovalResult" parameterType="java.util.Map">
 
-        manufacturerapproval.approvalnum,
- 		manufacturer.cuid, manufacturer.manufacturerno,
- 		manufacturer.name,
- 		manufacturer.addr, manufacturer.officer,
- 		manufacturer.tel
-       
- 		from
- 		manufacturer, manufacturerapproval
-		
- 		where 
- 		manufacturer.cuid=manufacturerApproval.cuid 
-		
- 		order by approvalnum desc
- ]]>
+		<![CDATA[
+		select approvalnum,name,manufacturerno,officer,tel,approvalstatus
+			from(
+				select rowNum as recNum,approvalnum,name,manufacturerno,officer,tel,approvalstatus
+					from(select manufacturerapproval.approvalNum,manufacturer.name,
+					manufacturer.manufacturerno,manufacturer.officer,manufacturer.tel,manufacturerapproval.approvalStatus
+					from manufacturer,manufacturerapproval
+					where manufacturer.cuid=manufacturerapproval.cuid
+					order by manufacturerapproval.approvalnum desc
+				)
+			)
+			where recnum between (#{secNum}-1)*100 + (#{pageNum}-1)*10+1 and (#{secNum}-1)*100 + (#{pageNum}*10)
 
- 	</select> 
--->
-	<!-- 제조사직접등록 (manufacturerNo 관련 수정해야됨) -->
-	<!-- 
-	<insert id="insertManufacturer" parameterType="java.util.Map">
-			<![CDATA[
-  				insert into product( 
-  									cuId,  
- 									manufacturerNo,
-  									name,  
-  									addr,  
-   									officer,  
-  									tel  
-									
-   									)   
-           		values(    
-        		
-           							#{cuId}, 
-   									#{manufacturerNo}, 
-  									#{name}, 
-   									#{addr},  
-   									#{officer},  
-   									#{tel}  
-        			
-           		);  
-  			]]> 
-	</insert>
- -->
-	<!-- 승인여부 업데이트 -->
-	<!-- 
- 	<update id="updateManufacApprovalStatus" 
- 		parameterType="java.util.Map"> 
+		 ]]>
+
+	</select>
 	
-   <![CDATA[
- 	update ManufacturerApproval 
-		set approvalstatus = #{approvalstatus}
+		<!-- 하단 페이징 버튼 sql -->
+	<select id="selectManufacApprovalListCount" parameterType="int"
+		resultType="int">
+		
+		<![CDATA[
+		select count(rownum) from(
+			select rownum
+			from manufacturer,manufacturerapproval
+			where manufacturer.cuid=manufacturerapproval.cuid
+			order by manufacturerapproval.approvalnum
+			)
+		where rownum between (#{secNum}-1)*100+1 and (#{secNum}*100)
+		]]>
+	</select>
+	
+		<!-- 승인상세 -->
+	<select id="selectManufacApprovalDetail"
+		resultType="AdminManufacVO" parameterType="int">
+
+		<![CDATA[
+		select
+		manufacturerno,name,addr,officer,tel,cuId
+		from
+		manufacturer
+		
 		where
-		manufacturerNo=#{manufacturerNo}
+		manufacturerNO=#{manufacturerNO}
+		]]>
 
- 	]]>
+	</select>
+	
+	<!-- 제조사명검색 -->
+	<select id="selectByManufac" resultType="AdminManufacVO"
+		parameterType="String">
+		<![CDATA[
+		select manufacturerapproval.approvalNum,manufacturer.name,
+					manufacturer.manufacturerno,manufacturer.officer,manufacturer.tel,manufacturerapproval.approvalStatus
+					from manufacturer,manufacturerapproval
+		
+		where name like '%'||#{name}||'%' and manufacturer.cuid=manufacturerApproval.cuid
+		order by approvalnum desc
+		]]>
+	</select>
 
- 	</update>
- -->
+
+
+	<!-- 승인여부 업데이트 -->
+	<update id="updateManufacApprovalStatus" parameterType="AdminManufacVO">
+
+		<![CDATA[
+		
+			update manufacturerApproval
+			set approvalStatus = #{approvalStatus}, rejectionReason=#{rejectionReason}
+			where cuId=#{cuId}
+		
+		]]>
+
+	</update>
+
+
 </mapper>

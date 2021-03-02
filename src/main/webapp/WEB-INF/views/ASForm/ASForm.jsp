@@ -2,7 +2,14 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+    <c:set var="productMap"  value="${productMap}" /> <!-- 제품리스트 -->
+	<c:set var="totProduct"  value="${productMap.totProduct}" /> <!-- 글 갯수 -->
+	<c:set var="pageMap"  value="${pageMap}" /> <!-- 로그인된 제조사명 -->
+	<c:set var="manufacSearch"  value="${manufacName}" /> <!-- 제조사명 리스트 -->
+	<!-- 페이징 -->
+	<c:set var="section"  value="${productMap.section}" /> 
+	<c:set var="pageNum"  value="${productMap.pageNum}" />
 <%
 	request.setCharacterEncoding("utf-8");
 %>
@@ -13,14 +20,10 @@
 <meta charset="UTF-8">
 <title>신청서</title>
 <!-- css -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
+<link type="text/css" rel="stylesheet" href="../resources/css/bootstrap.min.css" />
 
 <!-- JavaScript -->
 <script type="text/javascript"
@@ -29,9 +32,12 @@
 	src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript"
 	src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!--     <script type="text/javascript" src="../resources/js/join.js"></script> -->
 <script type="text/javascript" src="../resources/js/asform.js"></script>
-
+<script>
+    $(function(){
+    	$("#img").css({display:"none"});
+    });
+    </script>
 </head>
 
 <body>
@@ -142,28 +148,27 @@
 									개인정보 취급 방침에 동의합니다.
 								</label>
 							</div>
+							</div>
 							<br /> <input type="hidden" id="sta" name="sta" value="1">
 							<div class="form-group">
-							<h5>
-									<label for="vistype" class="col-lg-2 control-label">제품</label>
-								</h5>
-								<select name="productNo" class="form-control">
-									<option label="제품" selected="selected" disabled>제품</option>
-									<option label="엘지티비" value="1">엘지티비</option>
-									<option label="한성컴" value="2">한성컴</option>
-									<option label="삼성냉장고" value="3">삼성냉장고</option>
-									<option label="삼성티비" value="4">삼성티비</option>
-									<option label="엘지컴" value="5">엘지컴</option>
-									<option label="DC냉장고" value="6">DC냉장고</option>
-									<option label="소니티비" value="7">소니티비</option>
-									<option label="일텔컴" value="8">인텔컴</option>
-									<option label="엘지냉장고" value="9">엘지냉장고</option>
-									<option label="비보북" value="10">비보북</option>
-									<option label="울트라북17" value="11">울트라북17</option>
-									<option label="트라트라23" value="12">트라트라23</option>
-								</select>
+							<!-- 대분류 중분류 소분류 -->
+                            <div class="form-group col-lg-10">
+                                <select id="manufacName" class="form-control-first" name="manufacName" title="제조사" onchange="manufacSelectName(this.value)">
+                                    <option value="" selected>제조사</option>
+                                    <c:forEach var="manufacSearch" items="${manufacSearch }">
+                                    	<option value="${manufacSearch }">${manufacSearch }</option>
+                                    </c:forEach>
+                                </select>
+
+                                <select id="productGroup" class="form-control-second" name="productGroup" title="제품분류" onchange="manufacSelectGroup(this.value)">
+                                    <option value="" selected>제품 분류</option>
+                                </select>
+
+                                <select id="productName" class="form-control-third" name="productName" title="제품명">
+                                    <option value="" selected>제품명</option>
+                                </select>
 							</div><br/>
-							<div class="form-group">
+							<div class="form-group col-lg-10">
 								<h5>
 									<label for="vistype" class="col-lg-2 control-label">방문
 										구분</label>
@@ -177,16 +182,16 @@
 								</div>
 							</div>
 							<br />
-							<div class="form-group" id="divId">
+							<div class="form-group col-lg-10" id="divId">
 								<label for="phonenum" class="col-lg-2 control-label">전화번호</label>
 								<div class="col-lg-12">
-									<input type="text" class="form-control onlyAlphabetAndNumber"
+									<input type="text" class="form-control"
 										id="phone" name="phone" data-rule-required="true"
 										placeholder="-빼고 입력해주세요." maxlength="13">
 								</div>
 							</div>
 							<br />
-							<div class="form-group" id="divNickname">
+							<div class="form-group col-lg-10" id="divNickname">
 								<label for="addr" class="col-lg-2 control-label">주소</label>
 								<div class="col-lg-12">
 									<input type="text" class="col-lg-4" id="postCode"
@@ -204,7 +209,7 @@
 								</div>
 							</div>
 							<br />
-							<div class="form-group" id="divPhoneNumber">
+							<div class="form-group col-lg-10" id="divPhoneNumber">
 								<label for="meetDate" class="col-lg-2 control-label">희망방문
 									날짜</label>
 								<div class="col-lg-12">
@@ -213,16 +218,16 @@
 								</div>
 							</div>
 							<br />
-							<div class="form-group" id="divEmail">
+							<div class="form-group col-lg-10" id="divEmail">
 								<label for="symptoms" class="col-lg-2 control-label">증상</label>
 								<div class="col-lg-12">
 									<textarea class="form-control" id="symptoms" name="symptoms"
 										data-rule-required="true"
-										placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000"></textarea>
+										placeholder="고장난 기기의 증상을 입력해주세요. 1000" maxlength="1000" style="resize: none"></textarea>
 								</div>
 							</div>
 							<br />
-							<div class="form-group" id="divPasswordCheck">
+							<div class="form-group col-lg-10" id="divPasswordCheck">
 								<label for="fileinput" class="col-lg-2 control-label">첨부파일</label>
 								<div class="col-lg-12">
 									<input type="file" class="form-control" id="fileimg"

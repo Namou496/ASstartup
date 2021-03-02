@@ -1,5 +1,5 @@
 //유효성 검사
-
+var manufacName;
 function validate(){
 	var mem = document.getElementById("memberInfoYn");
 
@@ -7,6 +7,12 @@ function validate(){
 		alert("개인정보 동의를 체크해 주세요.");
 		return false;
 	};
+	
+	var mname = document.getElementById("productName");
+	if(mname.value==""){
+		alert("제품을 선택하세요.")
+		return false;
+	}
 	
 	var regExp = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 	var result = $("#phone").val();
@@ -57,9 +63,6 @@ function validate(){
 
 //전화번호 하이픈 자동입력
 
-var phone = document.getElementById('phone')
-        phone = phone.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)[0-9]{4})/,"$1-$2-$3");
-
 //var autoHypenPhone = function(str){
 //      str = str.replace(/[^0-9]/g, '');
 //      var tmp = '';
@@ -95,3 +98,58 @@ var phone = document.getElementById('phone')
 //  console.log(this.value);
 //  this.value = autoHypenPhone( this.value ) ;  
 //}
+
+
+
+/* 검색필터 => 제조사이름 리스트 --> 제품그룹 */
+function manufacSelectName(manufacName){
+	$.ajax({
+    type: "POST",
+    async: "true",
+	url: "../Product/selectManufacturer.do",
+	dataType: "json",
+	data: {param:manufacName},
+	success: function(result){
+				$("#productGroup").find("option").remove().end().append("<option value=''>제품 분류</option>");
+				$.each(result, function(i){
+					$("#productGroup").append("<option value='" + result[i] + "'>" + result[i] + "</option>");
+				});
+			},
+    error: function(jqXHR, textStatus, errorThrown){
+	alert("오류가 발생하였습니다.");
+			}
+    	});
+	}
+/* 제품명 */
+$(function(){
+	$('#manufacName').on("change", function(){
+		manufacName = $("#manufacName option:selected").val();
+			console.log(manufacName);
+
+	});
+});
+	function manufacSelectGroup(productGroup, manufacName){
+	var manufacName = $("#manufacName option:selected").val();
+	$.ajax({
+    type: "POST",
+    async: "true",
+	url: "../ASForm/selectProductName.do",
+	dataType: "json",
+	data: {param1:productGroup, param2:manufacName},
+	success: function(result){
+			$("#productName").find("option").remove().end().append("<option value=''>제품명</option>");
+			result.forEach(function(data, index) {
+				console.log(data.PRODUCTNO);
+				$("#productName").append("<option value='" + data.PRODUCTNO + "'>" + data.PRODUCTNAME + "</option>");
+			});
+//				$.each(result, function(i){
+//						console.log(result.PRODUCTNAME);
+//						$("#productName").append("<option value='" + result.PRODUCTNO + "'>" + result.PRODUCTNAME + "</option>");
+//					
+//				});
+			},
+    error: function(jqXHR, textStatus, errorThrown){
+	alert("오류가 발생하였습니다.");
+			}
+    	});
+	}

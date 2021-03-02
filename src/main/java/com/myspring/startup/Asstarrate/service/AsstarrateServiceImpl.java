@@ -9,14 +9,14 @@ import com.myspring.startup.Asstarrate.dao.AsstarrateDAO;
 
 @Service("AsstarrateService")
 public class AsstarrateServiceImpl implements AsstarrateService {
-//  controller¿¡¼­ ³Ñ¿Â Á¤º¸¸¦ dao·Î ³Ñ°ÜÁØ´Ù.
-//	¸Þ¼ÒµåÀ§¿¡´Â @Override¸¦ ²À ¾´´Ù.
+//  controllerï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ daoï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ø´ï¿½.
+//	ï¿½Þ¼Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ @Overrideï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	@Autowired
 	AsstarrateDAO AsstarrateDAO;
 	
 	@Override
-	public void starrateService(Map asList)throws Exception{
+	public void starrateService(Map<String,Object>asForm)throws Exception{
 		
-		AsstarrateDAO.starrateService(asList);
+		AsstarrateDAO.starrateService(asForm);
 	}
 }

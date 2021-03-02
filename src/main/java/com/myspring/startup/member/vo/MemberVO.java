@@ -7,15 +7,34 @@ public class MemberVO {
 	private String cuId;
 	private String pw;
 	private int uNo;
-	
-	private String addr;
-	private String officer;
 	private String name;
-	private String tel;
 	private String email;
+	private String addr;
 	
+	private String officer;
+	private String tel;
+	private int manufacNo;
+	private int approvalNum;
+	private int approvalstatus;		//제조사 승인 여부
 	
-	
+	public int getApprovalstatus() {
+		return approvalstatus;
+	}
+	public void setApprovalstatus(int approvalstatus) {
+		this.approvalstatus = approvalstatus;
+	}
+	public int getManufacNo() {
+		return manufacNo;
+	}
+	public void setManufacNo(int manufacNo) {
+		this.manufacNo = manufacNo;
+	}
+	public int getApprovalNum() {
+		return approvalNum;
+	}
+	public void setApprovalNum(int approvalNum) {
+		this.approvalNum = approvalNum;
+	}
 	public String getAddr() {
 		return addr;
 	}

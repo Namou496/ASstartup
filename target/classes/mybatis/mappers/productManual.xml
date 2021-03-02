@@ -13,14 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="useManual" column="useManual"/>
 		<result property="asManual" column="asManual"/>
 		<result property="productImage" column="productImage"/>
-		
-		
-		
 <!--				 추가	 				-->
 <!-- 				승인 VO		 		-->
 		<result property="approvalStatus" column="approvalStatus"/> <!-- appr.approvalstatus -->
 		<result property="approvalNum" column="approvalNum"/> <!-- appr.approvalnum -->
-		
 <!-- 				member		 	a	-->
 		<result property="manufacName" column="manufacName"/> <!-- m.name -->
 		<result property="uno" column="uno"/> <!-- mb.uno -->
@@ -29,13 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 사용자 권한 -->
 		<select id="selectUserRight" parameterType="String" resultType="int">
 			<![CDATA[
-				select mb.uno uno from member mb where mb.cuid=#{cuId}
+				select mb.uno uno from member mb where mb.cuid=#{cuId, jdbcType=CHAR}
 			]]>
 		</select>
-	
-	
-		
-		<!-- 매뉴얼 리스트 / **제품리스트와 같다 -->
+<!-- 매뉴얼 리스트 / **제품리스트와 같다 -->
 		<select id="selectManualList" resultMap="resultManual" parameterType="java.util.Map">
 			<![CDATA[
 				select productName, 
@@ -60,8 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        	  and (#{section}-1)*100+(#{pageNum})*10
 		        and approvalStatus=1                                                                     
 		</select>
-		
-		<!-- 4-0. 제조사 이름 가져오기 -->
+<!-- 제조사 이름 가져오기 -->
 		<select id="manufacName" parameterType="String" resultType="String">
 			<![CDATA[
 				select m.name 
@@ -79,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			]]>
 		</select>
 		
-<!-- 3. 제품검색  -->
+<!-- 매뉴얼 검색  -->
 		<select id="selectProductGroup" resultType="String" parameterType="java.util.Map">
 			<![CDATA[
 				select distinct(p.prodGroup)
@@ -94,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    <include refid="search"/>
 		</select>	
 		
-		<!-- 매뉴얼상세  -->
+<!-- 매뉴얼상세  -->
 		<select id="selectManualDetail" resultMap="resultManual" parameterType="java.util.Map">
 			<![CDATA[
 			select 	   p.productimage 	productImage, 
@@ -146,8 +138,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 			
 			<sql id="searchCondition">
-			where
+			
 			<if test = "productGroup != null">
+			where
 			         productGroup=#{productGroup}
 			        	<if test = "manufacName != null">
 			        	  and manufacName=#{manufacName}
@@ -157,25 +150,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				        	<if test = "productName != null">
 					        		and productName like '%' || #{productName} || '%'
 					        	</if>
-	<!-- 아무것도 입력하지 않고 검색시 -->
+<!-- 아무것도 입력하지 않고 검색시 -->
 					        	<if test = "productName == null">
 					        		
-					        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
 							        	and approvalStatus=1                                                                     
-							        </if>
 				        	</if>
 			        	</if>
 			        </if>
-	<!-- 제품분류를 선택하지 않을 시 -->
+<!-- 제품분류를 선택하지 않을 시 -->
 			        <if test = "productGroup == null">
+			        where
 			        	<if test = "manufacName != null">
 			        			manufacName=#{manufacName}
 			        		<if test = "productName != null">
 			        			and productName like '%' || #{productName} || '%'
 			        		</if>
-			        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
 						        and approvalStatus=1                                                                     
-						   </if>
 			        	</if>
 			        	
 			        	
@@ -183,16 +173,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        	<!-- 제품이름만 검색시 -->
 				        	<if test = "productName != null">
 				        		productName like '%' || #{productName} || '%'
-				        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
 						        	and approvalStatus=1                                                                     
-						        </if>
 				        	</if>
 				        	<!-- 아무것도 입력하지 않고 검색시 -->
 				        	<if test = "productName == null">
 				        		
-				        		<if test="uno == 1 || uno == 2">  <!-- 공급자, 사용자 -->
 						        	approvalStatus=1                                                                     
-						        </if>
 				        	</if>
 			        	</if>
 			        </if>

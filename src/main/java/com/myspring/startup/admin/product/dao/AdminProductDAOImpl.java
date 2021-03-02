@@ -19,15 +19,30 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 
 //	제품승인요청리스트
 	@Override
-	public List<AdminProductVO> selectProductApprovalList() throws DataAccessException {
-		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList");
+	public List<AdminProductVO> selectProductApprovalList(Map<String,Object> pageMap) throws DataAccessException {
+		List<AdminProductVO> productList=sqlSession.selectList("mapper.adminProduct.selectProductApprovalList",pageMap);
+
 		return productList;
+	}
+	
+	@Override
+	public int selectProductApprovalListCount(int secNum) {
+		int pageNum=sqlSession.selectOne("mapper.adminProduct.selectProductApprovalListCount",secNum);
+		return pageNum;
 	}
 	
 //	제품상세
 	@Override
 	public AdminProductVO selectProductApprovalDetail(int productNO) throws DataAccessException {
 		return sqlSession.selectOne("mapper.adminProduct.selectProductApprovalDetail",productNO);
+		
+	}
+	
+//	부품목록
+	@Override
+	public ArrayList selectProductComponent(int productNO) throws DataAccessException {
+		ArrayList List=(ArrayList)sqlSession.selectList("mapper.adminProduct.selectProductComponent",productNO);
+		return List;
 		
 	}
 	
@@ -46,6 +61,14 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 		
 	}
 	
+//	부품가격설정
+	@Override
+	public void updateProductComponentPrice(List<AdminProductVO> adminProductVO) throws DataAccessException {
+		sqlSession.update("mapper.adminProduct.updateProductComponentPrice",adminProductVO);
+		
+	}
 
+	
+	
 }
 

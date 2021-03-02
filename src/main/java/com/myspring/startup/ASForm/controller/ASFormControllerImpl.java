@@ -2,9 +2,11 @@ package com.myspring.startup.ASForm.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,8 @@ import com.myspring.startup.ASForm.service.ASFormService;
 import com.myspring.startup.ASForm.vo.ASFormVO;
 import com.myspring.startup.member.vo.MemberVO;
 
+import net.sf.json.JSONArray;
+
 @Controller("asformController")
 @RequestMapping("/ASForm/*")
 public class ASFormControllerImpl implements ASFormController{
@@ -41,11 +45,42 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 	@Override
 	@RequestMapping(value="/ASForm.do", method= RequestMethod.GET)
 	public ModelAndView ASForm(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");	
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
 		ModelAndView mav = new ModelAndView();
+		List manufacName = asformService.manufacName();
+		
+		mav.addObject("manufacName", manufacName);
 		mav.setViewName("/ASForm/ASForm");
 		return mav;
 	}
+	
+	// ajax 필터 제품이름
+		@Override
+		@RequestMapping(value="/selectProductName.do", method= {RequestMethod.GET,RequestMethod.POST})
+		public void selectAjaxProductName(HttpServletRequest request, HttpServletResponse response, String param1, String param2) 
+													throws Exception{
+				   response.setCharacterEncoding("UTF-8");
+				   String manufacName = param2;
+				   String productGroup = param1;
+				   
+				   Map<String, Object> searchProductNameMap = new HashMap<String, Object>();
+				   searchProductNameMap.put("productGroup", productGroup);
+				   searchProductNameMap.put("manufacName", manufacName);
+				   
+				   List productNameMap = asformService.productName(searchProductNameMap);
+				   // jsonArray에 추가
+				   JSONArray jsonArray = new JSONArray();
+				   for (int i = 0; i < productNameMap.size(); i++) {
+				      jsonArray.add(productNameMap.get(i));
+				   }
+				 
+				   // jsonArray 넘김
+				   PrintWriter pw = response.getWriter();
+				   pw.print(jsonArray.toString());
+				   pw.flush();
+				   pw.close();
+		}
 	
 	//신청서 접수 버튼 누른뒤 작업
 		@Override
@@ -57,9 +92,7 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			Enumeration enu = multipartRequest.getParameterNames();
 			while(enu.hasMoreElements()) {
 				String name=(String)enu.nextElement();
-//				System.out.println(name);
 				String value=multipartRequest.getParameter(name);
-//				System.out.println(value);
 				asformMap.put(name, value);
 			}
 			
@@ -69,10 +102,8 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			for(String mapkey : asformMap.keySet()) {
 				if(mapkey.equals("addr1")) {
 					addr1 = (String) asformMap.get(mapkey);
-					System.out.println(addr1);
 				}else if(mapkey.equals("addr2")) {
 					addr2 = (String) asformMap.get(mapkey);
-					System.out.println(addr2);
 				}
 			}			
 			String addr = addr1 + " " + addr2;			
@@ -81,17 +112,13 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 			String imageFileName = upload(multipartRequest);
 			HttpSession session = multipartRequest.getSession();
 			MemberVO memberVO = (MemberVO) session.getAttribute("member");
-//			memberVO.setCuId("hong");
 			String id = memberVO.getCuId();
 			asformMap.put("cuId", id);
-			asformMap.put("imageFileName", imageFileName);
+			asformMap.put("fileimg", imageFileName);
 			
 			int asNo = (int)(Math.random()*5000);
 			asformMap.put("asNo", asNo);
 			
-//			System.out.println("여기로 오냐");
-//			System.out.println(memberVO.getCuId());
-//			System.out.println(multipartRequest.getParameter(imageFileName));
 			String message;
 			ResponseEntity resEntity = null;
 			HttpHeaders resHeaders = new HttpHeaders();
@@ -102,7 +129,6 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 					File srcFile = new File(IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 					File destDir = new File(IMAGE_REPO + "\\" + id);
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
-//					System.out.println("성공");
 				}
 				message = "<script>";
 				message += "alert('AS신청서 접수가 완료 되었습니다.');";
@@ -111,12 +137,10 @@ private static final String IMAGE_REPO = "C:\\board\\image";
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
 			}catch(Exception e) {
 				message = "<script>";
-				message += "alert('접수 중 오류가 발생했습니다. 다시 시도해 주세요.');";
+				message += "alert('접수 중 오류가 발생했습니다. 다시 시도해 주세요. Try 1) 첨부파일 명을 바꿔 주세요. 2) 중복된 신청이 있습니다.');";
 				message += " location.href='"+multipartRequest.getContextPath()+"/ASForm/ASForm.do';";
 				message += " </script>";
-//				System.out.println("실패");
 				resEntity = new ResponseEntity<String>(message, resHeaders, HttpStatus.CREATED);
-				e.printStackTrace();
 			}	
 			return resEntity;
 		}

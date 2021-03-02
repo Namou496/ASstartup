@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+	<tiles-definitions>
+		<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+			<put-attribute name="title" value=""/>
+			<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+			<put-attribute name="body" value=""/>
+			<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+		</definition>
+		
+		<definition name="/manufac/adminManufacList" extends="baseLayout">
+			<put-attribute name="title" value="승인요청리스트"/>
+			<put-attribute name="body" value="/WEB-INF/views/admin/manufac/adminManufacList.jsp"/>
+		</definition>
+		
+		<definition name="/manufac/adminManufacDetail" extends="baseLayout">
+			<put-attribute name="title" value="승인요청상세"/>
+			<put-attribute name="body" value="/WEB-INF/views/admin/manufac/adminManufacDetail.jsp"/>
+		</definition>
+		
+		<definition name="/manufac/adminManufacSearch" extends="baseLayout">
+			<put-attribute name="title" value="승인요청검색"/>
+			<put-attribute name="body" value="/WEB-INF/views/admin/manufac/adminManufacSearch.jsp"/>
+		</definition>
+		
+	</tiles-definitions>

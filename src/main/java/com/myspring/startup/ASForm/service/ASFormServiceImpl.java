@@ -1,5 +1,6 @@
 package com.myspring.startup.ASForm.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,19 @@ public class ASFormServiceImpl implements ASFormService{
 	@Override
 	public int addAsForm(Map<String, Object> asformMap) {
 		return asformDAO.insertNewAsForm(asformMap);
+	}
+	
+	@Override
+	public List manufacName() throws Exception {
+		List manufacName = asformDAO.selectManufacName();
+		
+		return manufacName;
+	}
+
+	@Override
+	public List productName(Map searchProductNameMap) {
+		return asformDAO.selectProductName(searchProductNameMap);
+
 	}
 
 }

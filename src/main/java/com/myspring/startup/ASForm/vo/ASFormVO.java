@@ -16,7 +16,22 @@ public class ASFormVO {
 	private String cuId;		//사용자 아이디
 	private int productNo;		//제품번호
 	private Date meetDate;		//방문 희망 일자
+	private String productGroup;
+	private String manufacName;
 	
+	
+	public String getProductGroup() {
+		return productGroup;
+	}
+	public void setProductGroup(String productGroup) {
+		this.productGroup = productGroup;
+	}
+	public String getManufacName() {
+		return manufacName;
+	}
+	public void setManufacName(String manufacName) {
+		this.manufacName = manufacName;
+	}
 	public int getAsNo() {
 		return asNo;
 	}

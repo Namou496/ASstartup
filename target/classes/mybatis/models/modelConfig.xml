@@ -13,9 +13,13 @@
 		<typeAlias type="com.myspring.startup.product.vo.ProductVO" alias="ProductVO"/>
 <!-- 		회원관리 		 -->
 		<typeAlias type="com.myspring.startup.member.vo.MemberVO" alias="MemberVO"/>
-		
+<!-- 		운영사 -->
 		<typeAlias type="com.myspring.startup.admin.product.vo.AdminProductVO" alias="AdminProductVO"/>
 		<typeAlias type="com.myspring.startup.admin.manufac.vo.AdminManufacVO" alias="AdminManufacVO"/>
+		
+<!-- 		별점  -->
+		<typeAlias type="com.myspring.startup.Asstarrate.vo.AsstarrateVO" alias="AsstarrateVO"/>
+		
 		
 		<typeAlias type="com.myspring.startup.ASAfter.vo.ASAfterVO" alias="ASAfterVO" />
 		<typeAlias type="com.myspring.startup.ASAfter.vo.ASAfterDetailVO" alias="ASAfterDetailVO" />

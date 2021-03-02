@@ -18,30 +18,31 @@ import com.myspring.startup.Asstarrate.vo.AsstarrateVO;
 @Controller("AsstarrateController")
 public class AsstarateControllerImpl implements AsstarateController {
 
-//	³Ñ¾î¿À´Â Á¤º¸ = asNo / jsp¿¡¼­ ¹Þ¾Æ¼­,  dao·Î ¿Å°ÜÁØ´Ù.
-	// int·Î ³Ñ¾î¿Í¼­, service·Î ³Ñ°ÜÁØ´Ù.
-//	¸Þ¼ÒµåÀ§¿¡´Â @Override¸¦ ²À ¾´´Ù.
+//	ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ = asNo / jspï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½,  daoï¿½ï¿½ ï¿½Å°ï¿½ï¿½Ø´ï¿½.
+	// intï¿½ï¿½ ï¿½Ñ¾ï¿½Í¼ï¿½, serviceï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ø´ï¿½.
+//	ï¿½Þ¼Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ @Overrideï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	@Autowired
 	private AsstarrateService AsstarrateService;
-	
-	private AsstarrateVO AsstarrateVO;
+
 	
 	@Override
-	@RequestMapping(value="", method= {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/Asstarrate/fillAsstarrate.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView fillAsstarrate(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map asList = new HashMap();
+		Map <String,Object>asForm = new HashMap<String,Object>();
 		
-		int asNum = Integer.parseInt(request.getParameter("asNo"));
-		int star = Integer.parseInt(request.getParameter("star"));
-		String text = request.getParameter("textBox");
+		int asNo = Integer.parseInt(request.getParameter("asNo"));
+		int resultcontainer = Integer.parseInt(request.getParameter("resultcontainer"));
+		String textBox = request.getParameter("textBox");
 		ModelAndView mav = new ModelAndView();
 		
-		asList.put("asNo", asNum);
-		asList.put("star", star);
-		asList.put("textBox", text);
+		asForm.put("asNo", asNo);
+		asForm.put("resultcontainer", resultcontainer);
+		asForm.put("textBox", textBox);
 		
-		AsstarrateService.starrateService(asList);		
+		AsstarrateService.starrateService(asForm);
+		mav.setViewName("/main");
 		return mav;
+		
 			
 	}
 	@RequestMapping(value="/Asstarrate/callStarrate.do" ,method= {RequestMethod.GET,RequestMethod.POST})

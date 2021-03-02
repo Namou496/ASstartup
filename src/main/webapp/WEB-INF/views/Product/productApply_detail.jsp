@@ -76,15 +76,17 @@
                     <td id="td1" scope="row">AS매뉴얼:</td>
                     <td id="td2" scope="row" name="asManual"><a href="#">${product.asManual }</a></td>
                 </tr>
-                <tr>
-                    <td id="td1" scope="row">부품:</td>
-				<c:forEach var="cL" items="${componentList}">
-                    <td id="td2" scope="row" name="asManual">${cL.componentName} : ${cL.componentPrice}</td>
-                </tr>
-                <tr>
-                	<td id="td1" scope="row"></td>
-                </c:forEach>
-                </tr>
+                <tbody style="border: 2px solid black;">
+	                <tr>
+	                    <td id="td1" scope="row" colspan="2" style="text-align: center;">부품</td>
+	                </tr>
+					<c:forEach var="cL" items="${componentList}">
+					<tr>
+					<td id="td1" scope="row"><b>${cL.componentName}</b>(<c:if test="${cL.componentPart==1}">부품</c:if><c:if test="${cL.componentPart==2}">소모품</c:if>) :</td>
+	                <td id="td2" scope="row" name="asManual"> ${cL.componentPrice}</td>
+	                </tr>
+	                </c:forEach>
+                </tbody>
                 <tr style="text-align: center">
                     <td style="width: 100%" colspan=2>
                    <button><a href="${contextPath }/Product/listProduct.do?pageNum=${pageMap.pageNum}&section=${pageMap.section}">이전화면</a></button>

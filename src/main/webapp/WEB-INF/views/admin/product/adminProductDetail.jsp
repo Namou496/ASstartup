@@ -8,6 +8,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <c:set var="productList" value="${productList}" />
 <c:set var="productDetail" value="${productDetail}" />
+<c:set var="componentList" value="${componentList}" />
 
 <!DOCTYPE html>
 <html>
@@ -36,30 +37,45 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 	crossorigin="anonymous">
+	
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+	integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+	crossorigin="anonymous"></script>
 
 <script>
-	$(function(){
-		var productNO=$("#productNO").text();
-		
-		$("#approvalNo").click(function(){
-			var rejectionReason=$("#rejectionReason").val();
+	$(function() {
+		var productNO = $("#productNO").text();
+		var componentNO = $("#componentNO").text();
+
+		$("#approvalNo").click(function() {
+			var rejectionReason = $("#rejectionReason").val();
+
 			$("#status").val(2);
 			$("#reason").val(rejectionReason);
 			$("#no").val(productNO);
 			$("#frmApproval").submit();
 			alert('승인거절이 완료되었습니다.')
 		});
-		
-		$("#approvalOk").click(function(){
+
+		$("#approvalOk").click(function() {
 			$("#status").val(1);
 			$("#reason").val("승인완료");
 			$("#no").val(productNO);
 			$("#frmApproval").submit();
 			alert('승인이 완료되었습니다.')
 		});
-		
+
+		$("#modPrice").click(function() {
+			var price = $("#price").val();
+			$("#no2").val(productNO);
+			$("#comNO").val(componentNO);
+			$("#comPrice").val(price);
+			$("#frmMod").submit();
+			alert('부품 가격이 수정되었습니다.')
+		});
+
 	});
 	
 	
@@ -94,7 +110,9 @@
 </head>
 
 <body>
-
+	<p></p>
+	<h3 style="text-align: center">제품 상세정보</h3>
+	<p></p>
 	<div class="container">
 		<table class="table">
 			<tbody>
@@ -116,7 +134,7 @@
 						</tr>
 
 						<tr>
-							<td id="td1" scope="row" colspan="1">제품번호</td> <!-- 1 -->
+							<td id="td1" scope="row" colspan="1">제품번호:</td>
 							<td id="productNO" scope="row" colspan="1">${productDetail.productNO }</td>
 						</tr>
 
@@ -124,13 +142,10 @@
 							<td id="td1" scope="row" colspan="1">제품명:</td>
 							<td id="td2" scope="row" colspan="1" name="productName">${productDetail.name }</td>
 						</tr>
-						<tr>
-							<td id="td1" scope="row" colspan="1">상태:</td>
-							<td id="td2" scope="row" colspan="1" name="approvalStatus">${productDetail.approvalStatus }</td>
-						</tr>
+
 						<tr>
 							<td id="td1" scope="row">제조사:</td>
-							<td id="td2" scope="row" name="manufacName"></td>
+							<td id="td2" scope="row" name="manufacName">${productDetail.manufacturerName }</td>
 						</tr>
 						<tr>
 							<td id="td1" scope="row">분류:</td>
@@ -138,26 +153,63 @@
 						</tr>
 						<tr>
 							<td id="td1" scope="row">사용매뉴얼:</td>
-							<td id="td2" scope="row" name="useManual"></td>
+							<td id="td2" scope="row" name="useManual">${productDetail.useManual }</td>
 						</tr>
 						<tr>
 							<td id="td1" scope="row">AS매뉴얼:</td>
-							<td id="td2" scope="row" name="asManual"><a href="#"></a></td>
+							<td id="td2" scope="row" name="asManual">${productDetail.ASManual }</td>
+						</tr>
+
+						<tr>
+							<td id="td1" scope="col">부품목록</td>
+
 						</tr>
 
 					</c:when>
 				</c:choose>
 			</tbody>
 		</table>
-		<p></p>
 
+		<form id="frmMod"
+			action="${contextPath }/admin/product/adminProductComponentPrice.do">
+			<table style="text-align: center; margin: 0 auto; width: 60%">
+				<tr>
+					<td style="border-right: 1px solid #eee; width: 15%">부품번호</td>
+					<td style="border-right: 1px solid #eee; width: 15%">부품명</td>
+					<td style="border-right: 1px solid #eee; width: 15%">분류</td>
+					<td style="border-right: 1px solid #eee; width: 15%">가격</td>
+
+				</tr>
+
+
+				<c:forEach var="com" items="${componentList}">
+
+					<tr>
+						<td id="componentNO">${com.componentNO}</td>
+						<td>${com.componentName}</td>
+						<td>${com.part}</td>
+
+						<td><input id="price" type="text" class="form-control"
+							value="${com.price}" name="price"></td>
+						<td><input type="hidden" name="componentNO" value="${com.componentNO}">
+						<input type="hidden" name="productNO" id="no2" value="${productDetail.productNO}"><button style="margin:0 auto;" class="btn btn-outline-primary" id="modPrice">수정</button></td>
+
+					</tr>
+
+				</c:forEach>
+
+				
+			</table>
+			
+		</form>
+		<p></p>
 
 		<div class="input-group"
 			style="width: 80%; text-align: center; margin: 0 auto;">
 			<span class="input-group-text">승인불가 사유</span>
 			<textarea class="form-control" aria-label="With textarea"
-				id="rejectionReason" ></textarea> <!-- 1 -->
-			
+				id="rejectionReason" placeholder="승인 불가시에만 입력"></textarea>
+
 
 		</div>
 		<p></p>
@@ -168,11 +220,16 @@
 
 		<p></p>
 	</div>
-	<form id="frmApproval" action="${contextPath }/admin/product/adminProductApproval.do">
+	<form id="frmApproval"
+		action="${contextPath }/admin/product/adminProductApproval.do">
 		<input type="hidden" id="status" name="approvalStatus">
 		<input type="hidden" id="no" name="productNO">
 		<input type="hidden" id="reason" name="rejectionReason">
+
 	</form>
+
+
+
 </body>
 
 </html>

@@ -14,8 +14,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="asManual" column="asManual"/>
 		<result property="productImage" column="productImage"/>
 		
-		
-		
 <!--				 추가	 				-->
 <!-- 				승인 VO		 		-->
 		<result property="approvalStatus" column="approvalStatus"/> <!-- appr.approvalstatus -->
@@ -52,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</select>
 		<select id="selectCompo" resultType="ProductVO" parameterType="int">
 			<![CDATA[
-				select componentNo, productNo, name, price, part from component
+				select componentNo, productNo, component.name componentName, component.price componentPrice, component.part componentPart from component
 				where productNo=#{productNo}
 			]]>
 		</select>
@@ -66,6 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                       and m.name like '%'|| #{manufacName} ||'%'
 			]]>
 		</select>
+		
 		<select id="searchProduct" resultType="ProductVO" parameterType="java.util.Map">
 			    <include refid="search"/>
 		</select>	
@@ -243,8 +242,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 			
 			<sql id="searchCondition">
-			where
+
 			<if test = "productGroup != null">
+			where
 			         productGroup=#{productGroup}
 			        	<if test = "manufacName != null">
 			        	  and manufacName=#{manufacName}
@@ -266,6 +266,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    </if>
 	<!-- 제품분류를 선택하지 않을 시 -->
 			        <if test = "productGroup == null">
+			        where
 			        	<if test = "manufacName != null">
 			        			manufacName=#{manufacName}
 			        		<if test = "productName != null">

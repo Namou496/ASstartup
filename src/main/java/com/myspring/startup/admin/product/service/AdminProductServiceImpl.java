@@ -20,8 +20,22 @@ public class AdminProductServiceImpl implements AdminProductService{
 
 //	제품승인요청리스트
 	@Override
-	public List<AdminProductVO> AdminProductList() throws Exception {
-		return  adminProductDAO.selectProductApprovalList();
+	public Map<String,Object> AdminProductList(int secNum,int pageNum) throws Exception {
+		Map<String,Object> pageMap=new HashMap<String,Object>();
+		pageMap.put("secNum", secNum);
+		pageMap.put("pageNum", pageNum);
+		
+		List<AdminProductVO> productList=adminProductDAO.selectProductApprovalList(pageMap);
+		
+		double lastPageNum=adminProductDAO.selectProductApprovalListCount(secNum);
+		lastPageNum=lastPageNum/10;
+		Map<String,Object> productMap=new HashMap<String,Object>();
+		productMap.put("secNum",secNum);
+		productMap.put("lastPageNum",(int)Math.ceil(lastPageNum));
+		productMap.put("pageNum",pageNum);
+		productMap.put("productList", productList);
+		
+		return productMap;
 	}
 	
 //	제품상세
@@ -29,6 +43,13 @@ public class AdminProductServiceImpl implements AdminProductService{
 	public AdminProductVO AdminProductDetail(int productNO) {
 		AdminProductVO adminProductVO = adminProductDAO.selectProductApprovalDetail(productNO);
 		return adminProductVO;
+	}
+	
+//	부품목록
+	@Override
+	public List<AdminProductVO> AdminProductComponent(int productNO) {
+		List componentList = adminProductDAO.selectProductComponent(productNO);
+		return componentList;
 	}
 	
 //	제품검색
@@ -45,4 +66,12 @@ public class AdminProductServiceImpl implements AdminProductService{
 		
 	}
 	
+//	부품가격설정
+	@Override
+	public void AdminProductComponentPrice(List<AdminProductVO> adminProductVO) {
+		adminProductDAO.updateProductComponentPrice(adminProductVO);
+		
+	}
+	
+
 }

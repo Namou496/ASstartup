@@ -78,7 +78,6 @@ public class ProductDAOImpl implements ProductDAO{
 		//	4-4)부품등록
 			@Override
 			public void insertComponent(List componentList) throws Exception{
-				System.out.println("componentList::" + componentList.toString());
 				sqlSession.insert("mapper.Product.insertComponent", componentList);
 			}
 		//	4-5)제품 승인등록- 최신번호 가져오기

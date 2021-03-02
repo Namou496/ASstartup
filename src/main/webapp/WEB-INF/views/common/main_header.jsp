@@ -22,15 +22,12 @@
             margin: 0px;
             padding: 0px;
         }
-        .whole {
-            padding: 0px;
-            background: lightgray;
-            height: 600px;
-            margin-bottom: 30px;
-        }
-        
-        .navbar{
-        	height: 20%;
+         .navbar{
+            background: #FFCC80;
+        	padding: 0px;
+        	border-right: 1px solid #DCE775;
+        	border-bottom: 1px solid #DCE775;
+        	/* height: 20%; */
         }
         .navbar-brand img{
             width: 100px;
@@ -67,8 +64,8 @@
         #find_prod{
             position: relative;
             display: flex;
-            text-align: center
-            width: 40%;
+            text-align: center;
+            width: 100%;
         }
         a:hover{
             color: purple;
@@ -87,15 +84,31 @@
             #find{
                 display: none;
             }
+            .whole {
+			    background: lightgray;
+			    height: 70%;
+			    margin-bottom: 80px;
+			}
             
         }
         
+
+        
          @media screen and (min-width: 992px){
+            .whole {
+	            margin-bottom: 30px;
+	        }
             .navbar-nav li{
                 padding-right: 100px;
             }
+
         }
-        
+        #basic-addon2{
+        	cursor: pointer;
+        }
+                .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        	padding: 0;
+        }
 
     </style>
 
@@ -147,6 +160,10 @@
                     $('.f').attr('style', f);
                 }
             });
+            
+            $("#basic-addon2").click(function(){			
+				$("#submit").submit();
+            });
 		});
 	</script>
 
@@ -189,7 +206,7 @@
                     <c:choose>
                    		<c:when test="${uNo==0}">
                         	<a class="nav-link e" href="${contextPath}/member/login.do" tabindex="-1">로그인</a>
-                        	<a class="nav-link f" href="#" tabindex="-1" style="display: relative; left: 100px; float:right">회원가입</a>
+                        	<a class="nav-link f" href="${contextPath}/member/selectMember.do" tabindex="-1" style="display: relative; left: 100px; float:right">회원가입</a>
                        	</c:when>
                        	
                        	<c:when test="${uNo!=0}">
@@ -205,10 +222,12 @@
 
         <div class="container" id="find">
         <p id="helpWhat">어떤 제품을 수리하실건가요?</p>
-            <div class="input-group mb-3" id="find_prod">
-                  <input type="text" class="form-control" placeholder="제품이름을 검색하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" >
-                  <span class="input-group-text" id="basic-addon2">검색</span>
-            </div>
+        	<form id="submit" action="${contextPath}/Manual/searchProduct.do" method="get">
+	            <div class="input-group mb-3" id="find_prod"> 
+	                  <input type="text" name="productName" class="form-control" placeholder="제품이름을 검색하세요" aria-label="Recipient's username" aria-describedby="basic-addon2" id="search">
+	                  <span class="input-group-text" id="basic-addon2">검색</span>
+	            </div>
+            </form>
         </div>
     </div>
 </body>

@@ -8,20 +8,86 @@
 		<result property="cuId" column="cuId" />
 		<result property="pw" column="pw" />
 		<result property="uNo" column="uNo" />
+		
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="addr" column="addr" />
+		
+		<result property="officer" column="officer" />
+		<result property="tel" column="tel" />
+		<result property="manufacNo" column="manufacNo" />
+		<result property="approvalNum" column="approvalNum" />
+		<result property="approvalstatus" column="approvalstatus" />
 	</resultMap>
-	
+<!-- 	로그인 select + session정보 -->
 	<select id="loginById" resultType="MemberVO" parameterType="MemberVO">
 		<![CDATA[
-			select * from member
-			where cuid = #{cuId} and pw = #{pw} 
+			select *
+			from member
+			where cuid = #{cuId} and pw = #{pw}
 		]]>
 	</select>
 	
+	<select id="appStatus" resultType="int" parameterType="String">
+		<![CDATA[
+			select man.approvalstatus
+			from member m, manufacturerapproval man
+			where m.cuid = #{cuId} and man.cuid=m.cuid
+		]]>
+	</select>
+<!-- 	회원가입 멤버테이블 insert -->
 	<insert id="insertNewMember" parameterType="java.util.Map">
 		<![CDATA[
- 			insert into MEMBER()
- 			values()
+ 			insert into Member(cuId, pw, uno)
+			values(#{cuId}, #{pw}, #{uNo,jdbcType=INTEGER})
 		]]>
 </insert>
+<!-- 	비밀번호 찾기시 찾은 비밀번호 -->
+	<select id="lostPw" resultType="String" parameterType="java.util.Map">
+		<![CDATA[
+			select m.pw
+			from member m, customer c
+			where m.cuid=c.cuid and m.cuid=#{cuId} and c.email=#{email}
+		]]>
+	</select>
+<!-- 	아이디 찾기시 찾은 아이디 -->
+	<select id="lostId" resultType="String" parameterType="java.util.Map">
+		<![CDATA[
+			select cuid
+			from customer
+			where name=#{name} and email=#{email}
+		]]>
+	</select>
 	
+	<select id="RecentManufacNo" resultType="int">
+		select max(m.manufacturerNo) from manufacturer m
+	</select>
+	
+	<select id="RecentManufacApply" resultType="int">
+		select max(mA.approvalNum) from manufacturerApproval mA
+	</select>
+<!-- 	제조사 회원가입 상세정보 -->
+	<insert id="insertManufacturer">
+		insert into manufacturer(cuId, manufacturerNo, name, addr, officer, tel) 
+		values( #{cuId}, #{manufacNo}, #{manufacName}, #{addr}, #{officer}, #{phone})
+	</insert>
+	
+	<insert id="insertManufacApply">
+		insert into manufacturerApproval(approvalNum, approvalStatus, rejectionReason, cuId, applyDate) 
+		values( #{approvalNum}, 3, '', #{cuId}, sysDate)
+	</insert>
+<!-- 	커스터머 회원가입 상세정보 -->
+	<insert id="insertCustomer">
+		insert into customer(cuId, name, addr, email) 
+		values( #{cuId}, #{name}, #{addr}, #{email})
+	</insert>
+	
+<!-- 	회원가입시 아이디 중복검사 -->
+	<select id="overlapId" resultType="String" parameterType="String">
+		<![CDATA[
+			select cuId
+			from member
+			where cuid=#{cuId}
+		]]>
+	</select>
 </mapper>

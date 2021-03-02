@@ -21,8 +21,39 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int addMember(Map<String, Object> memberJoinMap) throws Exception {
-		return memberDAO.insertNewMember(memberJoinMap);
+	public void addMember(Map<String, Object> memberJoinMap) throws Exception {
+		memberDAO.insertNewMember(memberJoinMap);
+		memberDAO.insertNewCustomer(memberJoinMap);
+	}
+
+	@Override
+	public String searchLostPw(Map<String, Object> lostPwMap) throws Exception {
+		String pw = memberDAO.searchLostPw(lostPwMap);
+		return pw;
 		
+	}
+
+	@Override
+	public String searchLostId(Map<String, Object> lostIdMap) throws Exception {
+		String _cuId = memberDAO.searchLostId(lostIdMap);
+		return _cuId;
+	}
+	
+	@Override
+	public void addManufac(Map<String, Object> memberJoinMap) throws Exception{
+		memberDAO.insertNewMember(memberJoinMap);
+		int RecentManufacNo = memberDAO.RecentManufacNo();
+		int RecentManufacApply = memberDAO.RecentManufacApply();
+		
+		memberJoinMap.put("manufacNo", RecentManufacNo+1);
+		memberJoinMap.put("approvalNum", RecentManufacApply+1);
+		
+		memberDAO.applyManufac(memberJoinMap);
+	}
+
+	@Override
+	public String overlapId(String cuId) throws Exception {
+		String i = memberDAO.overlapId(cuId);
+		return i;
 	}
 }
