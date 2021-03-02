@@ -38,6 +38,24 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
+<script>
+	$(function() {
+			var respDate = $("#respDate").val();
+			
+			$("#submitbtn").click(function(e) {
+				e.preventDefault();
+				var respDate = $("#respDate").val();
+				
+				if(respDate == null || respDate == "") {
+					alert("방문예정일자를 입력하세요!!");
+				} else {
+					alert("승인 완료!!");
+					$("#confirm").submit();
+				}				
+			});
+		});
+</script>
+
 <style>
 h1 {
 	padding: 15px;
@@ -119,7 +137,7 @@ h1 {
 
 <body>
 	<div class="container">
-		<form action="${contextPath}/ASAfter/insertASrespond.do" method="post">
+		<form id = "confirm" action="${contextPath}/ASAfter/insertASrespond.do" method="post">
 			<h1>상세 정보</h1>
 			<div class="content">
 
@@ -193,7 +211,15 @@ h1 {
 				</c:forEach>
 			</div>
 			<div class="rightmenu">
-				<span>방문예정일자</span><br> <input type="date" name="respDate"><br>
+				<span>방문예정일자</span><br>
+				<c:choose>
+					<c:when test="${uNo == 1 or uNo == 3}">
+						<input type="date" name="respDate" disabled="disabled"><br>					
+					</c:when>
+					<c:otherwise>
+						<input id="respDate" type="date" name="respDate"><br>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="sysptom">
 				<c:forEach items="${ASAfterView}" var="view">
@@ -207,12 +233,13 @@ h1 {
 
 			<div class="submit">
 				<c:if test="${uNo == 2}">
-					<input type="submit" value="승인">
+					<input id="submitbtn" type="submit" value="승인">
 				</c:if>
 				<input type="hidden" name="asno" value="${asno}"> <input
 					type="hidden" name="cuId" value="${sessionScope.member.cuId}">
 			</div>
 		</form>
 	</div>
+	<input type="button" id="test" value="test">
 </body>
 </html>
