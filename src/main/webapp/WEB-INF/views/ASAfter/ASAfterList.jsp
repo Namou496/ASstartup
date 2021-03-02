@@ -41,19 +41,6 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script>
-	$(function() {
-		$("input[name='sort']").on("click", function() {
-			var count = $("input:checked[name='sort']").length;
-
-			if (count > 3) {
-				$(this).prop("checked", false);
-				alert("최대 3개까지 선택가능합니다.");
-			}
-		});
-	});
-</script>
-
 <style>
 h1 {
 	padding: 15px;
@@ -114,16 +101,6 @@ input[type="checkbox"] {
 		<h1>A/S 현황</h1>
 		<form action="${contextPath}/ASAfter/searchASAfterList.do"
 			method="get">
-			<div class="select">
-				<!-- 				<div class="selectbox"> -->
-				<!-- 					<label> <input type="checkbox" name="sort" value="1">TV</label>  -->
-				<!-- 					<label> <input type="checkbox" name="sort" value="2">컴퓨터</label>  -->
-				<!-- 					<label> <input type="checkbox" name="sort" value="3">세탁기</label>  -->
-				<!-- 					<label> <input type="checkbox" name="sort" value="4">라디오</label>  -->
-				<!-- 					<label> <input type="checkbox" name="sort" value="5">전자레인지</label> -->
-				<!-- 				</div> -->
-			</div>
-
 			<c:if test="${uNo == 2 || uNo == 4}">
 				<div class="search">
 					<select name="condition">
