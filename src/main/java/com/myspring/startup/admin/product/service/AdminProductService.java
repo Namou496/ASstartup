@@ -19,7 +19,7 @@ public interface AdminProductService {
 //	부품목록
 	public List<AdminProductVO> AdminProductComponent(int productNO);
 //	제품가격설정
-	public void AdminProductComponentPrice(AdminProductVO adminProductVO);
+	public void AdminProductComponentPrice(List<AdminProductVO> adminProductVO);
 	
 
 

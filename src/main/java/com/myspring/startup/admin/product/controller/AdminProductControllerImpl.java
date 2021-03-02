@@ -1,6 +1,7 @@
 package com.myspring.startup.admin.product.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -73,14 +74,12 @@ public class AdminProductControllerImpl implements AdminProductController {
 			HttpServletResponse response) throws Exception {
 
 		adminProductVO = adminProductService.AdminProductDetail(productNO);
-		List<AdminProductVO> componentList=adminProductService.AdminProductComponent(productNO);
+		List<AdminProductVO> componentList = adminProductService.AdminProductComponent(productNO);
 		ModelAndView mav = new ModelAndView("/product/adminProductDetail");
 		mav.addObject("productDetail", adminProductVO);
 		mav.addObject("componentList", componentList);
 		return mav;
 	}
-	
-
 
 	// 제품승인 및 거절
 	@Override
@@ -88,11 +87,11 @@ public class AdminProductControllerImpl implements AdminProductController {
 			RequestMethod.POST })
 	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
+
 		int productNO = Integer.parseInt(request.getParameter("productNO"));
 		int approvalStatus = Integer.parseInt(request.getParameter("approvalStatus"));
 		String rejectionReason = request.getParameter("rejectionReason");
-	
+
 		AdminProductVO adminProductVO = new AdminProductVO();
 
 		adminProductVO.setProductNO(productNO);
@@ -118,29 +117,43 @@ public class AdminProductControllerImpl implements AdminProductController {
 		return mav;
 
 	}
-	
-	//제품가격설정
+
+	// 제품가격설정
 	@Override
 	@RequestMapping(value = "/admin/product/adminProductComponentPrice.do", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public ModelAndView adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
-		int productNO = Integer.parseInt(request.getParameter("productNO"));
-		int componentNO = Integer.parseInt(request.getParameter("componentNO"));
-		int price = Integer.parseInt(request.getParameter("price"));
-	
-		AdminProductVO adminProductVO = new AdminProductVO();
 
-		adminProductVO.setProductNO(productNO);
-		adminProductVO.setComponentNO(componentNO);
-		adminProductVO.setPrice(price);
+//			int productNO = Integer.parseInt(request.getParameter("productNO"));
+//			int componentNO = Integer.parseInt(request.getParameter("componentNO"));
+//			int price = Integer.parseInt(request.getParameter("price"));
 
-		adminProductService.AdminProductComponentPrice(adminProductVO);
+		int productNO=Integer.parseInt(request.getParameter("productNO"));
+		String[] prices = request.getParameterValues("price");
+		String[] componentNO = request.getParameterValues("componentNO");
+		List<AdminProductVO> adminProductVOList = new ArrayList<AdminProductVO>();
+
+		for (int i = 0; i < componentNO.length; i++) {
+			AdminProductVO adminProductVO = new AdminProductVO();
+			adminProductVO.setProductNO(productNO);
+			adminProductVO.setPrice(Integer.parseInt(prices[i]));
+			adminProductVO.setComponentNO(Integer.parseInt(componentNO[i]));
+			adminProductVOList.add(adminProductVO);
+		}
+
+//			AdminProductVO adminProductVO = new AdminProductVO();
+//
+//			adminProductVO.setProductNO(productNO);
+//			adminProductVO.setComponentNO(componentNO);
+//			adminProductVO.setPrice(price);
+
+		adminProductService.AdminProductComponentPrice(adminProductVOList);
 
 		ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
 
 		return mav;
+
 	}
 
 }

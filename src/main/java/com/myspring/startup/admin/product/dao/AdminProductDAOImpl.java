@@ -63,7 +63,7 @@ public class AdminProductDAOImpl  implements AdminProductDAO{
 	
 //	부품가격설정
 	@Override
-	public void updateProductComponentPrice(AdminProductVO adminProductVO) throws DataAccessException {
+	public void updateProductComponentPrice(List<AdminProductVO> adminProductVO) throws DataAccessException {
 		sqlSession.update("mapper.adminProduct.updateProductComponentPrice",adminProductVO);
 		
 	}

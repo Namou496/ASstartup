@@ -68,7 +68,7 @@ public class AdminProductServiceImpl implements AdminProductService{
 	
 //	부품가격설정
 	@Override
-	public void AdminProductComponentPrice(AdminProductVO adminProductVO) {
+	public void AdminProductComponentPrice(List<AdminProductVO> adminProductVO) {
 		adminProductDAO.updateProductComponentPrice(adminProductVO);
 		
 	}

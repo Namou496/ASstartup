@@ -23,7 +23,7 @@ public interface AdminProductDAO {
 	//부품목록
 	public ArrayList selectProductComponent(int productNO) throws DataAccessException;
 	//부품가격설정
-	public void updateProductComponentPrice(AdminProductVO adminProductVO) throws DataAccessException;
+	public void updateProductComponentPrice(List<AdminProductVO> adminProductVO) throws DataAccessException;
 	
 
 

@@ -77,6 +77,8 @@
 		});
 
 	});
+	
+	
 </script>
 
 
@@ -168,34 +170,38 @@
 			</tbody>
 		</table>
 
-
-		<table style="text-align: center; margin: 0 auto; width: 60%">
-			<tr>
-				<td style="border-right: 1px solid #eee; width: 15%">부품번호</td>
-				<td style="border-right: 1px solid #eee; width: 15%">부품명</td>
-				<td style="border-right: 1px solid #eee; width: 15%">분류</td>
-				<td style="border-right: 1px solid #eee; width: 15%">가격</td>
-
-			</tr>
-			<c:forEach var="com" items="${componentList}">
+		<form id="frmMod"
+			action="${contextPath }/admin/product/adminProductComponentPrice.do">
+			<table style="text-align: center; margin: 0 auto; width: 60%">
 				<tr>
-					<td id="componentNO">${com.componentNO}</td>
-					<td>${com.componentName}</td>
-					<td>${com.part}</td>
-
-					<td><input id="price" type="text" class="form-control"
-						value="${com.price}"></td>
-					<td>
-
-						<button class="btn btn-outline-primary" id="modPrice"
-						>수정</button>
-
-					</td>
+					<td style="border-right: 1px solid #eee; width: 15%">부품번호</td>
+					<td style="border-right: 1px solid #eee; width: 15%">부품명</td>
+					<td style="border-right: 1px solid #eee; width: 15%">분류</td>
+					<td style="border-right: 1px solid #eee; width: 15%">가격</td>
 
 				</tr>
-			</c:forEach>
-		</table>
 
+
+				<c:forEach var="com" items="${componentList}">
+
+					<tr>
+						<td id="componentNO">${com.componentNO}</td>
+						<td>${com.componentName}</td>
+						<td>${com.part}</td>
+
+						<td><input id="price" type="text" class="form-control"
+							value="${com.price}" name="price"></td>
+						<td><input type="hidden" name="componentNO" value="${com.componentNO}">
+						<input type="hidden" name="productNO" id="no2" value="${productDetail.productNO}"><button style="margin:0 auto;" class="btn btn-outline-primary" id="modPrice">수정</button></td>
+
+					</tr>
+
+				</c:forEach>
+
+				
+			</table>
+			
+		</form>
 		<p></p>
 
 		<div class="input-group"
@@ -219,13 +225,9 @@
 		<input type="hidden" id="status" name="approvalStatus">
 		<input type="hidden" id="no" name="productNO">
 		<input type="hidden" id="reason" name="rejectionReason">
-			
+
 	</form>
-	<form id="frmMod" action="${contextPath }/admin/product/adminProductComponentPrice.do">
-		<input type="hidden" id="no2" name="productNO">
-		<input type="hidden" id="comPrice" name="price">
-		<input type="hidden" id="comNO" name="componentNO">
-	</form>
+
 
 
 </body>
