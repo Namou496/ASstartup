@@ -24,6 +24,9 @@ public interface AdminProductController {
 	//제품승인거절
 	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+//	제품가격설정
+	public ModelAndView adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 
 	
 

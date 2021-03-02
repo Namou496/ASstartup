@@ -18,7 +18,7 @@ public interface AdminMemberController {
 			throws Exception;
 	
 //	멤버수정
-//	ModelAndView adminMemberModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView adminMemberModify(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 //	멤버수정페이지
 	ModelAndView adminMemberModifyPage(String cuId, HttpServletRequest request, HttpServletResponse response)

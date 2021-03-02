@@ -17,10 +17,10 @@ public interface AdminMemberService {
 
 //	멤버수정페이지
 	public MemberVO AdminMemberModifyPage(String cuId);
-	
-//	멤버수정
-//	public void AdminMemberModify(MemberVO memberVO);
 
+//	멤버수정
+	public void AdminMemberModify(MemberVO memberVO);
+	
 
 
 }

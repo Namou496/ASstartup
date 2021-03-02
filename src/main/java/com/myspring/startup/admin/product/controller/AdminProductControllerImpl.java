@@ -88,11 +88,11 @@ public class AdminProductControllerImpl implements AdminProductController {
 			RequestMethod.POST })
 	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-
+		
 		int productNO = Integer.parseInt(request.getParameter("productNO"));
 		int approvalStatus = Integer.parseInt(request.getParameter("approvalStatus"));
 		String rejectionReason = request.getParameter("rejectionReason");
-
+	
 		AdminProductVO adminProductVO = new AdminProductVO();
 
 		adminProductVO.setProductNO(productNO);
@@ -104,11 +104,9 @@ public class AdminProductControllerImpl implements AdminProductController {
 		ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
 
 		return mav;
-
 	}
 
 	// 제품명으로검색
-
 	@Override
 	@RequestMapping(value = "/admin/product/adminProductSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView adminProductSearch(@RequestParam("name") String name, HttpServletRequest request,
@@ -119,6 +117,30 @@ public class AdminProductControllerImpl implements AdminProductController {
 		mav.addObject("searchList", searchList);
 		return mav;
 
+	}
+	
+	//제품가격설정
+	@Override
+	@RequestMapping(value = "/admin/product/adminProductComponentPrice.do", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public ModelAndView adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		
+		int productNO = Integer.parseInt(request.getParameter("productNO"));
+		int componentNO = Integer.parseInt(request.getParameter("componentNO"));
+		int price = Integer.parseInt(request.getParameter("price"));
+	
+		AdminProductVO adminProductVO = new AdminProductVO();
+
+		adminProductVO.setProductNO(productNO);
+		adminProductVO.setComponentNO(componentNO);
+		adminProductVO.setPrice(price);
+
+		adminProductService.AdminProductComponentPrice(adminProductVO);
+
+		ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
+
+		return mav;
 	}
 
 }

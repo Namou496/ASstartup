@@ -40,11 +40,136 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
+<script>
+	$(function() {
+		var cuId = $("#cuId").text();
+
+		$("#mod").click(function() {
+			
+			var name=$("#name").val();
+			var addr=$("#addr").val();
+			var email=$("#email").val();
+			
+			$("#id").val(cuId);
+			$("#modName").val(name);
+			$("#modAddr").val(addr);
+			$("#modEmail").val(email);
+			
+			console.log(cuId);
+			console.log(name);
+			console.log(addr);
+			console.log(email);
+			
+			$("#frmModify").submit();
+			alert('수정이 완료되었습니다.')
+
+		});
+
+	});
+</script>
+
+
+<style>
+#td1 {
+	width: 50%;
+	text-align: right;
+	padding-right: 30px;
+}
+
+#td2 {
+	width: 50%;
+	text-align: left;
+	padding-left: 30px;
+}
+
+#product_image a img {
+	width: 100px;
+	height: 50px;
+}
+
+.approvalBtn {
+	text-align: center;
+}
+</style>
+
+
+
+</head>
+
+<body>
+	<p></p>
+	<h3 style="text-align: center">멤버 상세정보</h3>
+	<p></p>
+	<div class="container">
+		<table class="table">
+			<tbody>
+				<c:choose>
+					<c:when test="${memberModifyPage==null }">
+						<tr>
+							<td colspan=5 style="text-align: center"><b>회원 상세정보가 없습니다</b>
+						</tr>
+					</c:when>
+					<c:when test="${memberModifyPage!=null }">
+
+
+						<tr>
+							<td id="td1" scope="row" colspan="1">아이디:</td>
+							<td id="cuId" scope="row" colspan="1" name="cuId">${memberModifyPage.cuId}</td>
+						</tr>
+
+						<tr>
+							<td id="td1" scope="row" colspan="1">이름:</td>
+							<td id="td2" scope="row" colspan="1" ><div class="input-group mb-3">
+								<input id="name" type="text" class="form-control" value="${memberModifyPage.name }">
+							</div></td>
+						</tr>
+
+						<tr>
+							<td id="td1" scope="row">주소:</td>
+							<td id="td2" scope="row" ><div class="input-group mb-3">
+								<input id="addr" type="text" class="form-control" value="${memberModifyPage.addr}">
+							</div></td>
+						</tr>
+						
+							<tr>
+							<td id="td1" scope="row">이메일:</td>
+							<td id="td2" scope="row" >
+							<div class="input-group mb-3">
+								<input id="email" type="text" class="form-control" value="${memberModifyPage.email }">
+							</div></td>
+						</tr>
+					
+
+
+					</c:when>
+				</c:choose>
+			</tbody>
+		</table>
+
+		<p></p>
+		<div class="approvalBtn">
+			<button class="btn btn-outline-primary" id="mod">수정완료</button>
+		</div>
+
+		<p></p>
+	</div>
+
+
+	<form id="frmModify" action="${contextPath }/admin/member/adminMemberModify.do">
+
+		<input type="hidden" id="id" name="cuId">
+		<input type="hidden" id="modName" name="name">
+		<input type="hidden" id="modAddr" name="addr">
+		<input type="hidden" id="modEmail" name="email">
+
+	</form>
+</body>
+
+
+
+
 </head>
 <body>
-
-<p>아이디 : ${memberModifyPage.cuId}</p>
-
 
 </body>
 </html>
