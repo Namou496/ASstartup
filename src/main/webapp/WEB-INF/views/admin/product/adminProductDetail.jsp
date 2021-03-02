@@ -67,16 +67,36 @@
 			alert('승인이 완료되었습니다.')
 		});
 
-		$("#modPrice").click(function() {
-			var price = $("#price").val();
-			$("#no2").val(productNO);
-			$("#comNO").val(componentNO);
-			$("#comPrice").val(price);
-			$("#frmMod").submit();
-			alert('부품 가격이 수정되었습니다.')
-		});
+// 		$("#modPrice").click(function() {
+// 			var price = $("#price").val();
+// 			$("#no2").val(productNO);
+// 			$("#comNO").val(componentNO);
+// 			$("#comPrice").val(price);
+// 			$("#frmMod").submit();
+// 			alert('부품 가격이 수정되었습니다.')
+// 		});
 
 	});
+	
+	function componentPrice(componentNO){
+		$.ajax({
+		    type: "POST",
+		    async: "true",
+			url: "${contextPath}/admin/product/adminProductComponentPrice.do",
+			dataType: "json",
+			data: {param:componentNO},
+			success:function(mod) {
+				
+				
+				
+				}
+			error: function(jqXHR, textStatus, errorThrown){
+				alert("오류가 발생하였습니다.");
+			
+			});
+	}
+	
+	
 </script>
 
 
@@ -168,34 +188,36 @@
 			</tbody>
 		</table>
 
-
-		<table style="text-align: center; margin: 0 auto; width: 60%">
-			<tr>
-				<td style="border-right: 1px solid #eee; width: 15%">부품번호</td>
-				<td style="border-right: 1px solid #eee; width: 15%">부품명</td>
-				<td style="border-right: 1px solid #eee; width: 15%">분류</td>
-				<td style="border-right: 1px solid #eee; width: 15%">가격</td>
-
-			</tr>
-			<c:forEach var="com" items="${componentList}">
+		<form id="frmMod"
+			action="${contextPath }/admin/product/adminProductComponentPrice.do">
+			<table style="text-align: center; margin: 0 auto; width: 60%">
 				<tr>
-					<td id="componentNO">${com.componentNO}</td>
-					<td>${com.componentName}</td>
-					<td>${com.part}</td>
-
-					<td><input id="price" type="text" class="form-control"
-						value="${com.price}"></td>
-					<td>
-
-						<button class="btn btn-outline-primary" id="modPrice"
-						>수정</button>
-
-					</td>
+					<td style="border-right: 1px solid #eee; width: 15%">부품번호</td>
+					<td style="border-right: 1px solid #eee; width: 15%">부품명</td>
+					<td style="border-right: 1px solid #eee; width: 15%">분류</td>
+					<td style="border-right: 1px solid #eee; width: 15%">가격</td>
 
 				</tr>
-			</c:forEach>
-		</table>
 
+
+				<c:forEach var="com" items="${componentList}">
+
+					<tr>
+						<td id="componentNO">${com.componentNO}</td>
+						<td>${com.componentName}</td>
+						<td>${com.part}</td>
+
+						<td><input id="price" type="text" class="form-control"
+							value="${com.price}" name="price"></td>
+						<td><input type="hidden" name="componentNO" value="${com.componentNO}"></td>
+
+					</tr>
+
+				</c:forEach>
+
+				<button class="btn btn-outline-primary" id="modPrice">수정</button>
+			</table>
+		</form>
 		<p></p>
 
 		<div class="input-group"
@@ -216,16 +238,12 @@
 	</div>
 	<form id="frmApproval"
 		action="${contextPath }/admin/product/adminProductApproval.do">
-		<input type="hidden" id="status" name="approvalStatus">
-		<input type="hidden" id="no" name="productNO">
-		<input type="hidden" id="reason" name="rejectionReason">
-			
+		<input type="hidden" id="status" name="approvalStatus"> <input
+			type="hidden" id="no" name="productNO"> <input type="hidden"
+			id="reason" name="rejectionReason">
+
 	</form>
-	<form id="frmMod" action="${contextPath }/admin/product/adminProductComponentPrice.do">
-		<input type="hidden" id="no2" name="productNO">
-		<input type="hidden" id="comPrice" name="price">
-		<input type="hidden" id="comNO" name="componentNO">
-	</form>
+
 
 
 </body>

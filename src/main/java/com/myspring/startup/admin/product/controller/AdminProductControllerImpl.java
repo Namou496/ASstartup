@@ -73,14 +73,12 @@ public class AdminProductControllerImpl implements AdminProductController {
 			HttpServletResponse response) throws Exception {
 
 		adminProductVO = adminProductService.AdminProductDetail(productNO);
-		List<AdminProductVO> componentList=adminProductService.AdminProductComponent(productNO);
+		List<AdminProductVO> componentList = adminProductService.AdminProductComponent(productNO);
 		ModelAndView mav = new ModelAndView("/product/adminProductDetail");
 		mav.addObject("productDetail", adminProductVO);
 		mav.addObject("componentList", componentList);
 		return mav;
 	}
-	
-
 
 	// 제품승인 및 거절
 	@Override
@@ -88,11 +86,11 @@ public class AdminProductControllerImpl implements AdminProductController {
 			RequestMethod.POST })
 	public ModelAndView adminProductApproval(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
+
 		int productNO = Integer.parseInt(request.getParameter("productNO"));
 		int approvalStatus = Integer.parseInt(request.getParameter("approvalStatus"));
 		String rejectionReason = request.getParameter("rejectionReason");
-	
+
 		AdminProductVO adminProductVO = new AdminProductVO();
 
 		adminProductVO.setProductNO(productNO);
@@ -118,29 +116,37 @@ public class AdminProductControllerImpl implements AdminProductController {
 		return mav;
 
 	}
-	
-	//제품가격설정
+
+	// 제품가격설정
 	@Override
 	@RequestMapping(value = "/admin/product/adminProductComponentPrice.do", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public ModelAndView adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response)
+	public void adminProductComponentPrice(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
-		int productNO = Integer.parseInt(request.getParameter("productNO"));
-		int componentNO = Integer.parseInt(request.getParameter("componentNO"));
-		int price = Integer.parseInt(request.getParameter("price"));
-	
-		AdminProductVO adminProductVO = new AdminProductVO();
 
-		adminProductVO.setProductNO(productNO);
-		adminProductVO.setComponentNO(componentNO);
-		adminProductVO.setPrice(price);
+		PrintWriter pw = response.getWriter();
 
-		adminProductService.AdminProductComponentPrice(adminProductVO);
+		try {
+			int productNO = Integer.parseInt(request.getParameter("productNO"));
+			int componentNO = Integer.parseInt(request.getParameter("componentNO"));
+			int price = Integer.parseInt(request.getParameter("price"));
 
-		ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
+			AdminProductVO adminProductVO = new AdminProductVO();
 
-		return mav;
+			adminProductVO.setProductNO(productNO);
+			adminProductVO.setComponentNO(componentNO);
+			adminProductVO.setPrice(price);
+
+			adminProductService.AdminProductComponentPrice(adminProductVO);
+
+//			ModelAndView mav = new ModelAndView("redirect:/admin/product/adminProductList.do");
+
+			return;
+
+		} catch (Exception e) {
+			pw.print("<script>" + "alert('부품 가격을 수정할 수 없습니다.');" + "</script>");
+		}
+
 	}
 
 }
