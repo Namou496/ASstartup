@@ -24,4 +24,6 @@ public interface MemberController {
 	public ResponseEntity addMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView selectMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void overlapId(HttpServletRequest request, HttpServletResponse response, String param) throws Exception;
+	public ModelAndView pw_re(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

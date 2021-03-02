@@ -31,9 +31,9 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public String searchLostPw(Map<String, Object> lostPwMap) {
-		String pw = sqlSession.selectOne("mapper.member.lostPw", lostPwMap);
-		return pw;
+	public int searchLostPw(Map<String, Object> lostPwMap) {
+		int i = sqlSession.selectOne("mapper.member.lostPw", lostPwMap);
+		return i;
 	}
 
 	@Override
@@ -69,5 +69,11 @@ public class MemberDAOImpl implements MemberDAO{
 	public String overlapId(String cuId) throws DataAccessException {
 		String i = sqlSession.selectOne("mapper.member.overlapId", cuId);
 		return i;
+	}
+
+	@Override
+	public void updatePw(Map<String, Object> updatePwMap) throws DataAccessException {
+		sqlSession.update("mapper.member.updatePw", updatePwMap);
+		
 	}
 }

@@ -43,9 +43,9 @@
 		]]>
 </insert>
 <!-- 	비밀번호 찾기시 찾은 비밀번호 -->
-	<select id="lostPw" resultType="String" parameterType="java.util.Map">
+	<select id="lostPw" resultType="int" parameterType="java.util.Map">
 		<![CDATA[
-			select m.pw
+			select count(*)
 			from member m, customer c
 			where m.cuid=c.cuid and m.cuid=#{cuId} and c.email=#{email}
 		]]>
@@ -90,4 +90,10 @@
 			where cuid=#{cuId}
 		]]>
 	</select>
+<!-- 	비밀번호 변경 -->
+	<update id="updatePw" parameterType="java.util.Map">
+		<![CDATA[
+			update member set pw=#{pw} where cuId=#{cuId}
+		]]>
+	</update>
 </mapper>

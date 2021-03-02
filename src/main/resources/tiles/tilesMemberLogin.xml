@@ -14,6 +14,11 @@
 			<put-attribute name="body" value=""/>
 		</definition>
 		
+		<definition name="/member/repw" template="/WEB-INF/views/member/re_pw.jsp">
+			<put-attribute name="title" value="비밀번호 변경"/>
+			<put-attribute name="body" value=""/>
+		</definition>
+		
 		<definition name="/member/id" template="/WEB-INF/views/member/id.jsp">
 			<put-attribute name="title" value="아이디 찾기"/>
 			<put-attribute name="body" value=""/>
