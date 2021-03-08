@@ -1,5 +1,5 @@
 --view--
---a/s¼ö¸® ÀÌ·Â--
+--a/sìˆ˜ë¦¬ ì´ë ¥--
 create view asbefore as(
     select c.name custoName, c.addr, p.prodGroup,
             m.name mcrName, p.name proName, a.meeting,
@@ -15,9 +15,9 @@ create view asbefore as(
         a.asno=r.asno
 );
 
---a/s¼ö¸® ÀÌ·Â ¸®½ºÆ®--
+--a/sìˆ˜ë¦¬ ì´ë ¥ ë¦¬ìŠ¤íŠ¸--
 
---a/s¼ö¸® ÀÌ·Â--
+--a/sìˆ˜ë¦¬ ì´ë ¥--
 create view asbefore as(
     select  a.asno,
             c.name custoName, c.addr, p.prodGroup,
@@ -34,7 +34,7 @@ create view asbefore as(
         a.asno=r.asno
 );
 
---a/s¼ö¸® ÀÌ·Â ¸®½ºÆ®--
+--a/sìˆ˜ë¦¬ ì´ë ¥ ë¦¬ìŠ¤íŠ¸--
 
 create view asbeforelist as(
     select 
@@ -52,7 +52,7 @@ create view asbeforelist as(
             a.asno=r.asno
 );
 
--- a/s ÇöÈ² »ó¼¼Á¤º¸ ¸®½ºÆ® --
+-- a/s í˜„í™© ìƒì„¸ì •ë³´ ë¦¬ìŠ¤íŠ¸ --
 
 create or replace view asafterlist as(
 select c.name uname, a.phone tel, a.addr, p.prodGroup, m.name mname, p.name pname, a.meetDate, a.symptoms
