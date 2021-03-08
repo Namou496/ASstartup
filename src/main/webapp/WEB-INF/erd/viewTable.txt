@@ -1,0 +1,60 @@
+--view--
+--a/s수리 이력--
+create view asbefore as(
+    select c.name custoName, c.addr, p.prodGroup,
+            m.name mcrName, p.name proName, a.meeting,
+            a.symptoms, a.meetDate, r.respDate,
+            r.cuid, r.ascomment, r.manCost, 
+            r.serviceCost, a.sta
+    from asform a, customer c, product p,
+            manufacturer m, asrespond r
+    where 
+        c.cuid=a.cuid and 
+        a.productno=p.productno and
+        p.cuid=m.cuid and
+        a.asno=r.asno
+);
+
+--a/s수리 이력 리스트--
+
+--a/s수리 이력--
+create view asbefore as(
+    select  a.asno,
+            c.name custoName, c.addr, p.prodGroup,
+            m.name mcrName, p.productno, p.name proName, a.meeting,
+            a.symptoms, a.meetDate, r.respDate,
+            r.cuid, r.ascomment, r.manCost, 
+            r.serviceCost, a.sta, r.textBox
+    from asform a, customer c, product p,
+            manufacturer m, asrespond r
+    where 
+        c.cuid=a.cuid and 
+        a.productno=p.productno and
+        p.cuid=m.cuid and
+        a.asno=r.asno
+);
+
+--a/s수리 이력 리스트--
+
+create view asbeforelist as(
+    select 
+	rownum no,
+        a.asno, c.name, 
+        p.prodgroup, a.addr, 
+        a.meeting, r.respdate, 
+        a.sta, c.cuid customerID,
+        r.cuid engineerID,
+        p.cuid manufacturerID
+    from asform a, customer c, asrespond r, product p
+    where a.asno=r.asno and 
+            a.cuid=c.cuid and 
+            a.productno=p.productno and
+            a.asno=r.asno
+);
+
+-- a/s 현황 상세정보 리스트 --
+
+create or replace view asafterlist as(
+select c.name uname, a.phone tel, a.addr, p.prodGroup, m.name mname, p.name pname, a.meetDate, a.symptoms
+from asform a, customer c, product p, manufacturer m
+where a.cuid = c.cuid and m.cuid = p.cuid and a.productno = p.productno);
